@@ -1,18 +1,27 @@
 package com.thesis.model.abstracts;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
  */
-public abstract class AbstractEntity implements IEntity {
+@MappedSuperclass
+public abstract class AbstractEntity<T extends Serializable> implements IEntity<T> {
 
     @Id
     @GeneratedValue
     @Column(unique = true)
     private Long id;
+
+    @Temporal(TemporalType.DATE)
+    private Date createdDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date updatedDate;
+
+    private String lastChangedUser;
 
     @Override
     public Long getId() {
@@ -22,6 +31,30 @@ public abstract class AbstractEntity implements IEntity {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastChangedUser() {
+        return lastChangedUser;
+    }
+
+    public void setLastChangedUser(String lastChangedUser) {
+        this.lastChangedUser = lastChangedUser;
     }
 
     @Override
