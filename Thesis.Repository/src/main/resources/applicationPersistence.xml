@@ -18,14 +18,18 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.thesis.model.User</value>
+                <value>com.thesis.model.Student</value>
+                <value>com.thesis.model.ThesisManager</value>
+                <value>com.thesis.model.Department</value>
+                <value>com.thesis.model.Faculty</value>
+                <value>com.thesis.model.Role</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
             </props>
         </property>
     </bean>

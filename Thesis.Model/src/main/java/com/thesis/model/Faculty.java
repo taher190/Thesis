@@ -9,10 +9,20 @@ import javax.persistence.Entity;
  * Created by Mustafa Tahir ARSLAN.
  */
 @Entity
-public class User extends AbstractEntity {
+public class Faculty extends AbstractEntity<Faculty> {
+
+    private String name;
 
     @Column(unique = true)
-    private String name;
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;
