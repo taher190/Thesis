@@ -1,7 +1,7 @@
 package com.thesis.model.abstracts;
 
 /**
- * Tunahan - 2.11.2015.
+ * Created by Mustafa Tahir ARSLAN.
  */
 public interface IEntity {
 

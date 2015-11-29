@@ -1,10 +1,17 @@
 package com.thesis.model.abstracts;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
- * Tunahan - 2.11.2015.
+ * Created by Mustafa Tahir ARSLAN.
  */
 public abstract class AbstractEntity implements IEntity {
 
+    @Id
+    @GeneratedValue
+    @Column(unique = true)
     private Long id;
 
     @Override
