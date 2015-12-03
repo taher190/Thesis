@@ -1,19 +1,21 @@
 package com.thesis.controller;
 
-import com.thesis.model.Faculty;
-import com.thesis.model.Role;
-import com.thesis.model.Student;
-import com.thesis.repository.interfaces.IFacultyRepository;
 import com.thesis.service.interfaces.IFacultyService;
 import com.thesis.service.interfaces.IRoleService;
-import com.thesis.service.interfaces.IStudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import java.util.HashSet;
-import java.util.Set;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import java.io.IOException;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
@@ -22,8 +24,7 @@ import java.util.Set;
 @RequestScoped
 public class LoginBean {
 
-    @ManagedProperty("#{studentService}")
-    private IStudentService studentService;
+    private final Logger logger = LoggerFactory.getLogger(LoginBean.class.getName());
 
     @ManagedProperty("#{facultyService}")
     private IFacultyService facultyService;
@@ -32,28 +33,39 @@ public class LoginBean {
     private IRoleService roleService;
 
     @PostConstruct
-    public void init() {
-        Faculty faculty = new Faculty();
-        faculty.setName("Mühendislik Fakültesi");
-        faculty.setCode("01");
-        facultyService.save(faculty);
+    public void init() {/*
+        logger.info("call init method");
 
         Role role = new Role();
-        role.setCode("ROLE_USER");
+        role.setCode("ROLE_ADMIN");
         roleService.save(role);
 
         Set<Role> roleSet = new HashSet<Role>();
         roleSet.add(role);
 
         Student student = new Student();
-        student.setStudentNumber("2009010207044");
-        student.setFaculty(faculty);
+        student.setName("asd");
+        student.setActive(Boolean.TRUE);
+        student.setPassword("pass");
+        student.setSurname("dfdf");
         student.setRoleSet(roleSet);
-        studentService.save(student);
+        studentService.save(student);*/
+    }
+
+    public void doLogin() throws ServletException, IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+
+        RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
+                .getRequestDispatcher("j_spring_security_check");
+
+        dispatcher.forward((ServletRequest) context.getRequest(),
+                (ServletResponse) context.getResponse());
+
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     public String getName() {
-        return "Hi!";
+        return "Hello";
     }
 
     public IFacultyService getFacultyService() {
@@ -62,14 +74,6 @@ public class LoginBean {
 
     public void setFacultyService(IFacultyService facultyService) {
         this.facultyService = facultyService;
-    }
-
-    public IStudentService getStudentService() {
-        return studentService;
-    }
-
-    public void setStudentService(IStudentService studentService) {
-        this.studentService = studentService;
     }
 
     public IRoleService getRoleService() {

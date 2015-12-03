@@ -20,6 +20,7 @@
         <project.java.version>1.7</project.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <thesis.version>0.0.1-SNAPSHOT</thesis.version>
 
         <spring.version>4.0.3.RELEASE</spring.version>
         <jsf.version>2.2.4</jsf.version>
@@ -35,6 +36,8 @@
         <c3p0.version>0.9.1.2</c3p0.version>
         <junit.version>4.12</junit.version>
         <typetools.version>0.3.0</typetools.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <spring.security.version>3.2.9.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
@@ -94,6 +97,25 @@
             <groupId>org.jodah</groupId>
             <artifactId>typetools</artifactId>
             <version>${typetools.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Spring Security Library -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
     </dependencies>
 

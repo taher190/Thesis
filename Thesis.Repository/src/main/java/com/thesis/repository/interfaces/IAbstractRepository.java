@@ -14,4 +14,10 @@ public interface IAbstractRepository<T extends IEntity> {
     void update(T entity);
 
     void delete(T entity);
+
+    void deleteById(Long id);
+
+    T retrieveById(Long id);
+
+    List<T> retrieveAll();
 }

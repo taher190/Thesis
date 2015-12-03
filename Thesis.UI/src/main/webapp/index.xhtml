@@ -1,13 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<script name="jquery/jquery.js" library="primefaces"></script>
-	<title>Thesis Application</title>
-</h:head>
-<h:form>
-	<h:outputLabel value="#{loginBean.name}" />
-</h:form>
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<h:body>
+	<h:outputLabel value="${loginBean.name}" />
+	<form id="form" name='f' action='${request.contextPath}/j_spring_security_check'
+		  method="post">
+		<table>
+			<tr>
+				<td>Kullanıcı :</td>
+				<td><input id="j_username" type='text' name='j_username' value='' /></td>
+			</tr>
+			<tr>
+				<td>Şifre :</td>
+				<td><input id="j_password" type='password' name='j_password' /></td>
+			</tr>
+			<tr>
+				<td colspan='2'><input name="submit" type="submit" id="submit"
+									   value="Giriş" /></td>
+			</tr>
+		</table>
+	</form>
+</h:body>
 </html>

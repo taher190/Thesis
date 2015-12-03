@@ -2,8 +2,8 @@ package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
@@ -15,6 +15,9 @@ public class Faculty extends AbstractEntity<Faculty> {
 
     @Column(unique = true)
     private String code;
+
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    private List<Department> departmentList;
 
     public String getCode() {
         return code;
@@ -30,5 +33,13 @@ public class Faculty extends AbstractEntity<Faculty> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
     }
 }

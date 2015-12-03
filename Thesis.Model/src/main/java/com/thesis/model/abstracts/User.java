@@ -20,15 +20,17 @@ public abstract class User<T extends User> extends AbstractEntity<User> {
 
     private String password;
 
+    private Boolean active;
+
     @ManyToOne
     private Faculty faculty;
 
     @ManyToOne
     private Department department;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = {
-            @JoinColumn(name = "id", nullable = false, updatable = false) },
+            @JoinColumn(name = "user_id", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "role_id",
                     nullable = false, updatable = false) })
     private Set<Role> roleSet;
@@ -79,5 +81,13 @@ public abstract class User<T extends User> extends AbstractEntity<User> {
 
     public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

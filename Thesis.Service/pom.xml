@@ -15,17 +15,17 @@
     <dependency>
       <groupId>com.thesis</groupId>
       <artifactId>Thesis.Repository</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${thesis.version}</version>
     </dependency>
     <dependency>
       <groupId>com.thesis</groupId>
       <artifactId>Thesis.Model</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${thesis.version}</version>
     </dependency>
     <dependency>
       <groupId>com.thesis</groupId>
       <artifactId>Thesis.Util</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${thesis.version}</version>
     </dependency>
   </dependencies>
 </project>
