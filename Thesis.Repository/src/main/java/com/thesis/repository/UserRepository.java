@@ -7,6 +7,7 @@ import com.thesis.model.ThesisManager;
 import com.thesis.model.abstracts.User;
 import com.thesis.repository.abstracts.AbstractRepository;
 import com.thesis.repository.interfaces.IUserRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -31,24 +32,26 @@ public class UserRepository extends AbstractRepository<User> implements IUserRep
     }
 
     private Student retrieveByStudentNumber(String studentNumber) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(Student.class)
+        /*DetachedCriteria criteria = DetachedCriteria.forClass(Student.class)
                 .add(Restrictions.eq("studentNumber", studentNumber));
         List<Student> studentsList = (List<Student>) getHibernateTemplate().findByCriteria(criteria);
-        Faculty faculty = getHibernateTemplate().get(Faculty.class, 1L);
+
         if(CollectionUtils.isEmpty(studentsList)) {
             return null;
         }
-        return studentsList.get(0);
+        return studentsList.get(0);*/
+        return null;
     }
 
     private ThesisManager retrieveByEntryCode(String entryCode) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(ThesisManager.class)
+        /*DetachedCriteria criteria = DetachedCriteria.forClass(ThesisManager.class)
                 .add(Restrictions.eq("entryCode", entryCode));
         List<ThesisManager> thesisManagerList = (List<ThesisManager>) getHibernateTemplate().findByCriteria(criteria);
 
         if(CollectionUtils.isEmpty(thesisManagerList)) {
             return null;
         }
-        return thesisManagerList.get(0);
+        return thesisManagerList.get(0);*/
+        return null;
     }
 }

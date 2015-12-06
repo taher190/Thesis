@@ -2,10 +2,7 @@ package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
@@ -19,6 +16,7 @@ public class Department extends AbstractEntity<Department> {
     private String code;
 
     @ManyToOne
+    @Basic(fetch = FetchType.LAZY)
     private Faculty faculty;
 
     public String getName() {

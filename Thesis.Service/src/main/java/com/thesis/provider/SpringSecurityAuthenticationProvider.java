@@ -33,7 +33,7 @@ public class SpringSecurityAuthenticationProvider implements IAuthenticationProv
         if(user == null) {
             return null;
         }
-        Faculty faculty = facultyRepository.retrieveAll().get(0);
+        Faculty faculty = facultyRepository.retrieveById(1L);
         Collection authoritieSet = new HashSet();
         for(Role role : (Set<Role>) user.getRoleSet()) {
             authoritieSet.add(new GrantedAuthorityImpl(role.getCode()));

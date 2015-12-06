@@ -2,12 +2,12 @@ package com.thesis.repository.abstracts;
 
 import com.thesis.model.abstracts.IEntity;
 import com.thesis.repository.interfaces.IAbstractRepository;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 import static org.jodah.typetools.TypeResolver.resolveRawArguments;
@@ -15,9 +15,12 @@ import static org.jodah.typetools.TypeResolver.resolveRawArguments;
 /**
  * Created by Mustafa Tahir ARSLAN.
  */
-public abstract class AbstractRepository<T extends IEntity> extends HibernateDaoSupport implements IAbstractRepository<T> {
+public abstract class AbstractRepository<T extends IEntity> implements IAbstractRepository<T> {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractRepository.class.getName());
+
+    @PersistenceContext(unitName = "entityManagerFactory")
+    private EntityManager entityManager;
 
     private Class<T> entityClass;
 
@@ -25,24 +28,19 @@ public abstract class AbstractRepository<T extends IEntity> extends HibernateDao
         this.entityClass = ((Class<T>) resolveRawArguments(AbstractRepository.class, getClass())[0]);
     }
 
-    @Autowired
-    public void setHibernateTemplate(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
-
     @Override
     public void save(T entity) {
-        getHibernateTemplate().save(entity);
+        getEntityManager().persist(entity);
     }
 
     @Override
-    public void update(T entity){
-        getHibernateTemplate().update(entity);
+    public void update(T entity) {
+        getEntityManager().merge(entity);
     }
 
     @Override
-    public void delete(T entity){
-        getHibernateTemplate().delete(entity);
+    public void delete(T entity) {
+        getEntityManager().remove(entity);
     }
 
     @Override
@@ -52,16 +50,35 @@ public abstract class AbstractRepository<T extends IEntity> extends HibernateDao
             logger.warn("Entity({}) does not exist!");
             return;
         }
-        getHibernateTemplate().delete(entity);
+        delete(entity);
     }
 
     @Override
     public T retrieveById(Long id) {
-        return getHibernateTemplate().get(entityClass, id);
+        return getEntityManager().getReference(entityClass, id);
     }
 
     @Override
     public List<T> retrieveAll() {
-        return getHibernateTemplate().loadAll(entityClass);
+        /*CriteriaQuery criteriaQuery =
+        getEntityManager().createQuery()
+        return getHibernateTemplate().loadAll(entityClass);*/
+        return null;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public Class<T> getEntityClass() {
+        return entityClass;
+    }
+
+    public void setEntityClass(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 }

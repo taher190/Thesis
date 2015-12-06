@@ -22,14 +22,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <thesis.version>0.0.1-SNAPSHOT</thesis.version>
 
-        <spring.version>4.0.3.RELEASE</spring.version>
+        <spring.version>4.0.5.RELEASE</spring.version>
         <jsf.version>2.2.4</jsf.version>
         <servlet.api.version>2.5</servlet.api.version>
         <primefaces.version>5.0</primefaces.version>
         <javassist.version>3.12.1.GA</javassist.version>
         <jstl.version>1.1.2</jstl.version>
         <primefaces.blitzer.version>1.0.10</primefaces.blitzer.version>
-        <hibernate.version>4.3.10.Final</hibernate.version>
+        <hibernate.version>4.2.13.Final</hibernate.version>
         <mysql.version>5.1.31</mysql.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
