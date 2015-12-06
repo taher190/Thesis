@@ -33,7 +33,7 @@ public class LoginBean {
     private IRoleService roleService;
 
     @PostConstruct
-    public void init() {/*
+    public void init() {/*//
         logger.info("call init method");
 
         Role role = new Role();
