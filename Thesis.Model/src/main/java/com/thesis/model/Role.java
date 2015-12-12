@@ -1,10 +1,7 @@
 package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
-import com.thesis.model.abstracts.User;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;

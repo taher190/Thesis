@@ -75,8 +75,8 @@
         <!-- Primefaces Theme Library -->
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>blitzer</artifactId>
-            <version>${primefaces.blitzer.version}</version>
+            <artifactId>delta</artifactId>
+            <version>${primefaces.delta.version}</version>
         </dependency>
         <!-- Spring Web -->
         <dependency>

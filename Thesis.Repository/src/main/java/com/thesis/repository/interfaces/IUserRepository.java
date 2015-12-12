@@ -1,6 +1,6 @@
 package com.thesis.repository.interfaces;
 
-import com.thesis.model.abstracts.User;
+import com.thesis.model.User;
 
 /**
  * Created by Mustafa Tahir ARSLAN.

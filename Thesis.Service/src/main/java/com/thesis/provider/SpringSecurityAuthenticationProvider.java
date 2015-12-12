@@ -1,17 +1,20 @@
 package com.thesis.provider;
 
-import com.thesis.model.Faculty;
 import com.thesis.model.Role;
-import com.thesis.model.abstracts.User;
+import com.thesis.model.User;
 import com.thesis.provider.interfaces.IAuthenticationProvider;
 import com.thesis.repository.interfaces.IFacultyRepository;
 import com.thesis.repository.interfaces.IUserRepository;
+import com.thesis.statics.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.persistence.NoResultException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +24,8 @@ import java.util.Set;
  */
 public class SpringSecurityAuthenticationProvider implements IAuthenticationProvider, UserDetailsService {
 
+    private final Logger logger = LoggerFactory.getLogger(SpringSecurityAuthenticationProvider.class.getName());
+
     @Autowired
     private IUserRepository userRepository;
 
@@ -29,23 +34,21 @@ public class SpringSecurityAuthenticationProvider implements IAuthenticationProv
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.retrieveUserByEntryVal(username);
-        if(user == null) {
-            return null;
+        try {
+            User user = userRepository.retrieveUserByEntryVal(username);
+            Collection authoritieSet = new HashSet();
+            authoritieSet.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
+            /* FIXME : Yetkiler dinamik hale getirilmelli! */
+            /*for(Role role : user.getRoleList()) {
+                authoritieSet.add(new GrantedAuthorityImpl(role.getCode()));
+            }*/
+            return new org.springframework.security.core.userdetails.User(
+                    user.getEntryVal(),
+                    user.getPassword(),
+                    authoritieSet);
+        } catch (NoResultException ex) {
+            logger.info("String({}) not found in database!", username);
+            throw new UsernameNotFoundException(Messages.WRONG_USER_NAME);
         }
-        Faculty faculty = facultyRepository.retrieveById(1L);
-        Collection authoritieSet = new HashSet();
-        for(Role role : (Set<Role>) user.getRoleSet()) {
-            authoritieSet.add(new GrantedAuthorityImpl(role.getCode()));
-        }
-        return new org.springframework.security.core.userdetails.User(
-                String.valueOf(user.getId()),
-                user.getPassword(),
-                authoritieSet);
-    }
-
-    @Override
-    public User login(String entryValue, String password) {
-        return null;
     }
 }

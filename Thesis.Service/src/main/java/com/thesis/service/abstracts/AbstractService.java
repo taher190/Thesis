@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Mustafa Tahir ARSLAN.
  */
@@ -23,5 +25,30 @@ public abstract class AbstractService<T extends IEntity> implements IAbstractSer
     @Override
     public void save(T entity) {
         abstractRepository.save(entity);
+    }
+
+    @Override
+    public void update(T entity) {
+        abstractRepository.update(entity);
+    }
+
+    @Override
+    public void delete(T entity) {
+        abstractRepository.delete(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        abstractRepository.deleteById(id);
+    }
+
+    @Override
+    public T retrieveById(Long id) {
+        return abstractRepository.retrieveById(id);
+    }
+
+    @Override
+    public List<T> retrieveAll() {
+        return abstractRepository.retrieveAll();
     }
 }

@@ -16,7 +16,6 @@ public class Department extends AbstractEntity<Department> {
     private String code;
 
     @ManyToOne
-    @Basic(fetch = FetchType.LAZY)
     private Faculty faculty;
 
     public String getName() {

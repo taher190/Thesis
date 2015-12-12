@@ -2,6 +2,7 @@ package com.thesis.controller;
 
 import com.thesis.service.interfaces.IFacultyService;
 import com.thesis.service.interfaces.IRoleService;
+import com.thesis.service.interfaces.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,15 +33,18 @@ public class LoginBean {
     @ManagedProperty("#{roleService}")
     private IRoleService roleService;
 
+    @ManagedProperty("#{userService}")
+    private IUserService userService;
+
     @PostConstruct
-    public void init() {/*//
+    public void init() {/*
         logger.info("call init method");
 
         Role role = new Role();
         role.setCode("ROLE_ADMIN");
         roleService.save(role);
 
-        Set<Role> roleSet = new HashSet<Role>();
+        Set<Role> roleSet = new HashSet<>();
         roleSet.add(role);
 
         Student student = new Student();
@@ -49,7 +53,7 @@ public class LoginBean {
         student.setPassword("pass");
         student.setSurname("dfdf");
         student.setRoleSet(roleSet);
-        studentService.save(student);*/
+        userService.save(student);*/
     }
 
     public void doLogin() throws ServletException, IOException {
@@ -82,5 +86,13 @@ public class LoginBean {
 
     public void setRoleService(IRoleService roleService) {
         this.roleService = roleService;
+    }
+
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
     }
 }

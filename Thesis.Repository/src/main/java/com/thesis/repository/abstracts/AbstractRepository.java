@@ -4,10 +4,15 @@ import com.thesis.model.abstracts.IEntity;
 import com.thesis.repository.interfaces.IAbstractRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 import static org.jodah.typetools.TypeResolver.resolveRawArguments;
@@ -15,7 +20,9 @@ import static org.jodah.typetools.TypeResolver.resolveRawArguments;
 /**
  * Created by Mustafa Tahir ARSLAN.
  */
-public abstract class AbstractRepository<T extends IEntity> implements IAbstractRepository<T> {
+@Transactional(propagation = Propagation.REQUIRED)
+public abstract class
+        AbstractRepository<T extends IEntity> implements IAbstractRepository<T> {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractRepository.class.getName());
 
@@ -60,10 +67,11 @@ public abstract class AbstractRepository<T extends IEntity> implements IAbstract
 
     @Override
     public List<T> retrieveAll() {
-        /*CriteriaQuery criteriaQuery =
-        getEntityManager().createQuery()
-        return getHibernateTemplate().loadAll(entityClass);*/
-        return null;
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> criteria = builder.createQuery( entityClass );
+        Root<T> entityRoot = criteria.from( entityClass );
+        criteria.select(entityRoot);
+        return getEntityManager().createQuery(criteria).getResultList();
     }
 
     public EntityManager getEntityManager() {
