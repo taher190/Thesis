@@ -7,11 +7,11 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/home.xhtml"
+        <security:intercept-url pattern="/pages/protected/*"
                                 access="hasAnyRole('ROLE_ADMIN')" />
-        <security:form-login login-page="/login.xhtml"
-                             default-target-url="/home.xhtml"
-                             authentication-failure-url="/fail.xhtml" />
+        <security:form-login login-page="/pages/public/login.xhtml"
+                             default-target-url="/pages/protected/home.xhtml"
+                             authentication-failure-url="/pages/public/fail.xhtml" />
         <!-- FIXME : logout parametresi için geliştirme yapılmalı! -->
         <security:logout invalidate-session="true"
                          logout-success-url="/login.xhtml?logout" />

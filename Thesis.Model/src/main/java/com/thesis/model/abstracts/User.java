@@ -1,17 +1,18 @@
-package com.thesis.model;
-
-import com.thesis.model.abstracts.AbstractEntity;
+package com.thesis.model.abstracts;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
  */
 @Entity
-@Table(name = "users")
-public class User extends AbstractEntity<User> {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(
+        name = "discriminator",
+        discriminatorType = DiscriminatorType.INTEGER
+)
+@DiscriminatorValue("0")
+public class User<T> extends AbstractEntity<User> {
 
     private String name;
 
@@ -23,12 +24,6 @@ public class User extends AbstractEntity<User> {
     private String password;
 
     private Boolean active;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private List<Role> roleList;
 
     public String getPassword() {
         return password;
@@ -68,13 +63,5 @@ public class User extends AbstractEntity<User> {
 
     public void setEntryVal(String entryVal) {
         this.entryVal = entryVal;
-    }
-
-    public List<Role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
     }
 }

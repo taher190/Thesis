@@ -4,8 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="çıktın"/>
-</f:view>
+<ui:composition>
+    <p:panelMenu>
+        <p:submenu label="Tez işlemleri">
+            <p:menuitem value="Tez şablonu oluştur"
+                        icon="ui-icon-disk"
+                        outcome="thesis_template.xhtml" />
+        </p:submenu>
+    </p:panelMenu>
+</ui:composition>
 </html>

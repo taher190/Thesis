@@ -1,7 +1,6 @@
 package com.thesis.provider;
 
-import com.thesis.model.Role;
-import com.thesis.model.User;
+import com.thesis.model.abstracts.User;
 import com.thesis.provider.interfaces.IAuthenticationProvider;
 import com.thesis.repository.interfaces.IFacultyRepository;
 import com.thesis.repository.interfaces.IUserRepository;
@@ -17,7 +16,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import javax.persistence.NoResultException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Mustafa Tahir ARSLAN.

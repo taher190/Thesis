@@ -6,16 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head></h:head>
-<h:body>
-    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">logout</h:outputLink>
-    <p:layout style="min-height: 200px;">
-        <p:layoutUnit position="west" style="min-width: 200px;">
-            west
-        </p:layoutUnit>
-        <p:layoutUnit position="center">
-            center
-        </p:layoutUnit>
-    </p:layout>
-</h:body>
+
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <h:outputLink value="#{request.contextPath}/j_spring_security_logout">logout</h:outputLink>
+    </ui:define>
+</ui:composition>
 </html>

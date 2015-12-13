@@ -4,11 +4,9 @@ import com.thesis.model.abstracts.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 /**
- * Created by Mustafa Tahir ARSLAN.
+ * Created by Mustafa Tahir ARSLAN
  */
 @Entity
 public class Role extends AbstractEntity<Role> {

@@ -11,7 +11,7 @@ import java.util.Date;
 public abstract class AbstractEntity<T extends Serializable> implements IEntity<T> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(unique = true)
     private Long id;
 
@@ -65,7 +65,6 @@ public abstract class AbstractEntity<T extends Serializable> implements IEntity<
         AbstractEntity that = (AbstractEntity) o;
 
         return !(id != null ? !id.equals(that.id) : that.id != null);
-
     }
 
     @Override

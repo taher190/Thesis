@@ -1,6 +1,6 @@
 package com.thesis.service;
 
-import com.thesis.model.User;
+import com.thesis.model.abstracts.User;
 import com.thesis.repository.interfaces.IUserRepository;
 import com.thesis.service.abstracts.AbstractService;
 import com.thesis.service.interfaces.IUserService;

@@ -1,6 +1,6 @@
 package com.thesis.repository;
 
-import com.thesis.model.User;
+import com.thesis.model.abstracts.User;
 import com.thesis.repository.abstracts.AbstractRepository;
 import com.thesis.repository.interfaces.IUserRepository;
 import org.springframework.stereotype.Repository;

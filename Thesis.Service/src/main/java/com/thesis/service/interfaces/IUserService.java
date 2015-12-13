@@ -1,6 +1,6 @@
 package com.thesis.service.interfaces;
 
-import com.thesis.model.User;
+import com.thesis.model.abstracts.User;
 
 /**
  * Created by Mustafa Tahir ARSLAN
