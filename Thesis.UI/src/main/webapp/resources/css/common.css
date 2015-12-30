@@ -1,3 +1,27 @@
 body {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12px !important;
+    margin-left: 55px;
+    margin-right: 55px;
+    margin-top: 18px;
+}
+
+#main{
+    margin-top: 9px;
+}
+
+.thesis_template_panel {
+    margin: 8px;
+}
+
+.thesis_template_panel tr td {
+    padding: 5px;
+}
+
+.thesis_template_panel_col1{
+    text-align: right;
+}
+
+.input_field {
+    width: 276px !important;
 }

@@ -18,6 +18,10 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
     @ManyToOne
     private ThesisManager thesisManager;
 
+    private Faculty faculty;
+
+    private Department department;
+
     public ThesisManager getThesisManager() {
         return thesisManager;
     }
@@ -32,6 +36,22 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
 }
