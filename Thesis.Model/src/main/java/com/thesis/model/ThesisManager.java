@@ -4,6 +4,7 @@ import com.thesis.model.abstracts.User;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -14,14 +15,26 @@ import java.util.List;
 @DiscriminatorValue("2")
 public class ThesisManager extends User<ThesisManager> {
 
+    @ManyToOne
+    private Faculty faculty;
+
     @OneToMany(mappedBy = "thesisManager")
-    private List<ThesisTemplate> thesisTemplates;
+    private List<ThesisTemplate> thesisTemplateList;
 
-    public List<ThesisTemplate> getThesisTemplates() {
-        return thesisTemplates;
+    public List<ThesisTemplate> getThesisTemplateList() {
+        return thesisTemplateList;
     }
 
-    public void setThesisTemplates(List<ThesisTemplate> thesisTemplates) {
-        this.thesisTemplates = thesisTemplates;
+    public void setThesisTemplateList(List<ThesisTemplate> thesisTemplateList) {
+        this.thesisTemplateList = thesisTemplateList;
     }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
 }

@@ -35,7 +35,8 @@ public class SpringSecurityAuthenticationProvider implements IAuthenticationProv
         try {
             User user = userRepository.retrieveUserByEntryVal(username);
             Collection authoritieSet = new HashSet();
-            authoritieSet.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
+            authoritieSet.add(new GrantedAuthorityImpl("ROLE_STUDENT"));
+            authoritieSet.add(new GrantedAuthorityImpl("ROLE_USER"));
             /* FIXME : Yetkiler dinamik hale getirilmelli! */
             /*for(Role role : user.getRoleList()) {
                 authoritieSet.add(new GrantedAuthorityImpl(role.getCode()));

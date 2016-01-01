@@ -3,7 +3,12 @@ package com.thesis.controller.abstracts;
 import com.thesis.controller.ApplicationBean;
 import com.thesis.model.Department;
 import com.thesis.model.Faculty;
+import com.thesis.model.abstracts.User;
+import com.thesis.service.interfaces.IUserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +21,9 @@ public abstract class AbstractBean implements Serializable {
     protected static final String FACULTY_BEAN = "facultyBean";
     protected static final String DEPARTMENT_BEAN = "departmentBean";
     protected static final String APPLICATION_BEAN = "applicationBean";
+
+    @ManagedProperty("#{userService}")
+    private IUserService userService;
 
     protected <T> T getBean(String beanName) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -31,5 +39,18 @@ public abstract class AbstractBean implements Serializable {
     public List<Department> getDepartmentList() {
         ApplicationBean applicationBean = getBean(APPLICATION_BEAN);
         return applicationBean.getDepartmentList();
+    }
+
+    protected User getLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.retrieveByName(auth.getName());
+    }
+
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
     }
 }

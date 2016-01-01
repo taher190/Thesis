@@ -7,14 +7,20 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/pages/protected/*"
+        <security:intercept-url pattern="/pages/protected/thesis_manager/*"
+                                access="hasAnyRole('ROLE_THESIS_MANAGER')" />
+        <security:intercept-url pattern="/pages/protected/admin/*"
                                 access="hasAnyRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/pages/protected/student/*"
+                                access="hasAnyRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/pages/protected/*"
+                                access="hasAnyRole('ROLE_USER')" />
         <security:form-login login-page="/pages/public/login.xhtml"
                              default-target-url="/pages/protected/home.xhtml"
                              authentication-failure-url="/pages/public/fail.xhtml" />
         <!-- FIXME : logout parametresi için geliştirme yapılmalı! -->
         <security:logout invalidate-session="true"
-                         logout-success-url="/login.xhtml?logout" />
+                         logout-success-url="/pages/public/login.xhtml?logout" />
     </security:http>
 
     <security:authentication-manager>

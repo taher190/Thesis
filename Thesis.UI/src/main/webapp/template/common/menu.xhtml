@@ -8,12 +8,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <p:panelMenu>
-        <p:submenu label="Tez işlemleri">
+        <p:submenu label="Tez işlemleri"
+                   rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
             <p:menuitem value="Tez şablonu oluştur"
                         icon="ui-icon-disk"
-                        outcome="thesis_template_save.xhtml" />
+                        outcome="/pages/protected/thesis_manager/thesis_template_save.xhtml" />
             <p:menuitem value="Tez şablonlarını incele"
-                        outcome="thesis_template_view.xhtml" />
+                        icon="ui-icon-pencil"
+                        outcome="/pages/protected/thesis_manager/thesis_template_view.xhtml" />
         </p:submenu>
     </p:panelMenu>
 </ui:composition>

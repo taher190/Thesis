@@ -1,15 +1,17 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.controller.interfaces.IThesisTemplateOperation;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 import com.thesis.service.interfaces.IThesisTemplateService;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @ManagedBean
 @ViewScoped
-public class ThesisTemplateBean extends AbstractBean {
+public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateOperation {
 
     private final Logger logger = LoggerFactory.getLogger(ThesisTemplateBean.class.getName());
 
@@ -29,23 +31,45 @@ public class ThesisTemplateBean extends AbstractBean {
     private ThesisTemplate thesisTemplate;
 
     //edit mode
-    private ThesisTemplate selectedThesisTemplate;
     private List<ThesisTemplate> thesisTemplateList;
 
-    public ThesisTemplateBean() {
-        setThesisTemplate(new ThesisTemplate());
+    @PostConstruct
+    public void init() {
+        initThesisTemplate();
     }
 
+    private void initThesisTemplate() {
+        setThesisTemplate(new ThesisTemplate());
+        getThesisTemplate().setThesisManager((ThesisManager) getLoggedInUser());
+    }
+
+    @Override
     public void save() {
         thesisTemplateService.save(thesisTemplate);
-        setThesisTemplate(new ThesisTemplate());
-        logger.info("ThesisTemplate({}) saved!", thesisTemplate);
+        initThesisTemplate();
+        logger.info("ThesisTemplate({}) has been saved!", thesisTemplate);
+    }
+
+    @Override
+    public void update() {
+        thesisTemplateService.update(thesisTemplate);
+        logger.info("ThesisTemplate({}) has been updated!", thesisTemplate);
+    }
+
+    @Override
+    public void delete() {
+        thesisTemplateService.deleteById(thesisTemplate.getId());
+        initThesisTemplate();
+        logger.info("ThesisTemplate({}) has been deleted.");
     }
 
     public void loadMyThesisTemplateList() {
-        //FIXME : O anda oturum açan tez yöneticisinin tez şablonları getirilmeli!
-        ThesisManager thesisManager = null;
+        ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
         setThesisTemplateList(thesisTemplateService.retrieveByThesisManager(thesisManager));
+    }
+
+    public void selectThesisTemplate() {
+        logger.info("ThesisTemplate({}) selected!", thesisTemplate);
     }
 
     public ThesisTemplate getThesisTemplate() {
@@ -70,13 +94,5 @@ public class ThesisTemplateBean extends AbstractBean {
 
     public void setThesisTemplateList(List<ThesisTemplate> thesisTemplateList) {
         this.thesisTemplateList = thesisTemplateList;
-    }
-
-    public ThesisTemplate getSelectedThesisTemplate() {
-        return selectedThesisTemplate;
-    }
-
-    public void setSelectedThesisTemplate(ThesisTemplate selectedThesisTemplate) {
-        this.selectedThesisTemplate = selectedThesisTemplate;
     }
 }

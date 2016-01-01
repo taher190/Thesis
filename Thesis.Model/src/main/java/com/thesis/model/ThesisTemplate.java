@@ -18,8 +18,10 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
     @ManyToOne
     private ThesisManager thesisManager;
 
+    @ManyToOne
     private Faculty faculty;
 
+    @ManyToOne
     private Department department;
 
     public ThesisManager getThesisManager() {

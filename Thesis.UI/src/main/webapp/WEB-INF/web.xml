@@ -6,7 +6,7 @@
 
     <display-name>Thesis Application</display-name>
     <welcome-file-list>
-        <welcome-file>home.xhtml</welcome-file>
+        <welcome-file>pages/protected/home.xhtml</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

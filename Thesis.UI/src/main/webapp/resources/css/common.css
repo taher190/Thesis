@@ -1,8 +1,8 @@
 body {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px !important;
-    margin-left: 55px;
-    margin-right: 55px;
+    margin-left: 85px;
+    margin-right:85px;
     margin-top: 18px;
 }
 
@@ -24,4 +24,10 @@ body {
 
 .input_field {
     width: 276px !important;
+}
+
+.header {
+    font-size: 16px !important;
+    font-weight: 600;
+    padding: 12px;
 }

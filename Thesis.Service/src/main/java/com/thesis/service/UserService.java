@@ -13,8 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService extends AbstractService<User> implements IUserService {
 
+    private IUserRepository userRepository;
+
     @Autowired
     public UserService(IUserRepository userRepository) {
         super(userRepository);
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public User retrieveByName(String name) {
+        return userRepository.retrieveUserByEntryVal(name);
     }
 }
