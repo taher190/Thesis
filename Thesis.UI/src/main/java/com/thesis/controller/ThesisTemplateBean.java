@@ -5,7 +5,6 @@ import com.thesis.controller.interfaces.IThesisTemplateOperation;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 import com.thesis.service.interfaces.IThesisTemplateService;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,12 +47,14 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
         thesisTemplateService.save(thesisTemplate);
         initThesisTemplate();
         logger.info("ThesisTemplate({}) has been saved!", thesisTemplate);
+        logger.info("Tez şablonu başarıyla kaydedildi!");
     }
 
     @Override
     public void update() {
         thesisTemplateService.update(thesisTemplate);
         logger.info("ThesisTemplate({}) has been updated!", thesisTemplate);
+        showMessage("Tez şablonu başarıyla güncellendi!");
     }
 
     @Override
@@ -61,6 +62,7 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
         thesisTemplateService.deleteById(thesisTemplate.getId());
         initThesisTemplate();
         logger.info("ThesisTemplate({}) has been deleted.");
+        showMessage("Tez şablonu başarıyla silindi!");
     }
 
     public void loadMyThesisTemplateList() {

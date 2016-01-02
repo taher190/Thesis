@@ -3,6 +3,7 @@ package com.thesis.repository.interfaces;
 import com.thesis.model.abstracts.IEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mustafa Tahir ARSLAN.

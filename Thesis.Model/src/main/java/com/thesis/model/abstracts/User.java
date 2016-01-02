@@ -23,6 +23,7 @@ public class User<T> extends AbstractEntity<User> {
 
     private String password;
 
+    @Column(columnDefinition = "tinyint(1) default 1")
     private Boolean active;
 
     public String getPassword() {

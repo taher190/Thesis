@@ -1,5 +1,6 @@
 package com.thesis.repository.interfaces;
 
+import com.thesis.model.Student;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 
@@ -11,4 +12,6 @@ import java.util.List;
 public interface IThesisTemplateRepository extends IAbstractRepository<ThesisTemplate> {
 
     List<ThesisTemplate> retrieveByThesisManager(ThesisManager thesisManager);
+
+    List<ThesisTemplate> retrieveByStudent(Student student);
 }

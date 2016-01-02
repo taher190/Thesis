@@ -1,5 +1,6 @@
 package com.thesis.service;
 
+import com.thesis.model.Student;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 import com.thesis.repository.interfaces.IThesisTemplateRepository;
@@ -8,7 +9,9 @@ import com.thesis.service.interfaces.IThesisTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mustafa Tahir ARSLAN
@@ -22,6 +25,18 @@ public class ThesisTemplateService extends AbstractService<ThesisTemplate> imple
     public ThesisTemplateService(IThesisTemplateRepository thesisTemplateRepository) {
         super(thesisTemplateRepository);
         this.thesisTemplateRepository = thesisTemplateRepository;
+    }
+
+
+    @Override
+    public void save(ThesisTemplate thesisTemplate) {
+        thesisTemplate.setActive(true);
+        super.save(thesisTemplate);
+    }
+
+    @Override
+    public List<ThesisTemplate> retrieveByStudent(Student student) {
+        return thesisTemplateRepository.retrieveByStudent(student);
     }
 
     @Override

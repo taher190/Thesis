@@ -8,6 +8,7 @@ import com.thesis.service.interfaces.IUserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
@@ -44,6 +45,11 @@ public abstract class AbstractBean implements Serializable {
     protected User getLoggedInUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.retrieveByName(auth.getName());
+    }
+
+    protected void showMessage(String message){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(message));
     }
 
     public IUserService getUserService() {

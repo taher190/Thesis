@@ -1,5 +1,7 @@
 package com.thesis.repository.abstracts;
 
+import com.mchange.v2.lang.ObjectUtils;
+import com.thesis.model.ThesisTemplate;
 import com.thesis.model.abstracts.IEntity;
 import com.thesis.repository.interfaces.IAbstractRepository;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 import static org.jodah.typetools.TypeResolver.resolveRawArguments;
 

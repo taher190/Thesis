@@ -24,6 +24,9 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
     @ManyToOne
     private Department department;
 
+    @Column(columnDefinition = "tinyint(1) default 1")
+    private Boolean active;
+
     public ThesisManager getThesisManager() {
         return thesisManager;
     }
@@ -54,6 +57,14 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
 }

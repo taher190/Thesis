@@ -15,10 +15,12 @@
         <p:outputLabel value="Bir tane tez şablonu seçin"
                        styleClass="header" />
         <h:panelGrid id="select_thesis_template"
-                     styleClass="thesis_template_panel"
+                     styleClass="standart_panel"
                      columns="1">
-            <p:selectOneMenu id="select_thesis_template_onemenu" value="#{thesisTemplateBean.thesisTemplate}"
-                             converter="entityConverter" styleClass="input_field">
+            <p:selectOneMenu id="select_thesis_template_onemenu"
+                             value="#{thesisTemplateBean.thesisTemplate}"
+                             converter="entityConverter"
+                             styleClass="input_field">
                 <f:selectItem itemLabel="Seçiniz" />
                 <f:selectItems value="#{thesisTemplateBean.thesisTemplateList}"
                                var="thesisTemplate"
@@ -34,12 +36,11 @@
 
         <p:separator />
 
-        <p:outputLabel value="Tez şablonunu güncelleyin veya silin"
-                       styleClass="header" />
         <p:outputPanel id="thesis_template_component">
             <thesis:thesis_template_operation
                     thesisTemplate="#{thesisTemplateBean.thesisTemplate}"
                     thesisTemplateOperation="#{thesisTemplateBean}"
+                    rendered="#{not empty thesisTemplateBean.thesisTemplate.id}"
                     mode="edit" />
         </p:outputPanel>
     </ui:define>

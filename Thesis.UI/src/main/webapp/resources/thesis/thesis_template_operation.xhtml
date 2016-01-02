@@ -23,10 +23,18 @@
     </composite:interface>
 
     <composite:implementation>
+        <p:outputLabel value="Bir tez şablonu yaratın"
+                       rendered="#{cc.attrs.mode eq 'save'}"
+                       styleClass="header" />
+
+        <p:outputLabel value="Tez şablonunu güncelleyin veya silin"
+                       rendered="#{cc.attrs.mode eq 'edit'}"
+                       styleClass="header" />
+
         <h:panelGrid id="thesis_template_panel"
                      columns="4"
                      columnClasses="thesis_template_panel_col1"
-                     styleClass="thesis_template_panel">
+                     styleClass="standart_panel">
             <p:outputLabel value="Takma ad" />
             <p:outputLabel value=":" />
             <p:inputText id="name"
@@ -75,18 +83,21 @@
                 <p:commandButton value="Kaydet"
                                  actionListener="#{cc.attrs.thesisTemplateOperation.save}"
                                  rendered="#{cc.attrs.mode eq 'save'}"
+                                 ignoreAutoUpdate="true"
                                  process="thesis_template_panel"
                                  update="thesis_template_panel" />
                 &nbsp;
                 <p:commandButton value="Güncelle"
                                  actionListener="#{cc.attrs.thesisTemplateOperation.update}"
                                  rendered="#{cc.attrs.mode eq 'edit'}"
+                                 ignoreAutoUpdate="true"
                                  process="thesis_template_panel"
                                  update="thesis_template_panel" />
                 &nbsp;
                 <p:commandLink value="Sil"
                                actionListener="#{cc.attrs.thesisTemplateOperation.delete}"
                                rendered="#{cc.attrs.mode eq 'edit'}"
+                               ignoreAutoUpdate="true"
                                process="@none"
                                ajax="false" />
             </p:outputPanel>

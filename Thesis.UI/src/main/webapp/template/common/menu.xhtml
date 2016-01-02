@@ -17,6 +17,12 @@
                         icon="ui-icon-pencil"
                         outcome="/pages/protected/thesis_manager/thesis_template_view.xhtml" />
         </p:submenu>
+        <p:submenu label="Öğrenci işlemleri"
+                   rendered="#{request.isUserInRole('ROLE_STUDENT')}">
+            <p:menuitem value="Tez başvuruları"
+                        icon="ui-icon-person"
+                        outcome="/pages/protected/student/thesis_appeal.xhtml" />
+        </p:submenu>
     </p:panelMenu>
 </ui:composition>
 </html>
