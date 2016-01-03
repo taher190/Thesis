@@ -2,9 +2,8 @@ package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Mustafa Tahir ARSLAN
@@ -26,6 +25,13 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     @Column(columnDefinition = "tinyint(1) default 1")
     private Boolean active;
+
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable(name = "thesistemplate_topic", joinColumns = {
+            @JoinColumn(name = "thesistemplate_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "topic_id",
+                    nullable = false, updatable = false) })
+    private List<Topic> topicList;
 
     public ThesisManager getThesisManager() {
         return thesisManager;
@@ -67,4 +73,11 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
         this.active = active;
     }
 
+    public List<Topic> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<Topic> topicList) {
+        this.topicList = topicList;
+    }
 }

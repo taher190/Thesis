@@ -44,6 +44,18 @@
 
                 <p:outputLabel value="" />
                 <p:outputLabel value="" />
+                <p:selectOneMenu value="#{thesisAppealBean.thesisAppeal.topic}"
+                                 styleClass="input_field"
+                                 converter="entityConverter">
+                    <f:selectItem itemLabel="Seçiniz" />
+                    <f:selectItems value="#{thesisAppealBean.selectedThesisTemplate.topicList}"
+                                   var="topic"
+                                   itemLabel="#{topic.name}"
+                                   itemValue="#{topic}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="" />
+                <p:outputLabel value="" />
                 <p:commandButton value="Başvur"
                                  actionListener="#{thesisAppealBean.appeal}"
                                  process="thesis_template_details" />

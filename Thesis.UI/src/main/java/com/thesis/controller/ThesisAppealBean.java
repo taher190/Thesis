@@ -9,6 +9,7 @@ import com.thesis.service.interfaces.IThesisTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -31,15 +32,21 @@ public class ThesisAppealBean extends AbstractBean {
 
     private ThesisTemplate selectedThesisTemplate;
 
+    private ThesisAppeal thesisAppeal;
+
     private List<ThesisTemplate> thesisTemplateList;
+
+    @PostConstruct
+    public void init() {
+        setThesisAppeal(new ThesisAppeal());
+    }
+
     public void loadThesisTemplatesByStudent() {
         Student student = (Student) getLoggedInUser();
         setThesisTemplateList(thesisTemplateService.retrieveByStudent(student));
     }
-
     public void appeal() {
         Student student = (Student) getLoggedInUser();
-        ThesisAppeal thesisAppeal = new ThesisAppeal();
         thesisAppeal.setStudent(student);
         thesisAppeal.setThesisTemplate(getSelectedThesisTemplate());
         thesisAppealService.save(thesisAppeal);
@@ -81,5 +88,13 @@ public class ThesisAppealBean extends AbstractBean {
 
     public void setThesisAppealService(IThesisAppealService thesisAppealService) {
         this.thesisAppealService = thesisAppealService;
+    }
+
+    public ThesisAppeal getThesisAppeal() {
+        return thesisAppeal;
+    }
+
+    public void setThesisAppeal(ThesisAppeal thesisAppeal) {
+        this.thesisAppeal = thesisAppeal;
     }
 }

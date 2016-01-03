@@ -4,7 +4,9 @@ import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.controller.interfaces.IThesisTemplateOperation;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
+import com.thesis.model.Topic;
 import com.thesis.service.interfaces.IThesisTemplateService;
+import com.thesis.service.interfaces.ITopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,11 +28,18 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
     @ManagedProperty("#{thesisTemplateService}")
     private IThesisTemplateService thesisTemplateService;
 
+    @ManagedProperty("#{topicService}")
+    private ITopicService topicService;
+
     //save mode
     private ThesisTemplate thesisTemplate;
 
     //edit mode
     private List<ThesisTemplate> thesisTemplateList;
+
+    private List<Topic> topicList;
+
+    private List<Topic> selectedTopicList;
 
     @PostConstruct
     public void init() {
@@ -40,6 +49,9 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
     private void initThesisTemplate() {
         setThesisTemplate(new ThesisTemplate());
         getThesisTemplate().setThesisManager((ThesisManager) getLoggedInUser());
+        setTopicList(topicService.retrieveByFaculty(
+                getThesisTemplate().getThesisManager().getFaculty()
+        ));
     }
 
     @Override
@@ -52,6 +64,7 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
 
     @Override
     public void update() {
+        //thesisTemplate.setTopicList(getSelectedTopicList());
         thesisTemplateService.update(thesisTemplate);
         logger.info("ThesisTemplate({}) has been updated!", thesisTemplate);
         showMessage("Tez şablonu başarıyla güncellendi!");
@@ -96,5 +109,29 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
 
     public void setThesisTemplateList(List<ThesisTemplate> thesisTemplateList) {
         this.thesisTemplateList = thesisTemplateList;
+    }
+
+    public ITopicService getTopicService() {
+        return topicService;
+    }
+
+    public void setTopicService(ITopicService topicService) {
+        this.topicService = topicService;
+    }
+
+    public List<Topic> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<Topic> topicList) {
+        this.topicList = topicList;
+    }
+
+    public List<Topic> getSelectedTopicList() {
+        return selectedTopicList;
+    }
+
+    public void setSelectedTopicList(List<Topic> selectedTopicList) {
+        this.selectedTopicList = selectedTopicList;
     }
 }

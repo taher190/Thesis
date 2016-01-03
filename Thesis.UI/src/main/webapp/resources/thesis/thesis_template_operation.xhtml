@@ -79,6 +79,20 @@
 
             <p:outputLabel />
             <p:outputLabel />
+            <p:selectManyCheckbox id="topic"
+                                  layout="grid"
+                                  columns="3"
+                                  value="#{cc.attrs.thesisTemplate.topicList}"
+                                  converter="entityConverter" >
+                <f:selectItems value="#{cc.attrs.thesisTemplateOperation.topicList}"
+                               var="topic"
+                               itemValue="#{topic}"
+                               itemLabel="#{topic.name}"  />
+            </p:selectManyCheckbox>
+            <p:message for="topic" />
+
+            <p:outputLabel />
+            <p:outputLabel />
             <p:outputPanel>
                 <p:commandButton value="Kaydet"
                                  actionListener="#{cc.attrs.thesisTemplateOperation.save}"

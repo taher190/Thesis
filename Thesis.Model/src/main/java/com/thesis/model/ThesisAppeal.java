@@ -17,6 +17,9 @@ public class ThesisAppeal extends AbstractEntity<ThesisAppeal> {
     @ManyToOne
     private Student student;
 
+    @ManyToOne
+    private Topic topic;
+
     public Student getStudent() {
         return student;
     }
@@ -31,6 +34,14 @@ public class ThesisAppeal extends AbstractEntity<ThesisAppeal> {
 
     public void setThesisTemplate(ThesisTemplate thesisTemplate) {
         this.thesisTemplate = thesisTemplate;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
 
