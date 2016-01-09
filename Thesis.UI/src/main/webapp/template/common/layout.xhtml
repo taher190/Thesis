@@ -12,32 +12,32 @@
     <h:outputScript library="js" name="common.js" />
 </h:head>
 <h:body>
-    <div id="header">
-        <ui:insert name="header">
-            <ui:include src="/template/common/header.xhtml" />
-        </ui:insert>
-    </div>
-    <div id="main">
-        <p:layout>
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" styleClass="north_class">
+            <ui:insert name="header">
+                <ui:include src="/template/common/header.xhtml" />
+            </ui:insert>
+        </p:layoutUnit>
+        <p:layoutUnit position="west" style="min-width: 279px;">
             <h:form>
-                <p:layoutUnit position="west" style="min-width: 279px;">
-                    <ui:insert name="menu">
-                        <ui:include src="/template/common/menu.xhtml" />
-                    </ui:insert>
-                </p:layoutUnit>
-                <p:layoutUnit position="center">
-                    <ui:insert name="content">
-                        <ui:include src="/template/common/content.xhtml" />
-                    </ui:insert>
-                </p:layoutUnit>
-                <p:growl autoUpdate="true" />
+                <ui:insert name="menu">
+                    <ui:include src="/template/common/menu.xhtml" />
+                </ui:insert>
             </h:form>
-        </p:layout>
-    </div>
-    <div id="footer">
-        <ui:insert name="footer">
-            <ui:include src="/template/common/footer.xhtml" />
-        </ui:insert>
-    </div>
+        </p:layoutUnit>
+        <p:layoutUnit position="center">
+            <h:form>
+                <ui:insert name="content">
+                    <ui:include src="/template/common/content.xhtml" />
+                </ui:insert>
+            </h:form>
+        </p:layoutUnit>
+        <p:layoutUnit position="south" styleClass="south">
+            <p:outputLabel value="&copy; 2016 - Karabük Üniversitesi Tez Takip Sistemi" />
+        </p:layoutUnit>
+        <p:growl id="common_growl" autoUpdate="true" />
+    </p:layout>
+    <h:graphicImage value="/resources/img/uni_logo.png" styleClass="uni_logo" />
+    <ui:include src="/resources/dialog/thesis_suggestion.xhtml" />
 </h:body>
 </html>

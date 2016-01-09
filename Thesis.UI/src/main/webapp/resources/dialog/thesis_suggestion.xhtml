@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:form>
+    <p:dialog widgetVar="thesis_suggestion_dialog"
+              modal="true"
+              draggable="false"
+              resizable="false"
+              header="Tez Önerisi" >
+        <h:panelGrid id="thesis_suggestion_panel"
+                     columns="3"
+                     styleClass="standart_panel">
+            <p:outputLabel value="Tez Danışmanı" />
+            <p:outputLabel value=":"/>
+            <p:outputPanel>
+                <p:selectOneMenu id="thesis_manager_for_suggestion" value="#{thesisAppealBean.thesisSuggestion.thesisManager}"
+                                 converter="entityConverter"
+                                 required="true"
+                                 requiredMessage="Lütfen bu alanı doldurunuz!"
+                                 styleClass="input_field">
+                    <f:selectItem itemLabel="Seçiniz" />
+                    <f:selectItems value="#{thesisAppealBean.thesisManagerList}"
+                                   var="thesisManagerForSuggestion"
+                                   itemLabel="#{thesisManagerForSuggestion.name}"
+                                   itemValue="#{thesisManagerForSuggestion}" />
+                </p:selectOneMenu>
+                <p:message for="thesis_manager_for_suggestion" />
+            </p:outputPanel>
+
+            <p:outputLabel value="Öneriniz" />
+            <p:outputLabel value=":" />
+            <p:outputPanel>
+                <p:inputTextarea id="thesis_suggestion"
+                                 value="#{thesisAppealBean.thesisSuggestion.text}"
+                                 maxlength="400"
+                                 required="true"
+                                 requiredMessage="Lütfen bu alanı doldurunuz!"
+                                 styleClass="input_field"
+                                 placeholder="Tez önerinizi açıklayıcı olmasına dikkat ediniz! 400 karakter sınırını aşmayınız!" />
+                <p:message for="thesis_suggestion" />
+            </p:outputPanel>
+
+            <p:outputLabel />
+            <p:outputLabel />
+            <p:commandButton value="Gönder"
+                             ignoreAutoUpdate="true"
+                             actionListener="#{thesisAppealBean.suggest}"
+                             update="thesis_suggestion_panel"
+                             process="thesis_suggestion_panel" />
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+</html>

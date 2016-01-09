@@ -5,6 +5,7 @@ import com.thesis.model.Department;
 import com.thesis.model.Faculty;
 import com.thesis.model.abstracts.User;
 import com.thesis.service.interfaces.IUserService;
+import org.primefaces.context.RequestContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -50,6 +51,7 @@ public abstract class AbstractBean implements Serializable {
     protected void showMessage(String message){
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(message));
+        RequestContext.getCurrentInstance().update("common_growl");
     }
 
     public IUserService getUserService() {

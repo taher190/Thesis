@@ -1,11 +1,13 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
-import com.thesis.model.Student;
-import com.thesis.model.ThesisAppeal;
-import com.thesis.model.ThesisTemplate;
+import com.thesis.model.*;
+import com.thesis.repository.interfaces.IThesisSuggestionRepository;
 import com.thesis.service.interfaces.IThesisAppealService;
+import com.thesis.service.interfaces.IThesisManagerService;
+import com.thesis.service.interfaces.IThesisSuggestionService;
 import com.thesis.service.interfaces.IThesisTemplateService;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,21 +32,32 @@ public class ThesisAppealBean extends AbstractBean {
     @ManagedProperty("#{thesisAppealService}")
     private IThesisAppealService thesisAppealService;
 
+    @ManagedProperty("#{thesisManagerService}")
+    private IThesisManagerService thesisManagerService;
+
+    @ManagedProperty("#{thesisSuggestionService}")
+    private IThesisSuggestionService thesisSuggestionService;
+
     private ThesisTemplate selectedThesisTemplate;
+    private ThesisManager selectedThesisManager;
 
     private ThesisAppeal thesisAppeal;
+    private ThesisSuggestion thesisSuggestion;
 
     private List<ThesisTemplate> thesisTemplateList;
+    private List<ThesisManager> thesisManagerList;
 
     @PostConstruct
     public void init() {
         setThesisAppeal(new ThesisAppeal());
+        setThesisSuggestion(new ThesisSuggestion());
     }
 
-    public void loadThesisTemplatesByStudent() {
+    public void loadThesisManagers() {
         Student student = (Student) getLoggedInUser();
-        setThesisTemplateList(thesisTemplateService.retrieveByStudent(student));
+        setThesisManagerList(thesisManagerService.retrieveByDepartment(student.getDepartment()));
     }
+
     public void appeal() {
         Student student = (Student) getLoggedInUser();
         thesisAppeal.setStudent(student);
@@ -52,6 +65,15 @@ public class ThesisAppealBean extends AbstractBean {
         thesisAppealService.save(thesisAppeal);
         logger.info("ThesisAppeal({}) has been saved!", thesisAppeal);
         showMessage("Tez başvurusu başarıyla gerçekleştirildi!");
+    }
+
+    public void suggest() {
+        Student student = (Student) getLoggedInUser();
+        thesisSuggestion.setStudent(student);
+        thesisSuggestionService.save(thesisSuggestion);
+        logger.info("ThesisSuggestion({}) has been saved!", thesisSuggestion);
+        showMessage("Tez önerisi başarıyla gönderildi!");
+        RequestContext.getCurrentInstance().execute("PF('thesis_suggestion_dialog').hide();");
     }
 
     public void selectThesisTemplate() {
@@ -65,7 +87,6 @@ public class ThesisAppealBean extends AbstractBean {
     public void setThesisTemplateService(IThesisTemplateService thesisTemplateService) {
         this.thesisTemplateService = thesisTemplateService;
     }
-
     public List<ThesisTemplate> getThesisTemplateList() {
         return thesisTemplateList;
     }
@@ -96,5 +117,45 @@ public class ThesisAppealBean extends AbstractBean {
 
     public void setThesisAppeal(ThesisAppeal thesisAppeal) {
         this.thesisAppeal = thesisAppeal;
+    }
+
+    public IThesisManagerService getThesisManagerService() {
+        return thesisManagerService;
+    }
+
+    public void setThesisManagerService(IThesisManagerService thesisManagerService) {
+        this.thesisManagerService = thesisManagerService;
+    }
+
+    public List<ThesisManager> getThesisManagerList() {
+        return thesisManagerList;
+    }
+
+    public void setThesisManagerList(List<ThesisManager> thesisManagerList) {
+        this.thesisManagerList = thesisManagerList;
+    }
+
+    public ThesisManager getSelectedThesisManager() {
+        return selectedThesisManager;
+    }
+
+    public void setSelectedThesisManager(ThesisManager selectedThesisManager) {
+        this.selectedThesisManager = selectedThesisManager;
+    }
+
+    public IThesisSuggestionService getThesisSuggestionService() {
+        return thesisSuggestionService;
+    }
+
+    public void setThesisSuggestionService(IThesisSuggestionService thesisSuggestionService) {
+        this.thesisSuggestionService = thesisSuggestionService;
+    }
+
+    public ThesisSuggestion getThesisSuggestion() {
+        return thesisSuggestion;
+    }
+
+    public void setThesisSuggestion(ThesisSuggestion thesisSuggestion) {
+        this.thesisSuggestion = thesisSuggestion;
     }
 }

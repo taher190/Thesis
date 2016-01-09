@@ -12,37 +12,44 @@
 </f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
-        <p:outputLabel value="Bir tane tez şablonu seçin"
-                       styleClass="header" />
-        <h:panelGrid id="select_thesis_template"
-                     styleClass="standart_panel"
-                     columns="1">
-            <p:selectOneMenu id="select_thesis_template_onemenu"
-                             value="#{thesisTemplateBean.thesisTemplate}"
-                             converter="entityConverter"
-                             styleClass="input_field">
-                <f:selectItem itemLabel="Seçiniz" />
-                <f:selectItems value="#{thesisTemplateBean.thesisTemplateList}"
-                               var="thesisTemplate"
-                               itemLabel="#{thesisTemplate.name}"
-                               itemValue="#{thesisTemplate}" />
-            </p:selectOneMenu>
+        <p:panel header="Tez Şablonlarını İncele">
+            <p:outputLabel value="Bir tane tez şablonu seçin"
+                           styleClass="header" />
+            <h:panelGrid id="select_thesis_template"
+                         styleClass="standart_panel"
+                         columns="1">
+                <p:selectOneMenu id="select_thesis_template_onemenu"
+                                 value="#{thesisTemplateBean.thesisTemplate}"
+                                 converter="entityConverter"
+                                 styleClass="input_field">
+                    <f:selectItem itemLabel="Seçiniz" />
+                    <f:selectItems value="#{thesisTemplateBean.thesisTemplateList}"
+                                   var="thesisTemplate"
+                                   itemLabel="#{thesisTemplate.name}"
+                                   itemValue="#{thesisTemplate}" />
+                </p:selectOneMenu>
 
-            <p:commandButton value="Seçin"
-                             actionListener="#{thesisTemplateBean.selectThesisTemplate}"
-                             process="select_thesis_template"
-                             update="thesis_template_component" />
-        </h:panelGrid>
+                <p:commandButton value="Seçin"
+                                 actionListener="#{thesisTemplateBean.selectThesisTemplate}"
+                                 process="select_thesis_template"
+                                 update="thesis_template_component" />
+            </h:panelGrid>
+        </p:panel>
 
-        <p:separator />
+        <br />
 
-        <p:outputPanel id="thesis_template_component">
+        <p:panel header="Tez şablonunu güncelleyin veya silin"
+                 id="thesis_template_component">
+
+            <p:outputLabel rendered="#{empty thesisTemplateBean.thesisTemplate.id}"
+                           value="Devam edebilmek için bir tez şablonu seçmelisiniz" />
+
             <thesis:thesis_template_operation
                     thesisTemplate="#{thesisTemplateBean.thesisTemplate}"
                     thesisTemplateOperation="#{thesisTemplateBean}"
                     rendered="#{not empty thesisTemplateBean.thesisTemplate.id}"
                     mode="edit" />
-        </p:outputPanel>
+        </p:panel>
     </ui:define>
 </ui:composition>
 </html>

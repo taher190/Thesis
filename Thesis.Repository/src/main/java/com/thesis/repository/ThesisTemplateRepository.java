@@ -36,11 +36,9 @@ public class ThesisTemplateRepository extends AbstractRepository<ThesisTemplate>
         Root<ThesisTemplate> thesisTemplateRoot = criteria.from(ThesisTemplate.class);
         criteria.select(thesisTemplateRoot);
         Predicate activeCond = builder.equal(thesisTemplateRoot.get("active"), true);
-        Predicate departmentCond = builder.equal(thesisTemplateRoot.get("department"), student.getDepartment());
         Predicate facultyCond = builder.equal(thesisTemplateRoot.get("faculty"), student.getFaculty());
         criteria.where( builder.and(
                 activeCond,
-                departmentCond,
                 facultyCond));
         return getEntityManager().createQuery(criteria).getResultList();
     }

@@ -23,19 +23,11 @@
     </composite:interface>
 
     <composite:implementation>
-        <p:outputLabel value="Bir tez şablonu yaratın"
-                       rendered="#{cc.attrs.mode eq 'save'}"
-                       styleClass="header" />
-
-        <p:outputLabel value="Tez şablonunu güncelleyin veya silin"
-                       rendered="#{cc.attrs.mode eq 'edit'}"
-                       styleClass="header" />
-
         <h:panelGrid id="thesis_template_panel"
                      columns="4"
                      columnClasses="thesis_template_panel_col1"
                      styleClass="standart_panel">
-            <p:outputLabel value="Takma ad" />
+            <p:outputLabel value="Tez Konusu" />
             <p:outputLabel value=":" />
             <p:inputText id="name"
                          value="#{cc.attrs.thesisTemplate.name}"
@@ -45,51 +37,15 @@
                          placeholder="Tez şablonunuza bir isim verin..." />
             <p:message for="name" />
 
-            <p:outputLabel value="Fakülte" />
+            <p:outputLabel value="Açıklama" />
             <p:outputLabel value=":" />
-            <p:selectOneMenu id="faculty"
-                             value="#{cc.attrs.thesisTemplate.faculty}"
-                             required="true"
-                             requiredMessage="Lütfen birini seçiniz!"
-                             converter="entityConverter"
-                             styleClass="input_field">
-                <f:selectItem itemLabel="Seçiniz" />
-                <f:selectItems value="#{applicationBean.facultyList}"
-                               var="faculty"
-                               itemLabel="#{faculty.name}"
-                               itemValue="#{faculty}" />
-            </p:selectOneMenu>
-            <p:message for="faculty" />
-
-            <p:outputLabel value="Bölüm" />
-            <p:outputLabel value=":" />
-            <p:selectOneMenu id="department"
-                             value="#{cc.attrs.thesisTemplate.department}"
-                             required="true"
-                             requiredMessage="Lütfen birini seçiniz!"
-                             converter="entityConverter"
-                             styleClass="input_field">
-                <f:selectItem itemLabel="Seçiniz" />
-                <f:selectItems value="#{applicationBean.departmentList}"
-                               var="department"
-                               itemLabel="#{department.name}"
-                               itemValue="#{department}" />
-            </p:selectOneMenu>
-            <p:message for="department" />
-
-            <p:outputLabel />
-            <p:outputLabel />
-            <p:selectManyCheckbox id="topic"
-                                  layout="grid"
-                                  columns="3"
-                                  value="#{cc.attrs.thesisTemplate.topicList}"
-                                  converter="entityConverter" >
-                <f:selectItems value="#{cc.attrs.thesisTemplateOperation.topicList}"
-                               var="topic"
-                               itemValue="#{topic}"
-                               itemLabel="#{topic.name}"  />
-            </p:selectManyCheckbox>
-            <p:message for="topic" />
+            <p:inputTextarea id="desc"
+                         value="#{cc.attrs.thesisTemplate.description}"
+                         required="true"
+                         requiredMessage="Lütfen bu alanı doldurunuz!"
+                         styleClass="input_field"
+                         placeholder="Tez şablonunuza bir açıklama girin..." />
+            <p:message for="desc" />
 
             <p:outputLabel />
             <p:outputLabel />

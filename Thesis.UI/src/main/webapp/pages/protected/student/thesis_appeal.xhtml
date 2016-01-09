@@ -8,51 +8,72 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:event type="preRenderView" listener="#{thesisAppealBean.loadThesisTemplatesByStudent}" />
+    <f:event type="preRenderView" listener="#{thesisAppealBean.loadThesisManagers}" />
 </f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
-        <h:panelGrid id="select_thesis_template"
-                     columns="1"
-                     styleClass="standart_panel">
-            <p:outputLabel value="Başvurmak istediğiniz bir tez programı seçin"
-                           styleClass="header" />
-
-            <p:selectOneMenu value="#{thesisAppealBean.selectedThesisTemplate}"
-                             converter="entityConverter"
-                             styleClass="input_field">
-                <f:selectItem itemLabel="Seçiniz" />
-                <f:selectItems value="#{thesisAppealBean.thesisTemplateList}"
-                               var="thesisTemplate"
-                               itemLabel="#{thesisTemplate.name}"
-                               itemValue="#{thesisTemplate}" />
-            </p:selectOneMenu>
-
-            <p:commandButton value="Seçin"
-                             actionListener="#{thesisAppealBean.selectThesisTemplate}"
-                             process="select_thesis_template"
-                             update="thesis_template_details" />
-        </h:panelGrid>
-
-        <p:outputPanel id="thesis_template_details">
-            <h:panelGrid columns="3"
-                         rendered="#{not empty thesisAppealBean.selectedThesisTemplate}"
+        <p:panel header="Tez Başvuruları">
+            <h:panelGrid id="select_thesis_template"
+                         columns="1"
                          styleClass="standart_panel">
-                <p:outputLabel value="" />
-                <p:outputLabel value="" />
-                <p:outputLabel value="#{thesisAppealBean.selectedThesisTemplate.name}" />
+                <p:outputLabel value="Tez Danışmanınızı seçiniz"
+                               styleClass="header" />
 
-                <p:outputLabel value="" />
-                <p:outputLabel value="" />
-                <p:selectOneMenu value="#{thesisAppealBean.thesisAppeal.topic}"
-                                 styleClass="input_field"
-                                 converter="entityConverter">
+                <p:selectOneMenu value="#{thesisAppealBean.selectedThesisManager}"
+                                 converter="entityConverter"
+                                 styleClass="input_field">
                     <f:selectItem itemLabel="Seçiniz" />
-                    <f:selectItems value="#{thesisAppealBean.selectedThesisTemplate.topicList}"
-                                   var="topic"
-                                   itemLabel="#{topic.name}"
-                                   itemValue="#{topic}" />
+                    <f:selectItems value="#{thesisAppealBean.thesisManagerList}"
+                                   var="thesisManager"
+                                   itemLabel="#{thesisManager.name}"
+                                   itemValue="#{thesisManager}" />
+                    <p:ajax event="change"
+                            process="@this"
+                            update="select_thesis_template" />
                 </p:selectOneMenu>
+
+                <p:outputLabel value="Başvurmak istediğiniz bir tez programı seçin"
+                               styleClass="header" />
+
+                <p:selectOneMenu value="#{thesisAppealBean.selectedThesisTemplate}"
+                                 converter="entityConverter"
+                                 disabled="#{empty thesisAppealBean.selectedThesisManager.thesisTemplateList}"
+                                 styleClass="input_field">
+                    <f:selectItem itemLabel="Seçiniz" />
+                    <f:selectItems value="#{thesisAppealBean.selectedThesisManager.thesisTemplateList}"
+                                   var="thesisTemplate"
+                                   itemLabel="#{thesisTemplate.name}"
+                                   itemValue="#{thesisTemplate}" />
+                    <p:ajax event="change"
+                            process="@this"
+                            update="select_thesis_template" />
+                </p:selectOneMenu>
+
+                <p:outputPanel>
+                    <p:commandButton value="Seçin"
+                                     actionListener="#{thesisAppealBean.selectThesisTemplate}"
+                                     process="select_thesis_template"
+                                     disabled="#{empty thesisAppealBean.selectedThesisTemplate}"
+                                     update="thesis_template_details" />
+                    <p:outputLabel value=" yada " />
+                    <p:commandLink value="tez tavsiyesinde bulun" onclick="PF('thesis_suggestion_dialog').show();" />
+                </p:outputPanel>
+            </h:panelGrid>
+        </p:panel>
+
+        <br />
+
+        <p:panel header="Başvur" id="thesis_template_details">
+
+            <p:outputLabel rendered="#{empty thesisAppealBean.selectedThesisTemplate}"
+                           value="Devam edebilmek için lütfen tez danışmanı ve tez programı seçiniz" />
+
+            <h:panelGrid columns="1" rendered="#{not empty thesisAppealBean.selectedThesisTemplate}"
+                         styleClass="standart_panel">
+                <p:outputLabel styleClass="header"
+                               value="#{thesisAppealBean.selectedThesisTemplate.name}" />
+
+                <p:outputLabel value="#{thesisAppealBean.selectedThesisTemplate.description}" />
 
                 <p:outputLabel value="" />
                 <p:outputLabel value="" />
@@ -60,7 +81,9 @@
                                  actionListener="#{thesisAppealBean.appeal}"
                                  process="thesis_template_details" />
             </h:panelGrid>
-        </p:outputPanel>
+        </p:panel>
+
+
     </ui:define>
 </ui:composition>
 </html>

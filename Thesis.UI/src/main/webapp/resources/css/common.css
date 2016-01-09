@@ -1,13 +1,13 @@
 body {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px !important;
-    margin-left: 85px;
-    margin-right:85px;
-    margin-top: 18px;
+    padding-left: 46px !important;
+    padding-right: 46px !important;
+    padding-top: 28px !important;
 }
 
-#main{
-    margin-top: 9px;
+.ui-layout-pane {
+    border: 0;
 }
 
 .standart_panel {
@@ -27,7 +27,23 @@ body {
 }
 
 .header {
-    font-size: 16px !important;
-    font-weight: 600;
-    padding: 12px;
+    font-size: 15px !important;
+    color: #444;
+}
+
+.north_class div {
+    overflow: hidden !important;
+}
+
+.south {
+    text-align: center !important;
+    font-size: 11px;
+    color: #666;
+}
+
+.uni_logo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 167px;
 }

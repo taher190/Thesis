@@ -18,6 +18,9 @@ public class ThesisManager extends User<ThesisManager> {
     @ManyToOne
     private Faculty faculty;
 
+    @ManyToOne
+    private Department department;
+
     @OneToMany(mappedBy = "thesisManager")
     private List<ThesisTemplate> thesisTemplateList;
 
@@ -35,6 +38,14 @@ public class ThesisManager extends User<ThesisManager> {
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
 }

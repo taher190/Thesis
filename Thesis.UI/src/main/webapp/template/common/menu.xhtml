@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
-    <p:panelMenu>
+    <p:menu style="width: 249px !important">
         <p:submenu label="Tez işlemleri"
                    rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
             <p:menuitem value="Tez şablonu oluştur"
@@ -23,6 +23,11 @@
                         icon="ui-icon-person"
                         outcome="/pages/protected/student/thesis_appeal.xhtml" />
         </p:submenu>
-    </p:panelMenu>
+        <p:submenu label="Kullanıcı İşlemleri">
+            <p:menuitem value="Çıkış"
+                        icon="ui-icon-power"
+                        url="#{request.contextPath}/j_spring_security_logout" />
+        </p:submenu>
+    </p:menu>
 </ui:composition>
 </html>

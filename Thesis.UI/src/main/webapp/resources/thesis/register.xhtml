@@ -1,0 +1,92 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<composite:interface>
+    <composite:attribute name="user"
+                         required="true" />
+    <composite:attribute name="title"
+                         required="true" />
+</composite:interface>
+<composite:implementation>
+    <h:panelGrid columns="4"
+                 styleClass="standart_panel">
+        <p:outputLabel value="Ad" />
+        <p:outputLabel value=":" />
+        <p:inputText id="name"
+                     value="#{cc.attrs.user.name}"
+                     required="true"
+                     requiredMessage="Bu alan zorunlu!" />
+        <p:message for="name" />
+
+        <p:outputLabel value="Soyad" />
+        <p:outputLabel value=":" />
+        <p:inputText id="surname"
+                     value="#{cc.attrs.user.surname}"
+                     required="true"
+                     requiredMessage="Bu alan zorunlu!" />
+        <p:message for="surname " />
+
+        <p:outputLabel value="Şifre" />
+        <p:outputLabel value=":" />
+        <p:inputText id="pass"
+                     value="#{cc.attrs.user.pass}"
+                     required="true"
+                     requiredMessage="Bu alan zorunlu!" />
+        <p:message for="pass" />
+
+        <p:outputLabel rendered="#{cc.attrs.title eq 'STUDENT'}"
+                       value="Takma ad" />
+        <p:outputLabel rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
+                       value="Öğrenci Numarası" />
+        <p:outputLabel value=":" />
+        <p:inputText id="nick"
+                     value="#{cc.attrs.user.entryVal}"
+                     required="true"
+                     requiredMessage="Bu alan zorunlu!"
+                     placeholder="Bu değer giriş için kullanılacak" />
+        <p:message for="nick" />
+
+        <p:outputLabel value="Fakülte" />
+        <p:outputLabel value=":" />
+        <p:selectOneMenu id="faculty"
+                         value="#{cc.attrs.user.faculty}"
+                         required="true"
+                         requiredMessage="Lütfen birini seçiniz!"
+                         converter="entityConverter"
+                         styleClass="input_field">
+            <f:selectItem itemLabel="Seçiniz" />
+            <f:selectItems value="#{applicationBean.facultyList}"
+                           var="faculty"
+                           itemLabel="#{faculty.name}"
+                           itemValue="#{faculty}" />
+        </p:selectOneMenu>
+        <p:message for="faculty" />
+
+        <p:outputLabel value="Bölüm"
+                       rendered="#{cc.attrs.title eq 'STUDENT'}"/>
+        <p:outputLabel value=":"
+                       rendered="#{cc.attrs.title eq 'STUDENT'}"/>
+        <p:selectOneMenu id="department"
+                         value="#{cc.attrs.user.departmentList}"
+                         required="true"
+                         requiredMessage="Lütfen birini seçiniz!"
+                         converter="entityConverter"
+                         rendered="#{cc.attrs.title eq 'STUDENT'}"
+                         styleClass="input_field">
+            <f:selectItem itemLabel="Seçiniz" />
+            <f:selectItems value="#{applicationBean.departmentList}"
+                           var="department"
+                           itemLabel="#{department.name}"
+                           itemValue="#{department}" />
+        </p:selectOneMenu>
+        <p:message for="department"
+                   rendered="#{cc.attrs.title eq 'STUDENT'}"/>
+    </h:panelGrid>
+</composite:implementation>
+</html>

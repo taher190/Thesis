@@ -20,18 +20,9 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
     @ManyToOne
     private Faculty faculty;
 
-    @ManyToOne
-    private Department department;
-
-    @Column(columnDefinition = "tinyint(1) default 1")
     private Boolean active;
 
-    @ManyToMany(cascade = CascadeType.REFRESH)
-    @JoinTable(name = "thesistemplate_topic", joinColumns = {
-            @JoinColumn(name = "thesistemplate_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "topic_id",
-                    nullable = false, updatable = false) })
-    private List<Topic> topicList;
+    private String description;
 
     public ThesisManager getThesisManager() {
         return thesisManager;
@@ -47,14 +38,6 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
     public Faculty getFaculty() {
@@ -73,11 +56,11 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
         this.active = active;
     }
 
-    public List<Topic> getTopicList() {
-        return topicList;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTopicList(List<Topic> topicList) {
-        this.topicList = topicList;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
