@@ -1,6 +1,9 @@
 package com.thesis.model.abstracts;
 
+import com.thesis.model.Role;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Mustafa Tahir ARSLAN.
@@ -12,6 +15,7 @@ import javax.persistence.*;
         discriminatorType = DiscriminatorType.INTEGER
 )
 @DiscriminatorValue("0")
+@Table(name = "users")
 public class User<T> extends AbstractEntity<User> {
 
     private String name;
@@ -24,6 +28,12 @@ public class User<T> extends AbstractEntity<User> {
     private String password;
 
     private Boolean active;
+
+    @OneToMany
+    @JoinTable(name = "user_role",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private List<Role> roleList;
 
     public String getPassword() {
         return password;
@@ -63,5 +73,13 @@ public class User<T> extends AbstractEntity<User> {
 
     public void setEntryVal(String entryVal) {
         this.entryVal = entryVal;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 }

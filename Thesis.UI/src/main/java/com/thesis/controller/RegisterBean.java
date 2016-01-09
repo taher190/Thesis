@@ -3,8 +3,13 @@ package com.thesis.controller;
 import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.model.Student;
 import com.thesis.model.ThesisManager;
+import com.thesis.service.interfaces.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -13,6 +18,12 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class RegisterBean extends AbstractBean {
+
+    private static final String LOGIN_PAGE = "/pages/public/login.xhtml";
+    private final Logger logger = LoggerFactory.getLogger(RegisterBean.class.getName());
+
+    @ManagedProperty("#{userService}")
+    private IUserService userService;
 
     private RegisterType selectedRegisterType;
 
@@ -23,12 +34,22 @@ public class RegisterBean extends AbstractBean {
         setSelectedRegisterType(RegisterType.STUDENT);
     }
 
-    public void saveForStudent() {
-        System.out.println(student);
+    @PostConstruct
+    public void init() {
+        setThesisManager(new ThesisManager());
+        setStudent(new Student());
     }
 
-    public void saveForThesisManager() {
-        System.out.println(thesisManager);
+    public String save() {
+        if(RegisterType.STUDENT.equals(selectedRegisterType)) {
+            userService.save(student);
+            logger.info("Student({}) has been saved!", student);
+        } else if(RegisterType.THESIS_MANAGER.equals(selectedRegisterType)) {
+            userService.save(thesisManager);
+            logger.info("ThesisManager({}) has been saved!", thesisManager);
+        }
+        showMessage("İşlem başarıyla tamamlandı!");
+        return LOGIN_PAGE;
     }
 
     public RegisterType[] getRegisterTypes() {
@@ -57,6 +78,16 @@ public class RegisterBean extends AbstractBean {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    @Override
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    @Override
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
     }
 
     public enum RegisterType{

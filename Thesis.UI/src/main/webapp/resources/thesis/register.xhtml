@@ -14,79 +14,119 @@
                          required="true" />
 </composite:interface>
 <composite:implementation>
-    <h:panelGrid columns="4"
-                 styleClass="standart_panel">
-        <p:outputLabel value="Ad" />
-        <p:outputLabel value=":" />
-        <p:inputText id="name"
-                     value="#{cc.attrs.user.name}"
-                     required="true"
-                     requiredMessage="Bu alan zorunlu!" />
-        <p:message for="name" />
-
-        <p:outputLabel value="Soyad" />
-        <p:outputLabel value=":" />
-        <p:inputText id="surname"
-                     value="#{cc.attrs.user.surname}"
-                     required="true"
-                     requiredMessage="Bu alan zorunlu!" />
-        <p:message for="surname " />
-
-        <p:outputLabel value="Şifre" />
-        <p:outputLabel value=":" />
-        <p:inputText id="pass"
-                     value="#{cc.attrs.user.pass}"
-                     required="true"
-                     requiredMessage="Bu alan zorunlu!" />
-        <p:message for="pass" />
-
-        <p:outputLabel rendered="#{cc.attrs.title eq 'STUDENT'}"
-                       value="Takma ad" />
-        <p:outputLabel rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
-                       value="Öğrenci Numarası" />
-        <p:outputLabel value=":" />
-        <p:inputText id="nick"
-                     value="#{cc.attrs.user.entryVal}"
-                     required="true"
-                     requiredMessage="Bu alan zorunlu!"
-                     placeholder="Bu değer giriş için kullanılacak" />
-        <p:message for="nick" />
-
-        <p:outputLabel value="Fakülte" />
-        <p:outputLabel value=":" />
-        <p:selectOneMenu id="faculty"
-                         value="#{cc.attrs.user.faculty}"
+    <p:fieldset legend="Kaydol">
+        <h:panelGrid id="inner_register_field"
+                     columns="4"
+                     columnClasses="col1_width"
+                     styleClass="standart_panel">
+            <p:outputLabel value="Ad" />
+            <p:outputLabel value=":" />
+            <p:inputText id="name"
+                         value="#{cc.attrs.user.name}"
+                         styleClass="input_field"
                          required="true"
-                         requiredMessage="Lütfen birini seçiniz!"
-                         converter="entityConverter"
-                         styleClass="input_field">
-            <f:selectItem itemLabel="Seçiniz" />
-            <f:selectItems value="#{applicationBean.facultyList}"
-                           var="faculty"
-                           itemLabel="#{faculty.name}"
-                           itemValue="#{faculty}" />
-        </p:selectOneMenu>
-        <p:message for="faculty" />
+                         requiredMessage="Bu alan zorunlu!" />
+            <p:message for="name" />
 
-        <p:outputLabel value="Bölüm"
-                       rendered="#{cc.attrs.title eq 'STUDENT'}"/>
-        <p:outputLabel value=":"
-                       rendered="#{cc.attrs.title eq 'STUDENT'}"/>
-        <p:selectOneMenu id="department"
-                         value="#{cc.attrs.user.departmentList}"
+            <p:outputLabel value="Soyad" />
+            <p:outputLabel value=":" />
+            <p:inputText id="surname"
+                         value="#{cc.attrs.user.surname}"
+                         styleClass="input_field"
                          required="true"
-                         requiredMessage="Lütfen birini seçiniz!"
-                         converter="entityConverter"
+                         requiredMessage="Bu alan zorunlu!" />
+            <p:message for="surname " />
+
+            <p:outputLabel value="Şifre" />
+            <p:outputLabel value=":" />
+            <p:password id="pass"
+                        value="#{cc.attrs.user.password}"
+                        styleClass="input_field"
+                        feedback="true"
+                        promptLabel="Lütfen şifre giriniz!"
+                        weakLabel="Zayıf"
+                        goodLabel="İyi"
+                        strongLabel="Güçlü"
+                        match="pass2"
+                        required="true"
+                        requiredMessage="Bu alan zorunlu!" />
+            <p:message for="pass" />
+
+            <p:outputLabel value="Şifre(Tekrar)" />
+            <p:outputLabel value=":" />
+            <p:password id="pass2"
+                        value="#{cc.attrs.user.password}"
+                        styleClass="input_field"
+                        required="true"
+                        requiredMessage="Bu alan zorunlu!" />
+            <p:message for="pass2" />
+
+
+            <p:outputLabel rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
+                           value="Kullanıcı adı" />
+            <p:outputLabel rendered="#{cc.attrs.title eq 'STUDENT'}"
+                           value="Öğrenci Numarası" />
+            <p:outputLabel value=":" />
+            <p:inputText id="nick"
+                         value="#{cc.attrs.user.entryVal}"
+                         styleClass="input_field"
+                         rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
+                         required="true"
+                         requiredMessage="Bu alan zorunlu!"
+                         placeholder="Bu değer giriş için kullanılacak" />
+            <p:message for="nick"
+                       rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}" />
+
+            <p:inputMask id="student_number"
+                         mask="9999999999999"
+                         value="#{cc.attrs.user.entryVal}"
+                         styleClass="input_field"
                          rendered="#{cc.attrs.title eq 'STUDENT'}"
-                         styleClass="input_field">
-            <f:selectItem itemLabel="Seçiniz" />
-            <f:selectItems value="#{applicationBean.departmentList}"
-                           var="department"
-                           itemLabel="#{department.name}"
-                           itemValue="#{department}" />
-        </p:selectOneMenu>
-        <p:message for="department"
-                   rendered="#{cc.attrs.title eq 'STUDENT'}"/>
-    </h:panelGrid>
+                         required="true"
+                         requiredMessage="Bu alan zorunlu!" />
+            <p:message for="student_number"
+                       rendered="#{cc.attrs.title eq 'STUDENT'}" />
+
+            <p:outputLabel value="Fakülte" />
+            <p:outputLabel value=":" />
+            <p:selectOneMenu id="faculty"
+                             value="#{cc.attrs.user.faculty}"
+                             required="true"
+                             requiredMessage="Lütfen birini seçiniz!"
+                             converter="entityConverter"
+                             styleClass="input_field">
+                <f:selectItem itemLabel="Seçiniz" />
+                <f:selectItems value="#{applicationBean.facultyList}"
+                               var="faculty"
+                               itemLabel="#{faculty.name}"
+                               itemValue="#{faculty}" />
+            </p:selectOneMenu>
+            <p:message for="faculty" />
+
+            <p:outputLabel value="Bölüm" />
+            <p:outputLabel value=":" />
+            <p:selectOneMenu id="department"
+                             value="#{cc.attrs.user.department}"
+                             required="true"
+                             requiredMessage="Lütfen birini seçiniz!"
+                             converter="entityConverter"
+                             styleClass="input_field">
+                <f:selectItem itemLabel="Seçiniz" />
+                <f:selectItems value="#{applicationBean.departmentList}"
+                               var="department"
+                               itemLabel="#{department.name}"
+                               itemValue="#{department}" />
+            </p:selectOneMenu>
+            <p:message for="department" />
+
+            <p:outputLabel />
+            <p:outputLabel />
+            <p:commandButton value="Kaydol"
+                             action="#{registerBean.save}"
+                             ignoreAutoUpdate="true"
+                             process="inner_register_field"
+                             update="inner_register_field" />
+        </h:panelGrid>
+    </p:fieldset>
 </composite:implementation>
 </html>
