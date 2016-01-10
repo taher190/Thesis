@@ -35,7 +35,12 @@ public class SpringSecurityAuthenticationProvider implements IAuthenticationProv
         try {
             User user = userRepository.retrieveUserByEntryVal(username);
             Collection authoritieSet = new HashSet();
-            if("asd".equals(user.getEntryVal())) {
+            if("oguzfindik".equals(user.getEntryVal())
+                    || "yasinortakci".equals(user.getEntryVal())
+                    || "burhanselçuk".equals(user.getEntryVal())
+                    || "yukselcelik".equals(user.getEntryVal())
+                    || "safakbayir".equals(user.getEntryVal())
+                    ) {
                 authoritieSet.add(new GrantedAuthorityImpl("ROLE_THESIS_MANAGER"));
             } else if("admin".equals(user.getEntryVal())) {
                 authoritieSet.add(new GrantedAuthorityImpl("ROLE_ADMIN"));

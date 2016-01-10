@@ -36,6 +36,9 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
     @Override
     public boolean isQuotaHasExpired(ThesisManager thesisManager) {
         Season season = seasonService.retrieveCurrentSeason(thesisManager);
+        if(season == null) {
+            return true;
+        }
         int quota = season.getQuota();
         int numberOfAppeal = 0;
 
