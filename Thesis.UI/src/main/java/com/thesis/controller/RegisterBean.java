@@ -19,8 +19,9 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class RegisterBean extends AbstractBean {
 
-    private static final String LOGIN_PAGE = "/pages/public/login.xhtml";
     private final Logger logger = LoggerFactory.getLogger(RegisterBean.class.getName());
+
+    private static final String LOGIN_PAGE = "/pages/public/login.xhtml";
 
     @ManagedProperty("#{userService}")
     private IUserService userService;

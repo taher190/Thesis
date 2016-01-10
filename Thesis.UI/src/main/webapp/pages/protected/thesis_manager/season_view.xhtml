@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:thesis="http://java.sun.com/jsf/composite/thesis"
+      xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{seasonBean.loadSeason}" />
+</f:metadata>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <p:panel header="Tez sezonunu güncelleyin veya silin"
+                 id="thesis_template_component">
+
+            <p:outputLabel value="Şu an için oluşturulmuş bir sezon bulunmamaktadır."
+                           rendered="#{empty seasonBean.season}" />
+
+            <thesis:season season="#{seasonBean.season}"
+                           crudOperation="#{seasonBean}"
+                           rendered="#{not empty seasonBean.season}"
+                           mode="edit" />
+        </p:panel>
+    </ui:define>
+</ui:composition>
+</html>

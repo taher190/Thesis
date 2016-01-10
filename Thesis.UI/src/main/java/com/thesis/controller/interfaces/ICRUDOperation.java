@@ -3,7 +3,7 @@ package com.thesis.controller.interfaces;
 /**
  * Created by Mustafa Tahir ARSLAN
  */
-public interface IThesisTemplateOperation {
+public interface ICRUDOperation {
 
     void save();
 

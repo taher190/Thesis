@@ -5,6 +5,7 @@ import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 import com.thesis.repository.interfaces.IThesisTemplateRepository;
 import com.thesis.service.abstracts.AbstractService;
+import com.thesis.service.interfaces.ISeasonService;
 import com.thesis.service.interfaces.IThesisTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,18 @@ public class ThesisTemplateService extends AbstractService<ThesisTemplate> imple
     private IThesisTemplateRepository thesisTemplateRepository;
 
     @Autowired
+    private ISeasonService seasonService;
+
+    @Autowired
     public ThesisTemplateService(IThesisTemplateRepository thesisTemplateRepository) {
         super(thesisTemplateRepository);
         this.thesisTemplateRepository = thesisTemplateRepository;
     }
 
-
     @Override
     public void save(ThesisTemplate thesisTemplate) {
         thesisTemplate.setActive(true);
+        thesisTemplate.setSeason(seasonService.retrieveCurrentSeason());
         super.save(thesisTemplate);
     }
 
@@ -42,5 +46,13 @@ public class ThesisTemplateService extends AbstractService<ThesisTemplate> imple
     @Override
     public List<ThesisTemplate> retrieveByThesisManager(ThesisManager thesisManager) {
         return thesisTemplateRepository.retrieveByThesisManager(thesisManager);
+    }
+
+    public ISeasonService getSeasonService() {
+        return seasonService;
+    }
+
+    public void setSeasonService(ISeasonService seasonService) {
+        this.seasonService = seasonService;
     }
 }

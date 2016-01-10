@@ -1,7 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
-import com.thesis.controller.interfaces.IThesisTemplateOperation;
+import com.thesis.controller.interfaces.ICRUDOperation;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
 import com.thesis.service.interfaces.IThesisTemplateService;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @ManagedBean
 @ViewScoped
-public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateOperation {
+public class ThesisTemplateBean extends AbstractBean implements ICRUDOperation {
 
     private final Logger logger = LoggerFactory.getLogger(ThesisTemplateBean.class.getName());
 
@@ -54,7 +54,6 @@ public class ThesisTemplateBean extends AbstractBean implements IThesisTemplateO
 
     @Override
     public void update() {
-        //thesisTemplate.setTopicList(getSelectedTopicList());
         thesisTemplateService.update(thesisTemplate);
         logger.info("ThesisTemplate({}) has been updated!", thesisTemplate);
         showMessage("Tez şablonu başarıyla güncellendi!");

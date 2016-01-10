@@ -3,7 +3,6 @@ body {
     font-size: 12px !important;
     padding-left: 46px !important;
     padding-right: 46px !important;
-    padding-top: 28px !important;
 }
 
 .ui-layout-pane {
@@ -42,10 +41,8 @@ body {
 }
 
 .uni_logo {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 167px;
+    width: 127px;
+    float: left;
 }
 
 .col1_width {

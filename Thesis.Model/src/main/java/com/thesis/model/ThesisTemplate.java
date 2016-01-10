@@ -24,6 +24,9 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     private String description;
 
+    @ManyToOne
+    private Season season;
+
     public ThesisManager getThesisManager() {
         return thesisManager;
     }
@@ -62,5 +65,13 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 }

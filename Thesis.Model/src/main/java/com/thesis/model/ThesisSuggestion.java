@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
  * Created by Mustafa Tahir ARSLAN
  */
 @Entity
-public class ThesisSuggestion extends AbstractEntity {
+public class ThesisSuggestion extends AbstractEntity<ThesisSuggestion> {
 
     @Column(length = 400)
     private String text;
@@ -20,6 +20,9 @@ public class ThesisSuggestion extends AbstractEntity {
 
     @ManyToOne
     private ThesisManager thesisManager;
+
+    @ManyToOne
+    private Season season;
 
     public Student getStudent() {
         return student;
@@ -43,5 +46,13 @@ public class ThesisSuggestion extends AbstractEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 }

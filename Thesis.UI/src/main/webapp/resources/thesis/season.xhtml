@@ -9,10 +9,10 @@
 
 <h:body>
     <composite:interface>
-        <composite:attribute name="thesisTemplate"
-                             type="com.thesis.model.ThesisTemplate"
+        <composite:attribute name="season"
+                             type="com.thesis.model.Season"
                              required="true"/>
-        <composite:attribute name="thesisTemplateOperation"
+        <composite:attribute name="crudOperation"
                              type="com.thesis.controller.interfaces.ICRUDOperation"
                              required="true" />
         <composite:attribute name="mode"
@@ -27,45 +27,55 @@
                      columns="4"
                      columnClasses="thesis_template_panel_col1"
                      styleClass="standart_panel">
-            <p:outputLabel value="Tez Konusu" />
+            <p:outputLabel value="Tez dönemi başlangıç tarihi" />
             <p:outputLabel value=":" />
-            <p:inputText id="name"
-                         value="#{cc.attrs.thesisTemplate.name}"
-                         required="true"
-                         requiredMessage="Lütfen bu alanı doldurunuz!"
-                         styleClass="input_field"
-                         placeholder="Tez şablonunuza bir isim verin..." />
-            <p:message for="name" />
+            <p:calendar id="start_date"
+                        value="#{cc.attrs.season.startDate}"
+                        locale="tr"
+                        required="true"
+                        requiredMessage="Lütfen bu alanı doldurunuz!"
+                        disabled="#{cc.attrs.mode eq 'edit'}"
+                        styleClass="input_field" />
+            <p:message for="start_date" />
 
-            <p:outputLabel value="Açıklama" />
+            <p:outputLabel value="Tez dönemi bitiş tarihi" />
             <p:outputLabel value=":" />
-            <p:inputTextarea id="desc"
-                         value="#{cc.attrs.thesisTemplate.description}"
-                         required="true"
-                         requiredMessage="Lütfen bu alanı doldurunuz!"
+            <p:calendar id="end_date"
+                        locale="tr"
+                        value="#{cc.attrs.season.endDate}"
+                        required="true"
+                        requiredMessage="Lütfen bu alanı doldurunuz!"
+                        styleClass="input_field" />
+            <p:message for="end_date" />
+
+            <p:outputLabel value="Tez alabilecek öğrenci sayısı" />
+            <p:outputLabel value=":" />
+            <p:inputText id="quota"
+                         value="#{cc.attrs.season.quota}"
                          styleClass="input_field"
-                         placeholder="Tez şablonunuza bir açıklama girin..." />
-            <p:message for="desc" />
+                         required="true"
+                         requiredMessage="Bu alan zorunlu!" />
+            <p:message for="quota" />
 
             <p:outputLabel />
             <p:outputLabel />
             <p:outputPanel>
                 <p:commandButton value="Kaydet"
-                                 actionListener="#{cc.attrs.thesisTemplateOperation.save}"
+                                 actionListener="#{cc.attrs.crudOperation.save}"
                                  rendered="#{cc.attrs.mode eq 'save'}"
                                  ignoreAutoUpdate="true"
                                  process="thesis_template_panel"
                                  update="thesis_template_panel" />
                 &nbsp;
                 <p:commandButton value="Güncelle"
-                                 actionListener="#{cc.attrs.thesisTemplateOperation.update}"
+                                 actionListener="#{cc.attrs.crudOperation.update}"
                                  rendered="#{cc.attrs.mode eq 'edit'}"
                                  ignoreAutoUpdate="true"
                                  process="thesis_template_panel"
                                  update="thesis_template_panel" />
                 &nbsp;
                 <p:commandLink value="Sil"
-                               actionListener="#{cc.attrs.thesisTemplateOperation.delete}"
+                               actionListener="#{cc.attrs.crudOperation.delete}"
                                rendered="#{cc.attrs.mode eq 'edit'}"
                                ignoreAutoUpdate="true"
                                process="@none"
