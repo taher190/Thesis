@@ -76,6 +76,10 @@ public class ThesisAppealBean extends AbstractBean {
         RequestContext.getCurrentInstance().execute("PF('thesis_suggestion_dialog').hide();");
     }
 
+    public boolean isQuotaHasExpired(ThesisManager thesisManager) {
+        return thesisAppealService.isQuotaHasExpired(thesisManager);
+    }
+
     public void selectThesisTemplate() {
         logger.info("ThesisTemplate({}) selected!", selectedThesisTemplate);
     }

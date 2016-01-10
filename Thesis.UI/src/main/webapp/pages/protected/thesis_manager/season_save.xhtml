@@ -13,6 +13,8 @@
             <thesis:season season="#{seasonBean.season}"
                            crudOperation="#{seasonBean}"
                            mode="save" />
+            <p:outputLabel value="*Aynı tarihler arasında sadece bir tane tez sezonu oluşturulmalıdır!"
+                           style="font-size: 11px; font-style: italic;" />
         </p:panel>
     </ui:define>
 </ui:composition>

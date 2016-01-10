@@ -24,6 +24,9 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     private String description;
 
+    @OneToMany(mappedBy = "thesisTemplate", cascade = {CascadeType.REMOVE, CascadeType.DETACH})
+    private List<ThesisAppeal> thesisAppealList;
+
     @ManyToOne
     private Season season;
 
@@ -73,5 +76,13 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setSeason(Season season) {
         this.season = season;
+    }
+
+    public List<ThesisAppeal> getThesisAppealList() {
+        return thesisAppealList;
+    }
+
+    public void setThesisAppealList(List<ThesisAppeal> thesisAppealList) {
+        this.thesisAppealList = thesisAppealList;
     }
 }

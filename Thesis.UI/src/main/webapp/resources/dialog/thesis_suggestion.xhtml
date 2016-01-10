@@ -26,7 +26,7 @@
                     <f:selectItem itemLabel="Seçiniz" />
                     <f:selectItems value="#{thesisAppealBean.thesisManagerList}"
                                    var="thesisManagerForSuggestion"
-                                   itemLabel="#{thesisManagerForSuggestion.name}"
+                                   itemLabel="#{thesisManagerForSuggestion.title.name} #{thesisManagerForSuggestion.name} #{thesisManagerForSuggestion.surname}"
                                    itemValue="#{thesisManagerForSuggestion}" />
                 </p:selectOneMenu>
                 <p:message for="thesis_manager_for_suggestion" />
@@ -41,7 +41,10 @@
                                  required="true"
                                  requiredMessage="Lütfen bu alanı doldurunuz!"
                                  styleClass="input_field"
-                                 placeholder="Tez önerinizi açıklayıcı olmasına dikkat ediniz! 400 karakter sınırını aşmayınız!" />
+                                 placeholder="Tez önerinizin açıklayıcı olmasına dikkat ediniz!" />
+                <br />
+                <p:outputLabel value="400 karakter ile sınırlıdır!"
+                               style="font-size: 11px; font-style: italic;" />
                 <p:message for="thesis_suggestion" />
             </p:outputPanel>
 

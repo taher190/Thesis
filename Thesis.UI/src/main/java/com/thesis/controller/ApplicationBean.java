@@ -3,8 +3,10 @@ package com.thesis.controller;
 import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.model.Department;
 import com.thesis.model.Faculty;
+import com.thesis.model.Title;
 import com.thesis.service.interfaces.IDepartmentService;
 import com.thesis.service.interfaces.IFacultyService;
+import com.thesis.service.interfaces.ITitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,19 +31,25 @@ public class ApplicationBean extends AbstractBean {
     @ManagedProperty("#{departmentService}")
     private IDepartmentService departmentService;
 
+    @ManagedProperty("#{titleService}")
+    private ITitleService titleService;
+
     private List<Faculty> facultyList;
     private List<Department> departmentList;
+    private List<Title> titleList;
 
     @PostConstruct
     public void init() {
         try {
             setFacultyList(facultyService.retrieveAll());
             setDepartmentList(departmentService.retrieveAll());
+            setTitleList(titleService.retrieveAll());
         } catch (Exception ex) {
             logger.error("ApplicationBean class failed, result: {}", ex.getMessage());
             ex.printStackTrace();
         }
     }
+
     public List<Faculty> getFacultyList() {
         return facultyList;
     }
@@ -49,7 +57,6 @@ public class ApplicationBean extends AbstractBean {
     public void setFacultyList(List<Faculty> facultyList) {
         this.facultyList = facultyList;
     }
-
     public List<Department> getDepartmentList() {
         return departmentList;
     }
@@ -72,5 +79,21 @@ public class ApplicationBean extends AbstractBean {
 
     public void setDepartmentService(IDepartmentService departmentService) {
         this.departmentService = departmentService;
+    }
+
+    public ITitleService getTitleService() {
+        return titleService;
+    }
+
+    public void setTitleService(ITitleService titleService) {
+        this.titleService = titleService;
+    }
+
+    public List<Title> getTitleList() {
+        return titleList;
+    }
+
+    public void setTitleList(List<Title> titleList) {
+        this.titleList = titleList;
     }
 }

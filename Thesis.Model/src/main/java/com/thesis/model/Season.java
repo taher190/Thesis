@@ -2,6 +2,7 @@ package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,23 +15,20 @@ import java.util.List;
 @Entity
 public class Season extends AbstractEntity<Season> {
 
-    @ManyToOne
-    private ThesisManager thesisManager;
-
     private Integer quota;
 
-    @OneToMany(mappedBy = "season")
+    @OneToMany(mappedBy = "season", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<ThesisTemplate> thesisTemplateList;
 
-    @OneToMany(mappedBy = "season")
+    @OneToMany(mappedBy = "season", cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     private List<ThesisSuggestion> thesisSuggestionList;
-
-    @ManyToOne
-    private Season season;
 
     private Date startDate;
 
     private Date endDate;
+
+    @ManyToOne
+    private ThesisManager thesisManager;
 
     public List<ThesisSuggestion> getThesisSuggestionList() {
         return thesisSuggestionList;
@@ -56,22 +54,6 @@ public class Season extends AbstractEntity<Season> {
         this.quota = quota;
     }
 
-    public ThesisManager getThesisManager() {
-        return thesisManager;
-    }
-
-    public void setThesisManager(ThesisManager thesisManager) {
-        this.thesisManager = thesisManager;
-    }
-
-    public Season getSeason() {
-        return season;
-    }
-
-    public void setSeason(Season season) {
-        this.season = season;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -86,5 +68,13 @@ public class Season extends AbstractEntity<Season> {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public ThesisManager getThesisManager() {
+        return thesisManager;
+    }
+
+    public void setThesisManager(ThesisManager thesisManager) {
+        this.thesisManager = thesisManager;
     }
 }

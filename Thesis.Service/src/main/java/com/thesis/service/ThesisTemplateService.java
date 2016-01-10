@@ -1,5 +1,6 @@
 package com.thesis.service;
 
+import com.thesis.model.Season;
 import com.thesis.model.Student;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
@@ -34,7 +35,8 @@ public class ThesisTemplateService extends AbstractService<ThesisTemplate> imple
     @Override
     public void save(ThesisTemplate thesisTemplate) {
         thesisTemplate.setActive(true);
-        thesisTemplate.setSeason(seasonService.retrieveCurrentSeason());
+        Season season = seasonService.retrieveCurrentSeason(thesisTemplate.getThesisManager());
+        thesisTemplate.setSeason(season);
         super.save(thesisTemplate);
     }
 

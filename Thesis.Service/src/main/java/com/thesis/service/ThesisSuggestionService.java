@@ -1,5 +1,6 @@
 package com.thesis.service;
 
+import com.thesis.model.Season;
 import com.thesis.model.ThesisSuggestion;
 import com.thesis.repository.interfaces.IThesisSuggestionRepository;
 import com.thesis.service.abstracts.AbstractService;
@@ -27,7 +28,8 @@ public class ThesisSuggestionService extends AbstractService<ThesisSuggestion> i
 
     @Override
     public void save(ThesisSuggestion thesisSuggestion) {
-        thesisSuggestion.setSeason(seasonService.retrieveCurrentSeason());
+        Season season = seasonService.retrieveCurrentSeason(thesisSuggestion.getThesisManager());
+        thesisSuggestion.setSeason(season);
         thesisSuggestionRepository.save(thesisSuggestion);
     }
 

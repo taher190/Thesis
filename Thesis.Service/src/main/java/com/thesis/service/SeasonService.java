@@ -1,6 +1,7 @@
 package com.thesis.service;
 
 import com.thesis.model.Season;
+import com.thesis.model.ThesisManager;
 import com.thesis.repository.interfaces.IAbstractRepository;
 import com.thesis.repository.interfaces.ISeasonRepository;
 import com.thesis.service.abstracts.AbstractService;
@@ -24,7 +25,7 @@ public class SeasonService extends AbstractService<Season> implements ISeasonSer
     }
 
     @Override
-    public Season retrieveCurrentSeason() {
-        return seasonRepository.retrieveCurrentSeason();
+    public Season retrieveCurrentSeason(ThesisManager thesisManager) {
+        return seasonRepository.retrieveCurrentSeason(thesisManager);
     }
 }

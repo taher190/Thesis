@@ -3,6 +3,7 @@ package com.thesis.controller;
 import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.controller.interfaces.ICRUDOperation;
 import com.thesis.model.Season;
+import com.thesis.model.ThesisManager;
 import com.thesis.service.interfaces.ISeasonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,8 @@ public class SeasonBean extends AbstractBean implements ICRUDOperation {
 
     @Override
     public void save() {
+        ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
+        season.setThesisManager(thesisManager);
         seasonService.save(season);
         logger.info("Season({}) has been saved!", season);
         showMessage("Tez dönemi başarıyla oluşturuldu!");
@@ -51,7 +54,8 @@ public class SeasonBean extends AbstractBean implements ICRUDOperation {
     }
 
     public void loadSeason() {
-        setSeason(seasonService.retrieveCurrentSeason());
+        ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
+        setSeason(seasonService.retrieveCurrentSeason(thesisManager));
     }
 
     public Season getSeason() {

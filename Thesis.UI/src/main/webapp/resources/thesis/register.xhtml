@@ -10,7 +10,7 @@
 <composite:interface>
     <composite:attribute name="user"
                          required="true" />
-    <composite:attribute name="title"
+    <composite:attribute name="type"
                          required="true" />
 </composite:interface>
 <composite:implementation>
@@ -19,6 +19,26 @@
                      columns="4"
                      columnClasses="col1_width"
                      styleClass="standart_panel">
+            <p:outputLabel value="Ünvan"
+                           rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}" />
+            <p:outputLabel value=":"
+                           rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}"/>
+            <p:selectOneMenu id="title"
+                             rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}"
+                             value="#{cc.attrs.user.title}"
+                             required="true"
+                             requiredMessage="Lütfen birini seçiniz!"
+                             converter="entityConverter"
+                             styleClass="input_field">
+                <f:selectItem itemLabel="Seçiniz" />
+                <f:selectItems value="#{applicationBean.titleList}"
+                               var="title"
+                               itemLabel="#{title.name}"
+                               itemValue="#{title}" />
+            </p:selectOneMenu>
+            <p:message for="title"
+                       rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}"/>
+
             <p:outputLabel value="Ad" />
             <p:outputLabel value=":" />
             <p:inputText id="name"
@@ -62,30 +82,30 @@
             <p:message for="pass2" />
 
 
-            <p:outputLabel rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
+            <p:outputLabel rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}"
                            value="Kullanıcı adı" />
-            <p:outputLabel rendered="#{cc.attrs.title eq 'STUDENT'}"
+            <p:outputLabel rendered="#{cc.attrs.type eq 'STUDENT'}"
                            value="Öğrenci Numarası" />
             <p:outputLabel value=":" />
             <p:inputText id="nick"
                          value="#{cc.attrs.user.entryVal}"
                          styleClass="input_field"
-                         rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}"
+                         rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}"
                          required="true"
                          requiredMessage="Bu alan zorunlu!"
                          placeholder="Bu değer giriş için kullanılacak" />
             <p:message for="nick"
-                       rendered="#{cc.attrs.title eq 'THESIS_MANAGER'}" />
+                       rendered="#{cc.attrs.type eq 'THESIS_MANAGER'}" />
 
             <p:inputMask id="student_number"
                          mask="9999999999999"
                          value="#{cc.attrs.user.entryVal}"
                          styleClass="input_field"
-                         rendered="#{cc.attrs.title eq 'STUDENT'}"
+                         rendered="#{cc.attrs.type eq 'STUDENT'}"
                          required="true"
                          requiredMessage="Bu alan zorunlu!" />
             <p:message for="student_number"
-                       rendered="#{cc.attrs.title eq 'STUDENT'}" />
+                       rendered="#{cc.attrs.type eq 'STUDENT'}" />
 
             <p:outputLabel value="Fakülte" />
             <p:outputLabel value=":" />

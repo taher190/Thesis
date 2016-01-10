@@ -25,13 +25,13 @@
             <h:panelGrid rendered="#{registerBean.selectedRegisterType eq 'STUDENT'}" >
 
                 <thesis:register user="#{registerBean.student}"
-                                 title="#{registerBean.selectedRegisterType}" />
+                                 type="#{registerBean.selectedRegisterType}" />
 
             </h:panelGrid>
             <h:panelGrid rendered="#{registerBean.selectedRegisterType eq 'THESIS_MANAGER'}" >
 
                 <thesis:register user="#{registerBean.thesisManager}"
-                                 title="#{registerBean.selectedRegisterType}" />
+                                 type="#{registerBean.selectedRegisterType}" />
 
             </h:panelGrid>
         </p:outputPanel>

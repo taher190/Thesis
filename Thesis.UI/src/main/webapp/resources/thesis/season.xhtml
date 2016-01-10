@@ -52,9 +52,11 @@
             <p:outputLabel value=":" />
             <p:inputText id="quota"
                          value="#{cc.attrs.season.quota}"
-                         styleClass="input_field"
                          required="true"
-                         requiredMessage="Bu alan zorunlu!" />
+                         style="width: 78px !important"
+                         requiredMessage="Bu alan zorunlu!">
+                <f:validateLongRange minimum="1" maximum="999" />
+            </p:inputText>
             <p:message for="quota" />
 
             <p:outputLabel />
@@ -65,7 +67,8 @@
                                  rendered="#{cc.attrs.mode eq 'save'}"
                                  ignoreAutoUpdate="true"
                                  process="thesis_template_panel"
-                                 update="thesis_template_panel" />
+                                 update="thesis_template_panel"
+                                 onsuccess="refreshPage()"/>
                 &nbsp;
                 <p:commandButton value="Güncelle"
                                  actionListener="#{cc.attrs.crudOperation.update}"
@@ -83,6 +86,11 @@
             </p:outputPanel>
             <p:outputLabel />
         </h:panelGrid>
+        <h:outputScript>
+            function refreshPage() {
+                location.reload();
+            }
+        </h:outputScript>
     </composite:implementation>
 </h:body>
 </html>

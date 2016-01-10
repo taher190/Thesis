@@ -13,17 +13,20 @@
             <p:menuitem value="Tez sezonu oluştur"
                         icon="ui-icon-disk"
                         outcome="/pages/protected/thesis_manager/season_save.xhtml" />
-            <p:menuitem value="Tez sezonlarını incele"
+            <p:menuitem value="Tez sezonunu incele"
                         icon="ui-icon-search"
                         outcome="/pages/protected/thesis_manager/season_view.xhtml" />
         </p:submenu>
-        <p:submenu label="Tez işlemleri"
+        <p:submenu id="tez_islemleri"
+                   label="Tez işlemleri"
                    rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
             <p:menuitem value="Tez şablonu oluştur"
                         icon="ui-icon-disk"
+                        disabled="#{!menuBean.createdSeasonAtNow}"
                         outcome="/pages/protected/thesis_manager/thesis_template_save.xhtml" />
             <p:menuitem value="Tez şablonlarını incele"
                         icon="ui-icon-search"
+                        disabled="#{!menuBean.createdSeasonAtNow}"
                         outcome="/pages/protected/thesis_manager/thesis_template_view.xhtml" />
         </p:submenu>
         <p:submenu label="Yönetici işlemleri"

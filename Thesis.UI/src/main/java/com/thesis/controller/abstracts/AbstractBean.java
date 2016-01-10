@@ -3,6 +3,7 @@ package com.thesis.controller.abstracts;
 import com.thesis.controller.ApplicationBean;
 import com.thesis.model.Department;
 import com.thesis.model.Faculty;
+import com.thesis.model.Title;
 import com.thesis.model.abstracts.User;
 import com.thesis.service.interfaces.IUserService;
 import org.primefaces.context.RequestContext;
@@ -41,6 +42,11 @@ public abstract class AbstractBean implements Serializable {
     public List<Department> getDepartmentList() {
         ApplicationBean applicationBean = getBean(APPLICATION_BEAN);
         return applicationBean.getDepartmentList();
+    }
+
+    public List<Title> getTitleList() {
+        ApplicationBean applicationBean = getBean(APPLICATION_BEAN);
+        return applicationBean.getTitleList();
     }
 
     protected User getLoggedInUser() {

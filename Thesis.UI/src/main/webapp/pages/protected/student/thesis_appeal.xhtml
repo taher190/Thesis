@@ -25,7 +25,8 @@
                     <f:selectItem itemLabel="Seçiniz" />
                     <f:selectItems value="#{thesisAppealBean.thesisManagerList}"
                                    var="thesisManager"
-                                   itemLabel="#{thesisManager.name}"
+                                   itemDisabled="#{thesisAppealBean.isQuotaHasExpired(thesisManager)}"
+                                   itemLabel="#{thesisManager.title.name} #{thesisManager.name} #{thesisManager.surname}"
                                    itemValue="#{thesisManager}" />
                     <p:ajax event="change"
                             process="@this"
