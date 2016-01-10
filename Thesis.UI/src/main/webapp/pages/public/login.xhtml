@@ -6,27 +6,39 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
+<h:head>
+	<h:outputStylesheet>
+		html {
+			background: url("${request.contextPath}/resources/img/login.jpg") no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+	</h:outputStylesheet>
+</h:head>
 <h:body>
-	<form id="form" name='f' action='${request.contextPath}/j_spring_security_check'
-		  method="post">
-		<table>
-			<tr>
-				<td>Kullanıcı :</td>
-				<td><input id="j_username" type='text' name='j_username' value='' /></td>
-			</tr>
-			<tr>
-				<td>Şifre :</td>
-				<td><input id="j_password" type='password' name='j_password' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'>
-					<input name="submit" type="submit" id="submit"
-									   value="Giriş" />
-					yada <a href="${request.contextPath}/pages/public/register.xhtml">kayıt ol</a>
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div style="margin-left: auto; margin-right: auto; width: 300px; margin-top: 150px; ">
+		<form id="form" name='f' action='${request.contextPath}/j_spring_security_check'
+			  method="post">
+			<table>
+				<tr>
+					<td>Kullanıcı :</td>
+					<td><input id="j_username" type='text' name='j_username' value='' /></td>
+				</tr>
+				<tr>
+					<td>Şifre :</td>
+					<td><input id="j_password" type='password' name='j_password' /></td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<input name="submit" type="submit" id="submit"
+							   value="Giriş" />
+						yada <a href="${request.contextPath}/pages/public/register.xhtml">kayıt ol</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </h:body>
 </html>
