@@ -1,12 +1,9 @@
 package com.thesis.repository.abstracts;
 
-import com.mchange.v2.lang.ObjectUtils;
-import com.thesis.model.ThesisTemplate;
 import com.thesis.model.abstracts.IEntity;
 import com.thesis.repository.interfaces.IAbstractRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +13,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Map;
 
 import static org.jodah.typetools.TypeResolver.resolveRawArguments;
 
@@ -29,7 +25,7 @@ public abstract class
 
     private final Logger logger = LoggerFactory.getLogger(AbstractRepository.class.getName());
 
-    @PersistenceContext(unitName = "entityManagerFactory")
+    @PersistenceContext
     private EntityManager entityManager;
 
     private Class<T> entityClass;

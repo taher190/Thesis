@@ -1,12 +1,17 @@
 package com.thesis.service.abstracts;
 
+import com.thesis.model.abstracts.AbstractEntity;
 import com.thesis.model.abstracts.IEntity;
 import com.thesis.repository.interfaces.IAbstractRepository;
 import com.thesis.service.interfaces.IAbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,13 +27,34 @@ public abstract class AbstractService<T extends IEntity> implements IAbstractSer
         this.abstractRepository = abstractRepository;
     }
 
+    private void setLastChangedUser(AbstractEntity abstractEntity) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUserName = auth.getName();
+        if(StringUtils.isEmpty(loggedInUserName)) {
+            loggedInUserName = "anonymous";
+        }
+        abstractEntity.setLastChangedUser(loggedInUserName);
+    }
+
     @Override
     public void save(T entity) {
+        if (entity instanceof AbstractEntity) {
+            AbstractEntity abstractEntity = (AbstractEntity) entity;
+            abstractEntity.setCreatedDate(new Date());
+
+            setLastChangedUser(abstractEntity);
+        }
         abstractRepository.save(entity);
     }
 
     @Override
     public void update(T entity) {
+        if (entity instanceof AbstractEntity) {
+            AbstractEntity abstractEntity = (AbstractEntity) entity;
+            abstractEntity.setUpdatedDate(new Date());
+
+            setLastChangedUser(abstractEntity);
+        }
         abstractRepository.update(entity);
     }
 

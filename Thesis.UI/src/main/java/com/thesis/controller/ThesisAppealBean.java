@@ -1,6 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.exception.SeasonNotFoundException;
 import com.thesis.model.*;
 import com.thesis.repository.interfaces.IThesisSuggestionRepository;
 import com.thesis.service.interfaces.IThesisAppealService;
@@ -77,7 +78,11 @@ public class ThesisAppealBean extends AbstractBean {
     }
 
     public boolean isQuotaHasExpired(ThesisManager thesisManager) {
-        return thesisAppealService.isQuotaHasExpired(thesisManager);
+        try {
+            return thesisAppealService.isQuotaHasExpired(thesisManager);
+        } catch (SeasonNotFoundException ex) {
+            return true;
+        }
     }
 
     public void selectThesisTemplate() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:form id="student_appeal_form">
+    <p:dialog widgetVar="student_appeal_dialog"
+              id="student_appeal_dialog_"
+              modal="true"
+              draggable="false"
+              resizable="false"
+              header="Tez başvuru detayları" width="500" >
+
+        <h:panelGrid columns="3"
+                     columnClasses="thesis_template_panel_col1"
+                     styleClass="standart_panel">
+            <h:outputText value="Başvuru yapan öğrenci" />
+            <h:outputText value=":" />
+            <h:outputText value="#{studentAppealBean.selectedThesisAppeal.student.name} #{studentAppealBean.selectedThesisAppeal.student.surname}" />
+
+            <h:outputText value="Başvuru yapan öğrenci numarası" />
+            <h:outputText value=":" />
+            <h:outputText value="#{studentAppealBean.selectedThesisAppeal.student.entryVal}" />
+
+            <h:outputText value="Başvuru yaptığı tez programı" />
+            <h:outputText value=":" />
+            <h:outputText value="#{studentAppealBean.selectedThesisAppeal.thesisTemplate.name}" />
+
+            <h:outputText value="" />
+            <h:outputText value="" />
+            <h:outputText value="" />
+
+            <h:outputText value="Kabul durumu" />
+            <h:outputLabel value=":" />
+            <h:outputText value="#{studentAppealBean.selectedThesisAppeal.accepted}" />
+        </h:panelGrid>
+
+        <f:facet name="footer">
+            <p:commandButton value="Kabul et"
+                             disabled="#{studentAppealBean.selectedThesisAppeal.accepted ne null}" />
+            &nbsp;
+            <p:commandButton value="Reddet"
+                             disabled="#{studentAppealBean.selectedThesisAppeal.accepted ne null}" />
+        </f:facet>
+    </p:dialog>
+</h:form>
+</html>

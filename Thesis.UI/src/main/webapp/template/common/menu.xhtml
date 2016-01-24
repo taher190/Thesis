@@ -29,6 +29,12 @@
                         disabled="#{!menuBean.createdSeasonAtNow}"
                         outcome="/pages/protected/thesis_manager/thesis_template_view.xhtml" />
         </p:submenu>
+        <p:submenu label="Öğrenci işlemleri"
+                   rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
+            <p:menuitem value="Öğrenci başvuruları"
+                        icon="ui-icon-search"
+                        outcome="/pages/protected/thesis_manager/student_appeal.xhtml" />
+        </p:submenu>
         <p:submenu label="Yönetici işlemleri"
                    rendered="#{request.isUserInRole('ROLE_ADMIN')}" >
             <p:menuitem value="Kota belirle"

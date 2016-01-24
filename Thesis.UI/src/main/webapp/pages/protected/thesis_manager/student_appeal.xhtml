@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:thesis="http://java.sun.com/jsf/composite/thesis"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <p:panel header="Öğrenci başvuruları">
+            <p:dataTable id="thesis_appeal_list"
+                         dataLocale="tr"
+                         lazy="true"
+                         value="#{studentAppealBean.thesisAppealList}"
+                         var="thesisAppeal"
+                         selectionMode="single"
+                         selection="#{studentAppealBean.selectedThesisAppeal}"
+                         rowKey="#{thesisAppeal.id}"
+                         rowStyleClass="#{applicationBean.getRowStyleClass(thesisAppeal)}" >
+                <p:ajax event="rowSelect" update="thesis_appeal_list" />
+                <p:ajax event="rowUnselect" update="thesis_appeal_list" />
+
+                <p:column headerText="Sezon">
+                    <h:outputText value="#{thesisAppeal.thesisTemplate.season.alias}" />
+                </p:column>
+                <p:column headerText="Tez şablonu">
+                    <h:outputText value="#{thesisAppeal.thesisTemplate.name}" />
+                </p:column>
+                <p:column headerText="Öğrenci Numarası">
+                    <h:outputText value="#{thesisAppeal.student.entryVal}" />
+                </p:column>
+                <p:column headerText="Ad">
+                    <h:outputText value="#{thesisAppeal.student.name}" />
+                </p:column>
+                <p:column headerText="Soyad">
+                    <h:outputText value="#{thesisAppeal.student.surname}" />
+                </p:column>
+                <f:facet name="footer" >
+                    <p:commandButton value="Detayları Gör"
+                                     disabled="#{studentAppealBean.selectedThesisAppeal eq null}"
+                                     update=":student_appeal_form:student_appeal_dialog_"
+                                     oncomplete="PF('student_appeal_dialog').show();" />
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+    </ui:define>
+</ui:composition>
+</html>

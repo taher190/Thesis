@@ -1,5 +1,6 @@
 package com.thesis.service;
 
+import com.thesis.exception.SeasonNotFoundException;
 import com.thesis.model.Season;
 import com.thesis.model.ThesisAppeal;
 import com.thesis.model.ThesisManager;
@@ -19,12 +20,15 @@ import java.util.List;
 @Service
 public class ThesisAppealService extends AbstractService<ThesisAppeal> implements IThesisAppealService {
 
+    private IThesisAppealRepository thesisAppealRepository;
+
     @Autowired
     private ISeasonService seasonService;
 
     @Autowired
     public ThesisAppealService(IThesisAppealRepository thesisAppealRepository) {
         super(thesisAppealRepository);
+        this.thesisAppealRepository = thesisAppealRepository;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
     public boolean isQuotaHasExpired(ThesisManager thesisManager) {
         Season season = seasonService.retrieveCurrentSeason(thesisManager);
         if(season == null) {
-            return true;
+            throw new SeasonNotFoundException();
         }
         int quota = season.getQuota();
         int numberOfAppeal = 0;
@@ -54,6 +58,11 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
         }
 
         return quota <= numberOfAppeal;
+    }
+
+    @Override
+    public List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager) {
+        return thesisAppealRepository.retrieveByThesisManager(thesisManager);
     }
 
     public ISeasonService getSeasonService() {

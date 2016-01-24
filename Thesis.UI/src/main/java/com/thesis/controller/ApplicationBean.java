@@ -3,6 +3,7 @@ package com.thesis.controller;
 import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.model.Department;
 import com.thesis.model.Faculty;
+import com.thesis.model.ThesisAppeal;
 import com.thesis.model.Title;
 import com.thesis.service.interfaces.IDepartmentService;
 import com.thesis.service.interfaces.IFacultyService;
@@ -50,6 +51,18 @@ public class ApplicationBean extends AbstractBean {
         }
     }
 
+    public String getRowStyleClass(ThesisAppeal thesisAppeal) {
+        if(thesisAppeal.getAccepted() == null) {
+            return "";
+        }
+
+        if(thesisAppeal.getAccepted()) {
+            return "appeal_accepted";
+        } else {
+            return "appeal_denied";
+        }
+    }
+
     public List<Faculty> getFacultyList() {
         return facultyList;
     }
@@ -57,6 +70,7 @@ public class ApplicationBean extends AbstractBean {
     public void setFacultyList(List<Faculty> facultyList) {
         this.facultyList = facultyList;
     }
+
     public List<Department> getDepartmentList() {
         return departmentList;
     }

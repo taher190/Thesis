@@ -48,3 +48,15 @@ body {
 .col1_width {
     width: 137px;
 }
+
+.appeal_accepted {
+    background-color: #6fff5f;
+}
+
+.appeal_denied {
+    background-color: #ff9995;
+}
+
+.ui-datatable-footer {
+    text-align: left !important;
+}
