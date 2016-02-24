@@ -6,7 +6,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:form id="student_appeal_form">
+<h:form id="student_appeal_form"
+        rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}">
     <p:dialog widgetVar="student_appeal_dialog"
               id="student_appeal_dialog_"
               modal="true"
@@ -40,9 +41,13 @@
 
         <f:facet name="footer">
             <p:commandButton value="Kabul et"
+                             actionListener="#{studentAppealBean.acceptThesisAppeal}"
+                             update=":main_form"
                              disabled="#{studentAppealBean.selectedThesisAppeal.accepted ne null}" />
             &nbsp;
             <p:commandButton value="Reddet"
+                             actionListener="#{studentAppealBean.declineThesisAppeal}"
+                             update=":main_form"
                              disabled="#{studentAppealBean.selectedThesisAppeal.accepted ne null}" />
         </f:facet>
     </p:dialog>

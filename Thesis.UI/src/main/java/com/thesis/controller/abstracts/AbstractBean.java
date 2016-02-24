@@ -1,6 +1,6 @@
 package com.thesis.controller.abstracts;
 
-import com.thesis.controller.ApplicationBean;
+import com.thesis.controller.util.ApplicationBean;
 import com.thesis.model.Department;
 import com.thesis.model.Faculty;
 import com.thesis.model.Title;

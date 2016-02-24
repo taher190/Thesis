@@ -29,6 +29,8 @@ public class Season extends AbstractEntity<Season> {
 
     private Date endDate;
 
+    private Integer numberOfWeek;
+
     @ManyToOne
     private ThesisManager thesisManager;
 
@@ -116,5 +118,13 @@ public class Season extends AbstractEntity<Season> {
 
     public void setThesisManager(ThesisManager thesisManager) {
         this.thesisManager = thesisManager;
+    }
+
+    public Integer getNumberOfWeek() {
+        return numberOfWeek;
+    }
+
+    public void setNumberOfWeek(Integer numberOfWeek) {
+        this.numberOfWeek = numberOfWeek;
     }
 }

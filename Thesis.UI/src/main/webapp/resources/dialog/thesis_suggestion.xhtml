@@ -11,7 +11,8 @@
               modal="true"
               draggable="false"
               resizable="false"
-              header="Tez Önerisi" >
+              header="Tez Önerisi"
+              rendered="#{request.isUserInRole('ROLE_STUDENT')}">
         <h:panelGrid id="thesis_suggestion_panel"
                      columns="3"
                      styleClass="standart_panel">

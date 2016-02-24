@@ -60,3 +60,27 @@ body {
 .ui-datatable-footer {
     text-align: left !important;
 }
+
+.student_activity_item {
+    margin: 4px;
+    padding: 8px;
+    background-color: #EDEDEE;
+    border-bottom: 1px solid #BBBBBB;
+    color: #777777;
+    font-size: 16px;
+    height: 55px;
+}
+
+.student_activity_disable{
+    border-left: 7px solid red;
+}
+
+.student_activity_enable {
+    border-left: 7px solid green;
+}
+
+.student_activity_detail{
+    font-size: 12px !important;
+    padding: 7px;
+    color: #777;
+}

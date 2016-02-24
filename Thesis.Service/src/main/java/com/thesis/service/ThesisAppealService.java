@@ -9,6 +9,7 @@ import com.thesis.repository.interfaces.IThesisAppealRepository;
 import com.thesis.service.abstracts.AbstractService;
 import com.thesis.service.interfaces.ISeasonService;
 import com.thesis.service.interfaces.IThesisAppealService;
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,6 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
 
     @Override
     public void save(ThesisAppeal thesisAppeal) {
-        thesisAppeal.setAccepted(Boolean.FALSE);
         super.save(thesisAppeal);
     }
 
@@ -50,7 +50,9 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
         for(ThesisTemplate thesisTemplate : thesisTemplateList) {
             List<ThesisAppeal> thesisAppealList = thesisTemplate.getThesisAppealList();
             for(ThesisAppeal thesisAppeal : thesisAppealList) {
-                boolean accepted = thesisAppeal.getAccepted();
+                boolean accepted = (boolean) ObjectUtils.defaultIfNull(
+                        thesisAppeal.getAccepted(),
+                        Boolean.FALSE);
                 if(accepted) {
                     numberOfAppeal++;
                 }

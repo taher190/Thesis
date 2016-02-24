@@ -38,15 +38,30 @@
                         styleClass="input_field" />
             <p:message for="start_date" />
 
-            <p:outputLabel value="Tez dönemi bitiş tarihi" />
+            <p:outputLabel value="Hafta sayısı" />
             <p:outputLabel value=":" />
+            <p:inputText id="number_of_week"
+                         value="#{cc.attrs.season.numberOfWeek}"
+                         style="width: 78px !important"
+                         disabled="#{cc.attrs.mode eq 'edit'}"
+                         required="true"
+                         requiredMessage="Bu alan zorunlu!">
+                <f:validateLongRange minimum="1" maximum="30" />
+            </p:inputText>
+            <p:message for="number_of_week" />
+
+            <p:outputLabel rendered="#{cc.attrs.mode eq 'edit'}"
+                           value="Tez dönemi bitiş tarihi" />
+            <p:outputLabel rendered="#{cc.attrs.mode eq 'edit'}"
+                           value=":" />
             <p:calendar id="end_date"
                         locale="tr"
                         value="#{cc.attrs.season.endDate}"
-                        required="true"
-                        requiredMessage="Lütfen bu alanı doldurunuz!"
+                        disabled="true"
+                        rendered="#{cc.attrs.mode eq 'edit'}"
                         styleClass="input_field" />
-            <p:message for="end_date" />
+            <p:message rendered="#{cc.attrs.mode eq 'edit'}"
+                       for="end_date" />
 
             <p:outputLabel value="Tez alabilecek öğrenci sayısı" />
             <p:outputLabel value=":" />

@@ -12,6 +12,8 @@
     <h:outputScript library="js" name="common.js" />
 
     <title>Tez Takip Sistemi</title>
+
+    <ui:insert name="head"></ui:insert>
 </h:head>
 <h:body>
     <p:layout fullPage="true">
@@ -21,7 +23,7 @@
             </ui:insert>
         </p:layoutUnit>
         <p:layoutUnit position="west" style="min-width: 279px;">
-            <h:form>
+            <h:form id="main_form">
                 <ui:insert name="menu">
                     <ui:include src="/template/common/menu.xhtml" />
                 </ui:insert>
@@ -42,5 +44,6 @@
 
     <ui:include src="/resources/dialog/thesis_suggestion.xhtml" />
     <ui:include src="/resources/dialog/student_appeal_dialog.xhtml" />
+    <ui:include src="/resources/dialog/comments_dialog.xhtml" />
 </h:body>
 </html>

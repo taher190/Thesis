@@ -4,7 +4,9 @@ import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.model.ThesisAppeal;
 import com.thesis.model.ThesisManager;
 import com.thesis.service.interfaces.IThesisAppealService;
+import com.thesis.service.interfaces.IThesisService;
 import com.thesis.service.interfaces.IThesisSuggestionService;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +23,16 @@ import java.util.List;
 @ViewScoped
 public class StudentAppealBean extends AbstractBean {
 
-    private final Logger logger = LoggerFactory.getLogger(SeasonBean.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(StudentAppealBean.class.getName());
 
     @ManagedProperty("#{thesisAppealService}")
     private IThesisAppealService thesisAppealService;
 
     @ManagedProperty("#{thesisSuggestionService}")
     private IThesisSuggestionService thesisSuggestionService;
+
+    @ManagedProperty("#{thesisService}")
+    private IThesisService thesisService;
 
     private List<ThesisAppeal> thesisAppealList;
     private ThesisAppeal selectedThesisAppeal;
@@ -36,6 +41,22 @@ public class StudentAppealBean extends AbstractBean {
     public void init() {
         ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
         setThesisAppealList(thesisAppealService.retrieveByThesisManager(thesisManager));
+    }
+
+    //FIXME : Bir öğrenci bir tez şablonuna en fazla bir kere başvurabilir.
+    public void acceptThesisAppeal() {
+        getSelectedThesisAppeal().setAccepted(Boolean.TRUE);
+        RequestContext.getCurrentInstance().execute("PF('student_appeal_dialog').hide()");
+        showMessage("Tez başvurusu kabul edildi!");
+        thesisAppealService.update(getSelectedThesisAppeal());
+        thesisService.createThesisWithActivity(getSelectedThesisAppeal());
+    }
+
+    public void declineThesisAppeal() {
+        getSelectedThesisAppeal().setAccepted(Boolean.FALSE);
+        RequestContext.getCurrentInstance().execute("PF('student_appeal_dialog').hide()");
+        showMessage("Tez başvurusu reddedildi!");
+        thesisAppealService.update(getSelectedThesisAppeal());
     }
 
     public IThesisAppealService getThesisAppealService() {
@@ -68,5 +89,13 @@ public class StudentAppealBean extends AbstractBean {
 
     public void setSelectedThesisAppeal(ThesisAppeal selectedThesisAppeal) {
         this.selectedThesisAppeal = selectedThesisAppeal;
+    }
+
+    public IThesisService getThesisService() {
+        return thesisService;
+    }
+
+    public void setThesisService(IThesisService thesisService) {
+        this.thesisService = thesisService;
     }
 }

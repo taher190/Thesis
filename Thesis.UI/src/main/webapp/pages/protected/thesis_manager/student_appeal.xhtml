@@ -18,7 +18,7 @@
                          selectionMode="single"
                          selection="#{studentAppealBean.selectedThesisAppeal}"
                          rowKey="#{thesisAppeal.id}"
-                         rowStyleClass="#{applicationBean.getRowStyleClass(thesisAppeal)}" >
+                         rowStyleClass="#{viewUtilBean.getRowStyleClass(thesisAppeal)}" >
                 <p:ajax event="rowSelect" update="thesis_appeal_list" />
                 <p:ajax event="rowUnselect" update="thesis_appeal_list" />
 

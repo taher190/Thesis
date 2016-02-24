@@ -4,6 +4,7 @@ import com.thesis.model.abstracts.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Mustafa Tahir ARSLAN

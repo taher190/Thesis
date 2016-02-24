@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +29,7 @@ public abstract class AbstractService<T extends IEntity> implements IAbstractSer
 
     private void setLastChangedUser(AbstractEntity abstractEntity) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUserName = auth.getName();
+        String loggedInUserName = auth != null ? auth.getName() : StringUtils.EMPTY;
         if(StringUtils.isEmpty(loggedInUserName)) {
             loggedInUserName = "anonymous";
         }

@@ -5,7 +5,9 @@ import com.thesis.model.ThesisManager;
 import com.thesis.repository.abstracts.AbstractRepository;
 import com.thesis.repository.interfaces.IThesisAppealRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -19,12 +21,14 @@ public class ThesisAppealRepository extends AbstractRepository<ThesisAppeal> imp
 
     @Override
     public List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager) {
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<ThesisAppeal> criteria = builder.createQuery( ThesisAppeal.class );
-        Root<ThesisAppeal> thesisAppealRoot = criteria.from( ThesisAppeal.class );
-        criteria.select(thesisAppealRoot);
-        //FIXME : kriter düzeltilmeli.
-        criteria.where( builder.equal( thesisAppealRoot.get("thesisTemplate"), thesisManager.getThesisTemplateList().get(0)) );
-        return getEntityManager().createQuery(criteria).getResultList();
+
+        StringBuilder hql = new StringBuilder();
+        //FIXME : sezon kritere eklenmeli
+        hql.append("FROM ThesisAppeal thesisAppeal ");
+        hql.append("WHERE thesisAppeal.thesisTemplate.thesisManager = :thesisManager ");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("thesisManager", thesisManager);
+        return query.getResultList();
     }
 }

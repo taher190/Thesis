@@ -16,7 +16,7 @@ public class Faculty extends AbstractEntity<Faculty> {
     @Column(unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "faculty")
+    @OneToMany(mappedBy = "faculty", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Department> departmentList;
 
     @OneToMany(mappedBy = "faculty")

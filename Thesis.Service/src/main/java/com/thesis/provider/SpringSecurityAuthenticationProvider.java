@@ -1,5 +1,7 @@
 package com.thesis.provider;
 
+import com.thesis.model.Role;
+import com.thesis.model.UserRole;
 import com.thesis.model.abstracts.User;
 import com.thesis.provider.interfaces.IAuthenticationProvider;
 import com.thesis.repository.interfaces.IFacultyRepository;
@@ -35,23 +37,10 @@ public class SpringSecurityAuthenticationProvider implements IAuthenticationProv
         try {
             User user = userRepository.retrieveUserByEntryVal(username);
             Collection authoritieSet = new HashSet();
-            if("oguzfindik".equals(user.getEntryVal())
-                    || "yasinortakci".equals(user.getEntryVal())
-                    || "burhanselçuk".equals(user.getEntryVal())
-                    || "yukselcelik".equals(user.getEntryVal())
-                    || "safakbayir".equals(user.getEntryVal())
-                    ) {
-                authoritieSet.add(new GrantedAuthorityImpl("ROLE_THESIS_MANAGER"));
-            } else if("admin".equals(user.getEntryVal())) {
-                authoritieSet.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
-            } else {
-                authoritieSet.add(new GrantedAuthorityImpl("ROLE_STUDENT"));
-            }
-            authoritieSet.add(new GrantedAuthorityImpl("ROLE_USER"));
-            /* FIXME : Yetkiler dinamik hale getirilmelli! */
-            /*for(Role role : user.getRoleList()) {
+            for(Object userRole : user.getUserRoleList()) {
+                Role role = ((UserRole) userRole).getRole();
                 authoritieSet.add(new GrantedAuthorityImpl(role.getCode()));
-            }*/
+            }
             return new org.springframework.security.core.userdetails.User(
                     user.getEntryVal(),
                     user.getPassword(),

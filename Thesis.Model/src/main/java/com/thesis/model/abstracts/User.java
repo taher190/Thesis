@@ -1,6 +1,7 @@
 package com.thesis.model.abstracts;
 
 import com.thesis.model.Role;
+import com.thesis.model.UserRole;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,11 +30,8 @@ public class User<T> extends AbstractEntity<User> {
 
     private Boolean active;
 
-    @OneToMany
-    @JoinTable(name = "user_role",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private List<Role> roleList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserRole> userRoleList;
 
     public String getPassword() {
         return password;
@@ -75,11 +73,11 @@ public class User<T> extends AbstractEntity<User> {
         this.entryVal = entryVal;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
     }
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
     }
 }

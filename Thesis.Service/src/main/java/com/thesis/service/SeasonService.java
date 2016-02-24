@@ -9,6 +9,8 @@ import com.thesis.service.interfaces.ISeasonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+
 /**
  * Created by Mustafa Tahir ARSLAN
  */
@@ -27,5 +29,14 @@ public class SeasonService extends AbstractService<Season> implements ISeasonSer
     @Override
     public Season retrieveCurrentSeason(ThesisManager thesisManager) {
         return seasonRepository.retrieveCurrentSeason(thesisManager);
+    }
+
+    @Override
+    public void save(Season season) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(season.getStartDate());
+        calendar.add(Calendar.WEEK_OF_YEAR, season.getNumberOfWeek());
+        season.setEndDate(calendar.getTime());
+        super.save(season);
     }
 }
