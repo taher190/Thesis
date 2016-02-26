@@ -34,13 +34,6 @@
                     actionListener="#{viewThesisBean.putComment}" />
             <p:outputLabel />
 
-            <p:fileUpload mode="simple"
-                          value="#{viewThesisBean.file}"
-                          invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
-                          sizeLimit="4096"  />
-            <br />
-            <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
-
             <p:dataScroller value="#{viewUtilBean.getReverseList(
                                 viewThesisBean.selectedStudentActivity.studentActivityCommentList)}"
                             var="comment"
