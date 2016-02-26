@@ -84,3 +84,13 @@ body {
     padding: 7px;
     color: #777;
 }
+
+.comment_text {
+    font-size: 11px;
+    color: #444;;
+}
+
+.comment_owner {
+    font-size: 11px;
+    font-weight: 600;
+}

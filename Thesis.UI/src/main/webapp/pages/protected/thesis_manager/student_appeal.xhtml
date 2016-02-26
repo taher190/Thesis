@@ -7,6 +7,9 @@
       xmlns:thesis="http://java.sun.com/jsf/composite/thesis"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{studentAppealBean.init}" />
+</f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
         <p:panel header="Öğrenci başvuruları">
@@ -18,7 +21,8 @@
                          selectionMode="single"
                          selection="#{studentAppealBean.selectedThesisAppeal}"
                          rowKey="#{thesisAppeal.id}"
-                         rowStyleClass="#{viewUtilBean.getRowStyleClass(thesisAppeal)}" >
+                         rowStyleClass="appeal_#{viewUtilBean.getRowStyleClass(thesisAppeal.accepted)}" >
+                <!-- FIXME : thesisAppeal.accepted null olsa dahi false gidiyor. -->
                 <p:ajax event="rowSelect" update="thesis_appeal_list" />
                 <p:ajax event="rowUnselect" update="thesis_appeal_list" />
 

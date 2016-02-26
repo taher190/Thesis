@@ -3,6 +3,7 @@ package com.thesis.model;
 import com.thesis.model.abstracts.AbstractEntity;
 import com.thesis.model.abstracts.User;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -18,6 +19,7 @@ public class StudentActivityComment extends AbstractEntity<StudentActivityCommen
     @ManyToOne
     private User user;
 
+    @Column(length = 1200)
     private String text;
 
     public String getText() {

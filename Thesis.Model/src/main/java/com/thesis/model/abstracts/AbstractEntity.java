@@ -15,10 +15,10 @@ public abstract class AbstractEntity<T extends Serializable> implements IEntity<
     @Column(unique = true)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
     private String lastChangedUser;

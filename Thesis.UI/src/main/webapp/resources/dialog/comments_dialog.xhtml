@@ -6,14 +6,61 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:form id="comments_dialog_form">
+<h:form id="comments_dialog_form"
+        rendered="#{view.viewId eq '/pages/protected/view_thesis.xhtml'}">
     <p:dialog widgetVar="comments_dialog"
               id="comments_dialog_"
               modal="true"
               draggable="false"
               resizable="false"
-              width="500" >
-        <p:outputLabel id="seaseas" />
+              width="500">
+        <h:panelGrid
+                id="comment_dialog_frame"
+                columns="2"
+                styleClass="standart_panel">
+            <p:inputTextarea
+                    id="comment_textarea"
+                    cols="58"
+                    rows="5"
+                    placeholder="Bir yorum bırakın..."
+                    required="true"
+                    requiredMessage="Lütfen bu alanı doldurunuz!"
+                    value="#{viewThesisBean.currentCommentText}" />
+            <p:outputLabel />
+
+            <p:commandButton
+                    value="Gönder"
+                    update="comment_dialog_frame"
+                    actionListener="#{viewThesisBean.putComment}" />
+            <p:outputLabel />
+
+            <p:fileUpload mode="simple"
+                          value="#{viewThesisBean.file}"
+                          invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
+                          sizeLimit="4096"  />
+            <br />
+            <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
+
+            <p:dataScroller value="#{viewUtilBean.getReverseList(
+                                viewThesisBean.selectedStudentActivity.studentActivityCommentList)}"
+                            var="comment"
+                            mode="inline"
+                            scrollHeight="250"
+                            rendered="#{not empty viewThesisBean.selectedStudentActivity.studentActivityCommentList}">
+                <h:panelGrid columns="1">
+                    <p:outputLabel styleClass="comment_owner"
+                                   value="#{comment.user.name}" />
+                    <p:outputPanel>
+                        <p:outputLabel styleClass="comment_text"
+                                       value="#{comment.text}" />
+                        <br />
+                        <p:outputLabel value="#{comment.createdDate}" style="font-size: 9px;color: #666666" >
+                            <f:convertDateTime locale="tr" timeStyle="short" type="both" />
+                        </p:outputLabel>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:panelGrid>
     </p:dialog>
 </h:form>
 </html>

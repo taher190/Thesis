@@ -37,8 +37,10 @@ public class StudentAppealBean extends AbstractBean {
     private List<ThesisAppeal> thesisAppealList;
     private ThesisAppeal selectedThesisAppeal;
 
-    @PostConstruct
     public void init() {
+        if(getThesisAppealList() != null) {
+            return;
+        }
         ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
         setThesisAppealList(thesisAppealService.retrieveByThesisManager(thesisManager));
     }

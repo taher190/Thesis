@@ -7,6 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:thesis="http://java.sun.com/jsf/composite/thesis"
       xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{viewThesisBean.init}" />
+</f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="head">
         <h:outputScript library="js" name="thesis_viewer.js" />
@@ -35,19 +38,27 @@
                         <br />
                         <br />
                     </p:outputLabel>
-                    <p:outputLabel value="Haftaya ait doküman kabul edilmiş."
-                                  rendered="#{studentActivity.accepted}" />
-                    <p:outputLabel value="Haftaya ait doküman kabul edilmemiş! Tez sorumlusu durumla ilgili yorum bırakmış olabilir."
-                                  rendered="#{!studentActivity.accepted}" />
-                    <p:outputLabel value="Doküman henüz değerlendirilmemiş!"
-                                  rendered="#{studentActivity.accepted eq null}" />
+                    <p:outputLabel value="Haftaya ait doküman kabul edilmiş. "
+                                  rendered="#{studentActivity.accepted and not empty studentActivity.documentUrl}" />
+                    <p:outputLabel value="Haftaya ait doküman kabul edilmemiş ve değerlendirilmemiş! Tez sorumlusu durumla ilgili yorum bırakmış olabilir. "
+                                  rendered="#{!studentActivity.accepted and not empty studentActivity.documentUrl}" />
 
                     <p:commandLink value="Yorumları incele"
-                                   update=":comments_dialog_form:seaseas"
-                                   onclick="PF('comments_dialog').show();" />
+                                   update=":comments_dialog_form:comments_dialog_"
+                                   oncomplete="PF('comments_dialog').show();" />
+                    <p:outputPanel rendered="#{empty studentActivity.documentUrl}">
+                        <p:fileUpload mode="simple"
+                                      value="#{viewThesisBean.file}"
+                                      invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
+                                      sizeLimit="4096"  />
+                        <br />
+                        <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
+                    </p:outputPanel>
                 </div>
             </div>
         </ui:repeat>
+
+        <p:remoteCommand name="selectStudentActivity" actionListener="#{viewThesisBean.selectStudentActivity}" />
     </ui:define>
 </ui:composition>
 </html>

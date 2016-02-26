@@ -6,13 +6,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:form>
+<h:form rendered="#{view.viewId == '/pages/protected/thesis_manager/thesis_appeal.xhtml'}">
     <p:dialog widgetVar="thesis_suggestion_dialog"
               modal="true"
               draggable="false"
               resizable="false"
-              header="Tez Önerisi"
-              rendered="#{request.isUserInRole('ROLE_STUDENT')}">
+              header="Tez Önerisi">
         <h:panelGrid id="thesis_suggestion_panel"
                      columns="3"
                      styleClass="standart_panel">
