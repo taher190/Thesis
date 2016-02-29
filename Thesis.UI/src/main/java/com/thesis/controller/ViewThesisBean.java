@@ -64,6 +64,7 @@ public class ViewThesisBean extends AbstractBean {
         throw new StudentActivityNotFoundException();
     }
 
+    //FIXME : Comment eklendiğinde kapatılmazsa panel katlanarak gidiyor.
     public void putComment() {
         StudentActivityComment studentActivityComment = new StudentActivityComment();
         studentActivityComment.setText(currentCommentText);
@@ -74,6 +75,7 @@ public class ViewThesisBean extends AbstractBean {
         getSelectedStudentActivity().getStudentActivityCommentList().add(studentActivityComment);
         studentActivityService.update(getSelectedStudentActivity());
 
+        getSelectedStudentActivity().getStudentActivityCommentList().clear();
         currentCommentText = StringUtils.EMPTY;
     }
 

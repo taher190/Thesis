@@ -47,18 +47,23 @@
                                    update=":comments_dialog_form:comments_dialog_"
                                    oncomplete="PF('comments_dialog').show();" />
                     <p:outputPanel rendered="#{empty studentActivity.documentUrl}">
-                        <p:fileUpload mode="simple"
-                                      value="#{viewThesisBean.file}"
-                                      invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
-                                      sizeLimit="4096"  />
-                        <br />
-                        <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
+                        fsd
+                        <ui:remove>
+                            <p:fileUpload mode="simple"
+                                          value="#{viewThesisBean.file}"
+                                          invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
+                                          sizeLimit="4096" />
+                            <br />
+                            <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
+                        </ui:remove>
                     </p:outputPanel>
                 </div>
             </div>
         </ui:repeat>
 
-        <p:remoteCommand name="selectStudentActivity" actionListener="#{viewThesisBean.selectStudentActivity}" />
+        <p:remoteCommand name="selectStudentActivity"
+                         actionListener="#{viewThesisBean.selectStudentActivity}"
+                         process="@this" />
     </ui:define>
 </ui:composition>
 </html>
