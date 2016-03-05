@@ -106,10 +106,10 @@ public class ApplicationBean extends AbstractBean {
 
         Student john = new Student();
         john.setActive(true);
-        john.setName("John");
-        john.setSurname("Wick");
+        john.setName("Mustafa");
+        john.setSurname("ARSLAN");
         john.setPassword("12345");
-        john.setEntryVal("john");
+        john.setEntryVal("2009010207048");
         john.setFaculty(m);
         john.setDepartment(bm);
 
@@ -145,10 +145,10 @@ public class ApplicationBean extends AbstractBean {
         ThesisManager thesisManager = new ThesisManager();
         thesisManager.setFaculty(m);
         thesisManager.setDepartment(bm);
-        thesisManager.setName("Recep");
-        thesisManager.setSurname("İvedik");
+        thesisManager.setName("Oguz");
+        thesisManager.setSurname("FINDIK");
         thesisManager.setActive(true);
-        thesisManager.setEntryVal("recep");
+        thesisManager.setEntryVal("oguzfindik");
         thesisManager.setPassword("12345");
         thesisManager.setTitle(prof);
 
