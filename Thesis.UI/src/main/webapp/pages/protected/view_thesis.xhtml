@@ -29,7 +29,7 @@
                 <div id="item_student_activity_#{studentActivity.id}"
                      class="student_activity_detail"
                      style="display: none" >
-                    <p:outputLabel rendered="#{studentActivity.loadDocument ne null}">
+                    <p:outputLabel rendered="#{studentActivity.loadDocument}">
                         Bu haftaya ait PDF yüklenmiş. İlgili dokümana ulaşabilmek için
                         <a href="#{request.contextPath}/resources/pdf/#{studentActivity.documentName}"
                            target="_blank" >
@@ -38,10 +38,6 @@
                         <br />
                         <br />
                     </p:outputLabel>
-                    <p:outputLabel value="Haftaya ait doküman kabul edilmiş. "
-                                  rendered="#{studentActivity.loadDocument and not empty studentActivity.documentName}" />
-                    <p:outputLabel value="Haftaya ait doküman kabul edilmemiş ve değerlendirilmemiş! Tez sorumlusu durumla ilgili yorum bırakmış olabilir. "
-                                  rendered="#{!studentActivity.loadDocument and not empty studentActivity.documentName}" />
 
                     <p:commandLink value="Yorumları incele"
                                    update=":comments_dialog_form:comments_dialog_"
