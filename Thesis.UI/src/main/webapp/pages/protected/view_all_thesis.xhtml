@@ -9,7 +9,7 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
-        <p:panel header="Aldığım Tezler">
+        <p:panel header="Tezler">
             <p:dataTable id="thesis_list"
                          dataLocale="tr"
                          lazy="true"
@@ -20,8 +20,11 @@
                 <p:column headerText="Tez şablonu">
                     <h:outputText value="#{thesis.thesisTemplate.name}" />
                 </p:column>
-                <p:column headerText="Tez Yöneticisi">
+                <p:column headerText="Tez Yöneticisi" rendered="#{request.isUserInRole('ROLE_STUDENT')}" >
                     <h:outputText value="#{thesis.thesisTemplate.thesisManager.name} #{thesis.thesisTemplate.thesisManager.surname}" />
+                </p:column>
+                <p:column headerText="Tez Alan Öğrenci"  rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
+                    <h:outputText value="#{thesis.student.name} #{thesis.student.surname}" />
                 </p:column>
                 <p:column headerText="">
                     <p:link value="Görüntüle" outcome="/pages/protected/view_thesis.xhtml">

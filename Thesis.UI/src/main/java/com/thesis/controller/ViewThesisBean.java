@@ -7,7 +7,10 @@ import com.thesis.model.StudentActivityComment;
 import com.thesis.model.Thesis;
 import com.thesis.service.interfaces.IStudentActivityService;
 import com.thesis.service.interfaces.IThesisService;
+import com.thesis.statics.URLUtil;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +19,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.*;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Mustafa Tahir ARSLAN
@@ -55,6 +60,7 @@ public class ViewThesisBean extends AbstractBean {
         setSelectedStudentActivity(findStudentActivityFromThesis(param));
     }
 
+    //TODO : Bu fonksiyonun mockito ile testini yaz.
     private StudentActivity findStudentActivityFromThesis(Long studentActivityId) {
         for(StudentActivity studentActivity : getThesis().getStudentActivityList()) {
             if(studentActivity.getId() == studentActivityId) {
@@ -75,12 +81,47 @@ public class ViewThesisBean extends AbstractBean {
         getSelectedStudentActivity().getStudentActivityCommentList().add(studentActivityComment);
         studentActivityService.update(getSelectedStudentActivity());
 
-        getSelectedStudentActivity().getStudentActivityCommentList().clear();
         currentCommentText = StringUtils.EMPTY;
     }
 
-    public void uploadDocument() {
-        logger.info("yiee");
+    public void fileUploadListener(FileUploadEvent fileUploadEvent) throws IOException {
+        setFile(fileUploadEvent.getFile());
+        try {
+            String fileName = UUID.randomUUID().toString();
+            copyFile(fileName, fileUploadEvent.getFile().getInputstream());
+            getSelectedStudentActivity().setLoadDocument(Boolean.TRUE);
+            getSelectedStudentActivity().setDocumentName(fileName);
+            studentActivityService.update(getSelectedStudentActivity());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void copyFile(String fileName, InputStream in) {
+        try {
+            String appPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            File file = new File(appPath + URLUtil.PDF_PATH + fileName);
+            OutputStream out = new FileOutputStream(file);
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            in.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    public void deleteFile() {
+        getSelectedStudentActivity().setLoadDocument(Boolean.FALSE);
+        getSelectedStudentActivity().setDocumentName(null);
+        studentActivityService.update(getSelectedStudentActivity());
     }
 
     public IThesisService getThesisService() {

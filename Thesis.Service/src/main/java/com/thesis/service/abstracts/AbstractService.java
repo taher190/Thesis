@@ -77,4 +77,9 @@ public abstract class AbstractService<T extends IEntity> implements IAbstractSer
     public List<T> retrieveAll() {
         return abstractRepository.retrieveAll();
     }
+
+    @Override
+    public void refresh(T entity) {
+        abstractRepository.refresh(entity);
+    }
 }

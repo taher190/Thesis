@@ -1,7 +1,10 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.model.Student;
 import com.thesis.model.Thesis;
+import com.thesis.model.ThesisManager;
+import com.thesis.model.abstracts.User;
 import com.thesis.service.interfaces.IThesisService;
 
 import javax.annotation.PostConstruct;
@@ -24,8 +27,11 @@ public class ViewAllThesisBean extends AbstractBean {
 
     @PostConstruct
     public void init() {
-        //FIXME : düzeltilmeli.
-        setThesisList(thesisService.retrieveAll());
+        if(getLoggedInUser() instanceof Student) {
+            setThesisList(thesisService.retrieveCurrentThesis((Student) getLoggedInUser()));
+        } else if(getLoggedInUser() instanceof ThesisManager) {
+            setThesisList(thesisService.retrieveCurrentThesis((ThesisManager) getLoggedInUser()));
+        }
     }
 
     public IThesisService getThesisService() {

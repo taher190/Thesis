@@ -33,6 +33,7 @@ public class ViewUtilBean extends AbstractBean {
         if(itemList == null) {
             return null;
         }
+        // FIXME : Tarihe göre sıralanmalı
         Collections.reverse(itemList);
         return itemList;
     }

@@ -21,4 +21,6 @@ public interface IAbstractRepository<T extends IEntity> {
     T retrieveById(Long id);
 
     List<T> retrieveAll();
+
+    void refresh(T entity);
 }

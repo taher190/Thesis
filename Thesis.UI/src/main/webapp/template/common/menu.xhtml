@@ -36,7 +36,7 @@
                         outcome="/pages/protected/thesis_manager/student_appeal.xhtml" />
             <p:menuitem value="Öğrenci aktiviteleri"
                         icon="ui-icon-search"
-                        outcome="/pages/protected/thesis_manager/student_activity.xhtml" />
+                        outcome="/pages/protected/view_all_thesis.xhtml" />
         </p:submenu>
         <p:submenu label="Yönetici işlemleri"
                    rendered="#{request.isUserInRole('ROLE_ADMIN')}" >
@@ -57,7 +57,7 @@
                    rendered="#{request.isUserInRole('ROLE_STUDENT')}">
             <p:menuitem value="Aldığım Tezleri Görüntüle"
                         icon="ui-icon-person"
-                        outcome="/pages/protected/student/view_all_thesis.xhtml" />
+                        outcome="/pages/protected/view_all_thesis.xhtml" />
         </p:submenu>
         <p:submenu label="Kullanıcı İşlemleri">
             <p:menuitem value="Ayarlar"

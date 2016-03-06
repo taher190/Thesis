@@ -15,34 +15,18 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
     @ManyToOne
     private Thesis thesis;
 
-    private String documentUrl;
+    private String documentName;
 
     @OneToMany(mappedBy = "studentActivity", cascade = CascadeType.ALL)
     private List<StudentActivityComment> studentActivityCommentList;
 
-    private Boolean accepted;
+    private Boolean loadDocument;
 
     @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Temporal(TemporalType.DATE)
     private Date endDate;
-
-    public String getDocumentUrl() {
-        return documentUrl;
-    }
-
-    public void setDocumentUrl(String documentUrl) {
-        this.documentUrl = documentUrl;
-    }
-
-    public Boolean getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(Boolean accepted) {
-        this.accepted = accepted;
-    }
 
     public Thesis getThesis() {
         return thesis;
@@ -74,5 +58,21 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
 
     public void setStudentActivityCommentList(List<StudentActivityComment> studentActivityCommentList) {
         this.studentActivityCommentList = studentActivityCommentList;
+    }
+
+    public Boolean getLoadDocument() {
+        return loadDocument;
+    }
+
+    public void setLoadDocument(Boolean loadDocument) {
+        this.loadDocument = loadDocument;
+    }
+
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
     }
 }

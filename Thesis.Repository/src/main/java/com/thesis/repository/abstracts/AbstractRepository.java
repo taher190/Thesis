@@ -73,6 +73,11 @@ public abstract class
         return getEntityManager().createQuery(criteria).getResultList();
     }
 
+    @Override
+    public void refresh(T entity) {
+        getEntityManager().refresh(entity);
+    }
+
     public EntityManager getEntityManager() {
         return entityManager;
     }

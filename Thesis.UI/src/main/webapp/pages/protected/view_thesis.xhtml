@@ -17,7 +17,7 @@
     <ui:define name="content">
         <ui:repeat value="#{viewThesisBean.thesis.studentActivityList}" var="studentActivity">
             <div id="student_activity_#{studentActivity.id}"
-                 class="student_activity_item #{studentActivity.accepted ? 'student_activity_enable' : 'student_activity_disable'}">
+                 class="student_activity_item #{studentActivity.loadDocument ? 'student_activity_enable' : 'student_activity_disable'}">
                 <p:outputLabel value="#{studentActivity.startDate}">
                     <f:convertDateTime locale="tr" dateStyle="medium" />
                 </p:outputLabel>
@@ -29,9 +29,9 @@
                 <div id="item_student_activity_#{studentActivity.id}"
                      class="student_activity_detail"
                      style="display: none" >
-                    <p:outputLabel rendered="#{studentActivity.documentUrl ne null}">
+                    <p:outputLabel rendered="#{studentActivity.loadDocument ne null}">
                         Bu haftaya ait PDF yüklenmiş. İlgili dokümana ulaşabilmek için
-                        <a href="#{request.contextPath}/resources/pdf/#{studentActivity.documentUrl}"
+                        <a href="#{request.contextPath}/resources/pdf/#{studentActivity.documentName}"
                            target="_blank" >
                             tıklayınız!
                         </a>
@@ -39,24 +39,17 @@
                         <br />
                     </p:outputLabel>
                     <p:outputLabel value="Haftaya ait doküman kabul edilmiş. "
-                                  rendered="#{studentActivity.accepted and not empty studentActivity.documentUrl}" />
+                                  rendered="#{studentActivity.loadDocument and not empty studentActivity.documentName}" />
                     <p:outputLabel value="Haftaya ait doküman kabul edilmemiş ve değerlendirilmemiş! Tez sorumlusu durumla ilgili yorum bırakmış olabilir. "
-                                  rendered="#{!studentActivity.accepted and not empty studentActivity.documentUrl}" />
+                                  rendered="#{!studentActivity.loadDocument and not empty studentActivity.documentName}" />
 
                     <p:commandLink value="Yorumları incele"
                                    update=":comments_dialog_form:comments_dialog_"
                                    oncomplete="PF('comments_dialog').show();" />
-                    <p:outputPanel rendered="#{empty studentActivity.documentUrl}">
-                        fsd
-                        <ui:remove>
-                            <p:fileUpload mode="simple"
-                                          value="#{viewThesisBean.file}"
-                                          invalidSizeMessage="Yüklenmek istenen dosyanın boyutu çok büyük, 4MB sınırını aşmamalıdır."
-                                          sizeLimit="4096" />
-                            <br />
-                            <p:commandButton actionListener="#{viewThesisBean.uploadDocument}" value="Yükle" ajax="false" />
-                        </ui:remove>
-                    </p:outputPanel>
+                    <br />
+                    <p:commandLink value="Yüklenen dokümanlar"
+                                   update=":file_upload_dialog_form:file_upload_dialog_"
+                                   oncomplete="PF('file_upload_dialog').show();" />
                 </div>
             </div>
         </ui:repeat>

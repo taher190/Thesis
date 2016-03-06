@@ -1,5 +1,6 @@
 package com.thesis.service.interfaces;
 
+import com.thesis.model.StudentActivity;
 import com.thesis.model.abstracts.IEntity;
 
 import java.io.Serializable;
@@ -21,4 +22,6 @@ public interface IAbstractService<T extends IEntity> extends Serializable {
     T retrieveById(Long id);
 
     List<T> retrieveAll();
+
+    void refresh(T entity);
 }

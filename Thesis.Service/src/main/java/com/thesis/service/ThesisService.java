@@ -1,9 +1,6 @@
 package com.thesis.service;
 
-import com.thesis.model.Student;
-import com.thesis.model.StudentActivity;
-import com.thesis.model.Thesis;
-import com.thesis.model.ThesisAppeal;
+import com.thesis.model.*;
 import com.thesis.repository.interfaces.IThesisRepository;
 import com.thesis.service.abstracts.AbstractService;
 import com.thesis.service.interfaces.IThesisService;
@@ -21,9 +18,12 @@ import java.util.List;
 @Service
 public class ThesisService extends AbstractService<Thesis> implements IThesisService {
 
+    private IThesisRepository thesisRepository;
+
     @Autowired
     public ThesisService(IThesisRepository thesisRepository) {
         super(thesisRepository);
+        this.thesisRepository = thesisRepository;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
 
         for(int counterOfWeek = 0; counterOfWeek < numberOfWeek ;counterOfWeek++) {
             StudentActivity studentActivity = new StudentActivity();
-            studentActivity.setAccepted(Boolean.FALSE);
+            studentActivity.setLoadDocument(Boolean.FALSE);
             studentActivity.setStartDate(calendar.getTime());
             studentActivity.setThesis(thesis);
 
@@ -51,5 +51,15 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
         }
         thesis.setStudentActivityList(studentActivityList);
         super.save(thesis);
+    }
+
+    @Override
+    public List<Thesis> retrieveCurrentThesis(Student student) {
+        return thesisRepository.retrieveCurrentThesis(student);
+    }
+
+    @Override
+    public List<Thesis> retrieveCurrentThesis(ThesisManager thesisManager) {
+        return thesisRepository.retrieveCurrentThesis(thesisManager);
     }
 }
