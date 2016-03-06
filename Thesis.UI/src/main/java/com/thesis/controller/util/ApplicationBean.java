@@ -132,13 +132,21 @@ public class ApplicationBean extends AbstractBean {
         userService.save(john);
 
         Title prof = new Title();
-        prof.setName("Prof.");
+        prof.setName("Prof. Dr.");
+
+        Title okt = new Title();
+        okt.setName("Okt.");
+
+        Title yrdDoc = new Title();
+        yrdDoc.setName("Yrd. Doc. Dr.");
 
         Title doc = new Title();
-        doc.setName("Doc.");
+        doc.setName("Doc. Dr.");
 
         titleService.save(prof);
         titleService.save(doc);
+        titleService.save(yrdDoc);
+        titleService.save(okt);
 
         //---
 
