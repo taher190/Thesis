@@ -41,6 +41,7 @@
 
                     <p:commandLink value="Yorumları incele"
                                    update=":comments_dialog_form:comments_dialog_"
+                                   actionListener="#{viewThesisBean.performReadAllComments}"
                                    oncomplete="PF('comments_dialog').show();" />
                     <br />
                     <p:commandLink value="Yüklenen dokümanlar"

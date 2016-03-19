@@ -1,10 +1,7 @@
 package com.thesis.service;
 
 import com.thesis.exception.SeasonNotFoundException;
-import com.thesis.model.Season;
-import com.thesis.model.ThesisAppeal;
-import com.thesis.model.ThesisManager;
-import com.thesis.model.ThesisTemplate;
+import com.thesis.model.*;
 import com.thesis.repository.interfaces.IThesisAppealRepository;
 import com.thesis.service.abstracts.AbstractService;
 import com.thesis.service.interfaces.ISeasonService;
@@ -43,7 +40,39 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
         if(season == null) {
             throw new SeasonNotFoundException();
         }
+        int numberOfAppeal = numberOfThesisAppealFor(thesisManager);
         int quota = season.getQuota();
+
+        return quota <= numberOfAppeal;
+    }
+
+    @Override
+    public List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager) {
+        return thesisAppealRepository.retrieveByThesisManager(thesisManager);
+    }
+
+    @Override
+    public boolean checkSingleThesisAppeal(Student student) {
+        return thesisAppealRepository.checkSingleThesisAppeal(student);
+    }
+
+    @Override
+    public int remainingLimitOfThesisManager(ThesisManager thesisManager) {
+        Season season = seasonService.retrieveCurrentSeason(thesisManager);
+        if(season == null) {
+            throw new SeasonNotFoundException();
+        }
+        int numberOfAppeal = numberOfThesisAppealFor(thesisManager);
+        int quota = season.getQuota();
+
+        return quota - numberOfAppeal;
+    }
+
+    private int numberOfThesisAppealFor(ThesisManager thesisManager) {
+        Season season = seasonService.retrieveCurrentSeason(thesisManager);
+        if(season == null) {
+            throw new SeasonNotFoundException();
+        }
         int numberOfAppeal = 0;
 
         List<ThesisTemplate> thesisTemplateList = season.getThesisTemplateList();
@@ -58,13 +87,7 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
                 }
             }
         }
-
-        return quota <= numberOfAppeal;
-    }
-
-    @Override
-    public List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager) {
-        return thesisAppealRepository.retrieveByThesisManager(thesisManager);
+        return numberOfAppeal;
     }
 
     public ISeasonService getSeasonService() {

@@ -5,6 +5,7 @@ import com.thesis.exception.StudentActivityNotFoundException;
 import com.thesis.model.StudentActivity;
 import com.thesis.model.StudentActivityComment;
 import com.thesis.model.Thesis;
+import com.thesis.model.abstracts.User;
 import com.thesis.service.interfaces.IStudentActivityService;
 import com.thesis.service.interfaces.IThesisService;
 import com.thesis.statics.URLUtil;
@@ -60,7 +61,6 @@ public class ViewThesisBean extends AbstractBean {
         setSelectedStudentActivity(findStudentActivityFromThesis(param));
     }
 
-    //TODO : Bu fonksiyonun mockito ile testini yaz.
     private StudentActivity findStudentActivityFromThesis(Long studentActivityId) {
         for(StudentActivity studentActivity : getThesis().getStudentActivityList()) {
             if(studentActivity.getId() == studentActivityId) {
@@ -76,6 +76,7 @@ public class ViewThesisBean extends AbstractBean {
         studentActivityComment.setText(currentCommentText);
         studentActivityComment.setStudentActivity(getSelectedStudentActivity());
         studentActivityComment.setUser(getLoggedInUser());
+        studentActivityComment.setSaw(false);
         studentActivityComment.setCreatedDate(new Date());
 
         getSelectedStudentActivity().getStudentActivityCommentList().add(studentActivityComment);
@@ -122,6 +123,21 @@ public class ViewThesisBean extends AbstractBean {
         getSelectedStudentActivity().setLoadDocument(Boolean.FALSE);
         getSelectedStudentActivity().setDocumentName(null);
         studentActivityService.update(getSelectedStudentActivity());
+    }
+
+    public void performReadAllComments() {
+        User user = getLoggedInUser();
+        for(StudentActivityComment studentActivityComment : getSelectedStudentActivity().getStudentActivityCommentList()) {
+            if(!studentActivityComment.getUser().equals(user)) {
+                studentActivityComment.setSaw(true);
+            }
+        }
+        studentActivityService.update(getSelectedStudentActivity());
+    }
+
+    public boolean isRenderSawMessage(StudentActivityComment studentActivityComment) {
+        User user = getLoggedInUser();
+        return !user.equals(studentActivityComment.getUser()) && studentActivityComment.getSaw();
     }
 
     public IThesisService getThesisService() {

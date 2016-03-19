@@ -1,5 +1,6 @@
 package com.thesis.service.interfaces;
 
+import com.thesis.model.Student;
 import com.thesis.model.ThesisAppeal;
 import com.thesis.model.ThesisManager;
 
@@ -20,4 +21,8 @@ public interface IThesisAppealService extends IAbstractService<ThesisAppeal> {
     boolean isQuotaHasExpired(ThesisManager thesisManager);
 
     List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager);
+
+    boolean checkSingleThesisAppeal(Student student);
+
+    int remainingLimitOfThesisManager(ThesisManager thesisManager);
 }

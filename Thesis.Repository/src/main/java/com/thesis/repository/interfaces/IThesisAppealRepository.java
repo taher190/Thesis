@@ -1,5 +1,6 @@
 package com.thesis.repository.interfaces;
 
+import com.thesis.model.Student;
 import com.thesis.model.ThesisAppeal;
 import com.thesis.model.ThesisManager;
 
@@ -11,4 +12,6 @@ import java.util.List;
 public interface IThesisAppealRepository extends IAbstractRepository<ThesisAppeal> {
 
     List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager);
+
+    boolean checkSingleThesisAppeal(Student student);
 }

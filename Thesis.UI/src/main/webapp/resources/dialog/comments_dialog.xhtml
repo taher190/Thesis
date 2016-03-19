@@ -42,7 +42,7 @@
                             rendered="#{not empty viewThesisBean.selectedStudentActivity.studentActivityCommentList}">
                 <h:panelGrid columns="1">
                     <p:outputLabel styleClass="comment_owner"
-                                   value="#{comment.user.name}" />
+                                   value="#{comment.user.name} #{comment.user.surname}" />
                     <p:outputPanel>
                         <p:outputLabel styleClass="comment_text"
                                        value="#{comment.text}" />
@@ -50,6 +50,10 @@
                         <p:outputLabel value="#{comment.createdDate}" style="font-size: 9px;color: #666666" >
                             <f:convertDateTime locale="tr" timeStyle="short" type="both" />
                         </p:outputLabel>
+                        <br />
+                        <p:outputLabel style="font-size: 9px;color: #666666"
+                                       rendered="#{viewThesisBean.isRenderSawMessage(comment)}"
+                                       value="Görüldü" />
                     </p:outputPanel>
                 </h:panelGrid>
             </p:dataScroller>

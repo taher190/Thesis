@@ -37,6 +37,16 @@
                          placeholder="Tez şablonunuza bir isim verin..." />
             <p:message for="name" />
 
+            <p:outputLabel value="Tez programına son başvuru tarihi" />
+            <p:outputLabel value=":" />
+            <p:calendar id="last_appeal_date"
+                        value="#{cc.attrs.thesisTemplate.lastAppealDate}"
+                        locale="tr"
+                        required="true"
+                        requiredMessage="Lütfen bu alanı doldurunuz!"
+                        styleClass="input_field" />
+            <p:message for="last_appeal_date" />
+
             <p:outputLabel value="Açıklama" />
             <p:outputLabel value=":" />
             <p:inputTextarea id="desc"

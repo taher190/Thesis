@@ -1,6 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.exception.ManyThesisAppealAttemptException;
 import com.thesis.exception.SeasonNotFoundException;
 import com.thesis.model.*;
 import com.thesis.repository.interfaces.IThesisSuggestionRepository;
@@ -8,6 +9,7 @@ import com.thesis.service.interfaces.IThesisAppealService;
 import com.thesis.service.interfaces.IThesisManagerService;
 import com.thesis.service.interfaces.IThesisSuggestionService;
 import com.thesis.service.interfaces.IThesisTemplateService;
+import com.thesis.statics.Messages;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +47,7 @@ public class ThesisAppealBean extends AbstractBean {
 
     private ThesisAppeal thesisAppeal;
     private ThesisSuggestion thesisSuggestion;
+    private int remainingLimitOfThesisManager;
 
     private List<ThesisTemplate> thesisTemplateList;
     private List<ThesisManager> thesisManagerList;
@@ -61,11 +65,28 @@ public class ThesisAppealBean extends AbstractBean {
 
     public void appeal() {
         Student student = (Student) getLoggedInUser();
+        if(!checkSingleThesisAppeal(student)) {
+            showMessage(Messages.MANY_THESIS_APPEAL_ATTEMPT);
+            return;
+        }
+        if(checkLastThesisAppealDate()) {
+            showMessage(Messages.EXPIRE_DATE_OF_THESIS_TEMPLATE);
+            return;
+        }
         thesisAppeal.setStudent(student);
         thesisAppeal.setThesisTemplate(getSelectedThesisTemplate());
         thesisAppealService.save(thesisAppeal);
         logger.info("ThesisAppeal({}) has been saved!", thesisAppeal);
         showMessage("Tez başvurusu başarıyla gerçekleştirildi!");
+    }
+
+    private boolean checkLastThesisAppealDate() {
+        Date now = new Date();
+        return now.compareTo(getSelectedThesisTemplate().getLastAppealDate()) > 0;
+    }
+
+    private boolean checkSingleThesisAppeal(Student student) {
+        return thesisAppealService.checkSingleThesisAppeal(student);
     }
 
     public void suggest() {
@@ -87,6 +108,7 @@ public class ThesisAppealBean extends AbstractBean {
 
     public void selectThesisTemplate() {
         logger.info("ThesisTemplate({}) selected!", selectedThesisTemplate);
+        setRemainingLimitOfThesisManager(thesisAppealService.remainingLimitOfThesisManager(selectedThesisManager));
     }
 
     public IThesisTemplateService getThesisTemplateService() {
@@ -166,5 +188,13 @@ public class ThesisAppealBean extends AbstractBean {
 
     public void setThesisSuggestion(ThesisSuggestion thesisSuggestion) {
         this.thesisSuggestion = thesisSuggestion;
+    }
+
+    public int getRemainingLimitOfThesisManager() {
+        return remainingLimitOfThesisManager;
+    }
+
+    public void setRemainingLimitOfThesisManager(int remainingLimitOfThesisManager) {
+        this.remainingLimitOfThesisManager = remainingLimitOfThesisManager;
     }
 }

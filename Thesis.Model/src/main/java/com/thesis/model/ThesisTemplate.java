@@ -3,6 +3,7 @@ package com.thesis.model;
 import com.thesis.model.abstracts.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
     private Boolean active;
 
     private String description;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastAppealDate;
 
     @OneToMany(mappedBy = "thesisTemplate", cascade = {CascadeType.REMOVE, CascadeType.DETACH})
     private List<ThesisAppeal> thesisAppealList;
@@ -84,5 +88,13 @@ public class ThesisTemplate extends AbstractEntity<ThesisTemplate> {
 
     public void setThesisAppealList(List<ThesisAppeal> thesisAppealList) {
         this.thesisAppealList = thesisAppealList;
+    }
+
+    public Date getLastAppealDate() {
+        return lastAppealDate;
+    }
+
+    public void setLastAppealDate(Date lastAppealDate) {
+        this.lastAppealDate = lastAppealDate;
     }
 }

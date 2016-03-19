@@ -22,6 +22,8 @@ public class StudentActivityComment extends AbstractEntity<StudentActivityCommen
     @Column(length = 1200)
     private String text;
 
+    private Boolean saw;
+
     public String getText() {
         return text;
     }
@@ -44,5 +46,13 @@ public class StudentActivityComment extends AbstractEntity<StudentActivityCommen
 
     public void setStudentActivity(StudentActivity studentActivity) {
         this.studentActivity = studentActivity;
+    }
+
+    public Boolean getSaw() {
+        return saw;
+    }
+
+    public void setSaw(Boolean saw) {
+        this.saw = saw;
     }
 }

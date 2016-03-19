@@ -1,5 +1,6 @@
 package com.thesis.repository;
 
+import com.thesis.model.Student;
 import com.thesis.model.ThesisAppeal;
 import com.thesis.model.ThesisManager;
 import com.thesis.repository.abstracts.AbstractRepository;
@@ -11,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,5 +32,21 @@ public class ThesisAppealRepository extends AbstractRepository<ThesisAppeal> imp
         Query query = getEntityManager().createQuery(hql.toString());
         query.setParameter("thesisManager", thesisManager);
         return query.getResultList();
+    }
+
+    @Override
+    public boolean checkSingleThesisAppeal(Student student) {
+        Date now = new Date();
+
+        StringBuilder hql = new StringBuilder();
+        hql.append("FROM ThesisAppeal thesisAppeal ");
+        hql.append("WHERE thesisAppeal.student = :student ");
+        hql.append("AND thesisAppeal.thesisTemplate.season.startDate < :now ");
+        hql.append("AND thesisAppeal.thesisTemplate.season.endDate > :now ");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("student", student);
+        query.setParameter("now", now);
+        return query.getResultList().isEmpty();
     }
 }
