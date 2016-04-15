@@ -1,6 +1,7 @@
 package com.thesis.service;
 
 import com.thesis.model.Season;
+import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisSuggestion;
 import com.thesis.repository.interfaces.IThesisSuggestionRepository;
 import com.thesis.service.abstracts.AbstractService;
@@ -8,6 +9,8 @@ import com.thesis.service.interfaces.ISeasonService;
 import com.thesis.service.interfaces.IThesisSuggestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Mustafa Tahir ARSLAN
@@ -31,6 +34,12 @@ public class ThesisSuggestionService extends AbstractService<ThesisSuggestion> i
         Season season = seasonService.retrieveCurrentSeason(thesisSuggestion.getThesisManager());
         thesisSuggestion.setSeason(season);
         thesisSuggestionRepository.save(thesisSuggestion);
+    }
+
+
+    @Override
+    public List<ThesisSuggestion> retrieveByThesisManager(ThesisManager thesisManager) {
+        return thesisSuggestionRepository.retrieveByThesisManager(thesisManager);
     }
 
     public ISeasonService getSeasonService() {
