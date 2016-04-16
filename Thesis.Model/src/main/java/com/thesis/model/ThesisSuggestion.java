@@ -18,11 +18,16 @@ public class ThesisSuggestion extends AbstractEntity<ThesisSuggestion> {
     @ManyToOne
     private Student student;
 
+    private Boolean accepted;
+
     @ManyToOne
     private ThesisManager thesisManager;
 
     @ManyToOne
     private Season season;
+
+    @ManyToOne
+    private ThesisTemplate thesisTemplate;
 
     public Student getStudent() {
         return student;
@@ -54,5 +59,21 @@ public class ThesisSuggestion extends AbstractEntity<ThesisSuggestion> {
 
     public void setSeason(Season season) {
         this.season = season;
+    }
+
+    public ThesisTemplate getThesisTemplate() {
+        return thesisTemplate;
+    }
+
+    public void setThesisTemplate(ThesisTemplate thesisTemplate) {
+        this.thesisTemplate = thesisTemplate;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
     }
 }

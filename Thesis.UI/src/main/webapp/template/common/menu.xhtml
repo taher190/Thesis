@@ -28,6 +28,9 @@
                         icon="ui-icon-search"
                         disabled="#{!menuBean.createdSeasonAtNow}"
                         outcome="/pages/protected/thesis_manager/thesis_template_view.xhtml" />
+            <p:menuitem value="Tez Önerileri"
+                        icon="ui-icon-disk"
+                        outcome="/pages/protected/thesis_manager/thesis_suggestion.xhtml" />
         </p:submenu>
         <p:submenu label="Öğrenci işlemleri"
                    rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >

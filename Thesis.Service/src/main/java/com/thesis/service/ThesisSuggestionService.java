@@ -33,7 +33,7 @@ public class ThesisSuggestionService extends AbstractService<ThesisSuggestion> i
     public void save(ThesisSuggestion thesisSuggestion) {
         Season season = seasonService.retrieveCurrentSeason(thesisSuggestion.getThesisManager());
         thesisSuggestion.setSeason(season);
-        thesisSuggestionRepository.save(thesisSuggestion);
+        super.save(thesisSuggestion);
     }
 
 

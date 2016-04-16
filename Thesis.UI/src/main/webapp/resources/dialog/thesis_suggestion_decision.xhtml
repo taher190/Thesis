@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:form id="thesis_suggestion_decision_form"
+        rendered="#{view.viewId == '/pages/protected/thesis_manager/thesis_suggestion.xhtml'}">
+    <p:dialog widgetVar="thesis_suggestion_decision_dialog"
+              id="thesis_suggestion_decision_"
+              modal="true"
+              draggable="false"
+              resizable="false"
+              header="Tez Önerisi">
+        <ui:param name="thesisSuggesionAccepted"
+                  value="#{thesisSuggestionBean.selectedThesisSuggestion.accepted eq null}" />
+
+        <h:panelGrid styleClass="standart_panel"
+                     columns="3">
+            <p:outputLabel value="Öğrenci"/>
+            <p:outputLabel value=":"/>
+            <p:outputLabel
+                    value="#{thesisSuggestionBean.selectedThesisSuggestion.student.name} #{thesisSuggestionBean.selectedThesisSuggestion.student.surname}"/>
+
+            <p:outputLabel value="Tavsiye"/>
+            <p:outputLabel value=":"/>
+            <p:outputLabel value="#{thesisSuggestionBean.selectedThesisSuggestion.text}"/>
+
+            <p:outputLabel rendered="#{thesisSuggestionBean.selectedThesisSuggestion.accepted}" value="Tez programı" />
+            <p:outputLabel rendered="#{thesisSuggestionBean.selectedThesisSuggestion.accepted}" value=":" />
+            <p:outputLabel rendered="#{thesisSuggestionBean.selectedThesisSuggestion.accepted}"
+                           value="#{thesisSuggestionBean.selectedThesisSuggestion.thesisTemplate.name}" />
+
+            <p:outputLabel value="İlişkili Tez Programı"
+                           rendered="#{thesisSuggesionAccepted}" />
+            <p:outputLabel value=":"
+                           rendered="#{thesisSuggesionAccepted}" />
+            <p:selectOneMenu id="thesis_suggesion"
+                             value="#{thesisSuggestionBean.selectedThesisTemplate}"
+                             styleClass="input_field"
+                             rendered="#{thesisSuggesionAccepted}"
+                             converter="entityConverter">
+                <f:selectItems var="thesisTemplate"
+                               value="#{thesisSuggestionBean.thesisTemplateList}"
+                               itemValue="#{thesisTemplate}"
+                               itemLabel="#{thesisTemplate.name}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <p:outputLabel rendered="#{thesisSuggesionAccepted}" value="Bu tez programını oluşturmak için " />
+        <p:link rendered="#{thesisSuggesionAccepted}" value="tıklayınız." outcome="thesis_template_save.xhtml" />
+
+        <br />
+
+        <p:outputPanel>
+            <p:commandButton value="Reddet"
+                             actionListener="#{thesisSuggestionBean.dismiss}"
+                             oncomplete="PF('thesis_suggestion_decision_dialog').hide()"
+                             disabled="#{!thesisSuggesionAccepted}"
+                             process="@this"/>
+
+            &nbsp;
+            <p:commandButton value="Kaydet"
+                             actionListener="#{thesisSuggestionBean.accept}"
+                             oncomplete="PF('thesis_suggestion_decision_dialog').hide()"
+                             disabled="#{!thesisSuggesionAccepted}"
+                             process="thesis_suggestion_decision_form"/>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+</html>

@@ -8,14 +8,35 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:event type="preRenderView" listener="#{thesisSuggestionBean.init}" />
+    <f:event type="preRenderView" listener="#{thesisSuggestionBean.init}"/>
 </f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
         <p:panel header="Tez önerileri">
-            <ui:repeat value="#{thesisSuggestionBean.thesisSuggestionList}" var="suggestion">
-                #{suggestion.text} <br />
-            </ui:repeat>
+            <p:dataTable id="thesis_suggetion_list"
+                         dataLocale="tr"
+                         lazy="true"
+                         value="#{thesisSuggestionBean.thesisSuggestionList}"
+                         var="thesisSuggestion"
+                         rowKey="#{thesisSuggestion.id}">
+                <p:column headerText="Öğrenci">
+                    <p:outputLabel value="#{thesisSuggestion.student.name} #{thesisSuggestion.student.surname}" />
+                </p:column>
+                <p:column headerText="Tarih">
+                    <p:outputLabel value="#{thesisSuggestion.createdDate}">
+                        <f:convertDateTime locale="tr" dateStyle="medium" />
+                    </p:outputLabel>
+                </p:column>
+                <p:column headerText="Kabul durumu">
+                    <p:outputLabel value="#{thesisSuggestion.accepted}" />
+                </p:column>
+                <p:column>
+                    <p:commandLink value="Görüntüle"
+                                   actionListener="#{thesisSuggestionBean.setSelectedThesisSuggestion(thesisSuggestion)}"
+                                   update=":thesis_suggestion_decision_form:thesis_suggestion_decision_"
+                                   oncomplete="PF('thesis_suggestion_decision_dialog').show()" />
+                </p:column>
+            </p:dataTable>
         </p:panel>
     </ui:define>
 </ui:composition>
