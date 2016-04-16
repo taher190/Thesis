@@ -43,9 +43,9 @@
         </p:submenu>
         <p:submenu label="Yönetici işlemleri"
                    rendered="#{request.isUserInRole('ROLE_ADMIN')}" >
-            <p:menuitem value="Kota belirle"
+            <p:menuitem value="Kullanıcıları Yönet"
                         icon="ui-icon-disk"
-                        outcome="/pages/protected/admin/quota.xhtml" />
+                        outcome="/pages/protected/admin/user_manangment.xhtml" />
         </p:submenu>
         <p:submenu label="Öğrenci işlemleri"
                    rendered="#{request.isUserInRole('ROLE_STUDENT')}">
