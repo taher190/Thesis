@@ -13,8 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService extends AbstractService<Role> implements IRoleService {
 
+    private IRoleRepository roleRepository;
+
     @Autowired
     public RoleService(IRoleRepository roleRepository) {
         super(roleRepository);
+        this.roleRepository = roleRepository;
+    }
+
+    @Override
+    public Role retrieveByCode(String role) {
+        return roleRepository.retrieveByCode(role);
     }
 }

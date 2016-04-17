@@ -1,8 +1,10 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.model.Role;
 import com.thesis.model.Student;
 import com.thesis.model.ThesisManager;
+import com.thesis.service.interfaces.IRoleService;
 import com.thesis.service.interfaces.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,9 @@ public class RegisterBean extends AbstractBean {
 
     @ManagedProperty("#{userService}")
     private IUserService userService;
+
+    @ManagedProperty("#{roleService}")
+    private IRoleService roleService;
 
     private RegisterType selectedRegisterType;
 
@@ -89,6 +94,14 @@ public class RegisterBean extends AbstractBean {
     @Override
     public void setUserService(IUserService userService) {
         this.userService = userService;
+    }
+
+    public IRoleService getRoleService() {
+        return roleService;
+    }
+
+    public void setRoleService(IRoleService roleService) {
+        this.roleService = roleService;
     }
 
     public enum RegisterType{
