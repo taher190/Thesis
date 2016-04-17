@@ -1,6 +1,7 @@
 package com.thesis.model;
 
 import com.thesis.model.abstracts.AbstractEntity;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,10 +18,12 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
 
     private String documentName;
 
+    private String posterName;
+
+    private String codeName;
+
     @OneToMany(mappedBy = "studentActivity", cascade = CascadeType.ALL)
     private List<StudentActivityComment> studentActivityCommentList;
-
-    private Boolean loadDocument;
 
     @Temporal(TemporalType.DATE)
     private Date startDate;
@@ -61,11 +64,7 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
     }
 
     public Boolean getLoadDocument() {
-        return loadDocument;
-    }
-
-    public void setLoadDocument(Boolean loadDocument) {
-        this.loadDocument = loadDocument;
+        return !StringUtils.isEmpty(documentName);
     }
 
     public String getDocumentName() {
@@ -74,5 +73,21 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
 
     public void setDocumentName(String documentName) {
         this.documentName = documentName;
+    }
+
+    public String getPosterName() {
+        return posterName;
+    }
+
+    public void setPosterName(String posterName) {
+        this.posterName = posterName;
+    }
+
+    public String getCodeName() {
+        return codeName;
+    }
+
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 }

@@ -127,9 +127,34 @@ public class ApplicationBean extends AbstractBean {
         userRoleList.add(userRoleStudent1);
         john.setUserRoleList(userRoleList);
 
+        userService.save(john);
+
         //---
 
-        userService.save(john);
+        Admin admin = new Admin();
+        admin.setActive(true);
+        admin.setName("admin");
+        admin.setPassword("admin");
+        admin.setSurname("admin");
+
+        List<UserRole> userRoleListForAdmin = new ArrayList<UserRole>();
+
+        UserRole userRoleStudentA = new UserRole();
+        userRoleStudentA.setRole(adminRole);
+        userRoleStudentA.setUser(admin);
+
+        UserRole userRoleStudent3 = new UserRole();
+        userRoleStudent3.setRole(userRole);
+        userRoleStudent3.setUser(admin);
+
+        userRoleListForAdmin.add(userRoleStudentA);
+        userRoleListForAdmin.add(userRoleStudent3);
+        admin.setUserRoleList(userRoleListForAdmin);
+
+        userService.save(admin);
+
+        //---
+
 
         Title prof = new Title();
         prof.setName("Prof. Dr.");

@@ -2,6 +2,7 @@ package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.exception.StudentActivityNotFoundException;
+import com.thesis.model.Student;
 import com.thesis.model.StudentActivity;
 import com.thesis.model.StudentActivityComment;
 import com.thesis.model.Thesis;
@@ -9,6 +10,7 @@ import com.thesis.model.abstracts.User;
 import com.thesis.service.interfaces.IStudentActivityService;
 import com.thesis.service.interfaces.IThesisService;
 import com.thesis.statics.URLUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -90,8 +92,15 @@ public class ViewThesisBean extends AbstractBean {
         try {
             String fileName = UUID.randomUUID().toString();
             copyFile(fileName, fileUploadEvent.getFile().getInputstream());
-            getSelectedStudentActivity().setLoadDocument(Boolean.TRUE);
-            getSelectedStudentActivity().setDocumentName(fileName);
+            String origFileName = fileUploadEvent.getFile().getFileName();
+            String extension = FilenameUtils.getExtension(origFileName);
+            if("JPEG".equalsIgnoreCase(extension) || "JPG".equalsIgnoreCase(extension)) {
+                getSelectedStudentActivity().setPosterName(fileName);
+            } else if ("ZIP".equalsIgnoreCase(extension)) {
+                getSelectedStudentActivity().setCodeName(fileName);
+            } else if ("PDF".equalsIgnoreCase(extension)) {
+                getSelectedStudentActivity().setDocumentName(fileName);
+            }
             studentActivityService.update(getSelectedStudentActivity());
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,9 +128,18 @@ public class ViewThesisBean extends AbstractBean {
         }
     }
 
-    public void deleteFile() {
-        getSelectedStudentActivity().setLoadDocument(Boolean.FALSE);
+    public void deleteDocument() {
         getSelectedStudentActivity().setDocumentName(null);
+        studentActivityService.update(getSelectedStudentActivity());
+    }
+
+    public void deleteCode() {
+        getSelectedStudentActivity().setCodeName(null);
+        studentActivityService.update(getSelectedStudentActivity());
+    }
+
+    public void deletePoster() {
+        getSelectedStudentActivity().setPosterName(null);
         studentActivityService.update(getSelectedStudentActivity());
     }
 
@@ -138,6 +156,17 @@ public class ViewThesisBean extends AbstractBean {
     public boolean isRenderSawMessage(StudentActivityComment studentActivityComment) {
         User user = getLoggedInUser();
         return !user.equals(studentActivityComment.getUser()) && studentActivityComment.getSaw();
+    }
+
+    public String getRowStyle(StudentActivity studentActivity, Boolean lastWeek) {
+        if(lastWeek) {
+            return "student_activity_last_week";
+        }
+        if(studentActivity.getLoadDocument()) {
+            return "student_activity_enable";
+        } else {
+            return "student_activity_disable";
+        }
     }
 
     public IThesisService getThesisService() {

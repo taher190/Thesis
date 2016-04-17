@@ -79,6 +79,10 @@ body {
     border-left: 7px solid green;
 }
 
+.student_activity_last_week {
+    border-left: 7px solid #53bcff;
+}
+
 .student_activity_detail{
     font-size: 12px !important;
     padding: 7px;

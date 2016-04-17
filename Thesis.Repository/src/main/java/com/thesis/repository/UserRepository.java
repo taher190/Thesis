@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -21,7 +22,9 @@ public class UserRepository extends AbstractRepository<User> implements IUserRep
         CriteriaQuery<User> criteria = builder.createQuery(User.class);
         Root<User> userRoot = criteria.from( User.class );
         criteria.select(userRoot);
-        criteria.where(builder.equal(userRoot.get("entryVal"), entryVal));
+        Predicate entryValCond = builder.equal(userRoot.get("entryVal"), entryVal);
+        Predicate activeCond = builder.equal(userRoot.get("active"), true);
+        criteria.where(builder.and(activeCond, entryValCond));
         return getEntityManager().createQuery(criteria).getSingleResult();
     }
 }

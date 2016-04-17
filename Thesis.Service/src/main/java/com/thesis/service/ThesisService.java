@@ -41,7 +41,6 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
 
         for(int counterOfWeek = 0; counterOfWeek < numberOfWeek ;counterOfWeek++) {
             StudentActivity studentActivity = new StudentActivity();
-            studentActivity.setLoadDocument(Boolean.FALSE);
             studentActivity.setStartDate(calendar.getTime());
             studentActivity.setThesis(thesis);
 

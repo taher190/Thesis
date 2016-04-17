@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:thesis="http://java.sun.com/jsf/composite/thesis"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{oldSeasonsBean.init}" />
+</f:metadata>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <p:panel header="Geçmiş sezonlar">
+            <p:dataTable id="old_seasons_datatable" value="#{oldSeasonsBean.thesisList}" dataLocale="tr" var="thesis">
+                <p:column headerText="Sezon" filterBy="#{thesis.thesisTemplate.season.alias}" filterMatchMode="contains">
+                    <p:outputLabel value="#{thesis.thesisTemplate.season.alias}" />
+                </p:column>
+                <p:column headerText="Öğrenci" filterBy="#{thesis.student.name} #{thesis.student.surname}" filterMatchMode="contains">
+                    <p:outputLabel value="#{thesis.student.name} #{thesis.student.surname}" />
+                </p:column>
+                <p:column headerText="Tez Programı" filterBy="#{thesis.thesisTemplate.name}" filterMatchMode="contains">
+                    <p:outputLabel value="#{thesis.thesisTemplate.name}" />
+                </p:column>
+                <p:column headerText="İlgili aktivitiler">
+                    <p:link value="Görüntüle" outcome="/pages/protected/view_thesis.xhtml">
+                        <f:param name="thesis_id" value="#{thesis.id}" />
+                    </p:link>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </ui:define>
+</ui:composition>
+</html>
