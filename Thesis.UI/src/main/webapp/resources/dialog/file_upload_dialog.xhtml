@@ -33,7 +33,7 @@
         </p:fileUpload>
 
         <p:commandLink value="Yüklenen dosyayı sil"
-                       actionListener="#{viewThesisBean.deleteFile}"
+                       actionListener="#{viewThesisBean.deleteDocument}"
                        process="@this"
                        oncomplete="location.reload();"
                        rendered="#{viewThesisBean.selectedStudentActivity.loadDocument}" />

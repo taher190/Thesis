@@ -65,7 +65,7 @@ public class ViewThesisBean extends AbstractBean {
 
     private StudentActivity findStudentActivityFromThesis(Long studentActivityId) {
         for(StudentActivity studentActivity : getThesis().getStudentActivityList()) {
-            if(studentActivity.getId() == studentActivityId) {
+            if(studentActivity.getId().equals(studentActivityId)) {
                 return studentActivity;
             }
         }
