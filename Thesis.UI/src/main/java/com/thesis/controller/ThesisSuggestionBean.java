@@ -4,6 +4,8 @@ import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisSuggestion;
 import com.thesis.model.ThesisTemplate;
+import com.thesis.service.ThesisService;
+import com.thesis.service.interfaces.IThesisService;
 import com.thesis.service.interfaces.IThesisSuggestionService;
 import com.thesis.service.interfaces.IThesisTemplateService;
 
@@ -26,6 +28,9 @@ public class ThesisSuggestionBean extends AbstractBean {
     @ManagedProperty("#{thesisTemplateService}")
     private IThesisTemplateService thesisTemplateService;
 
+    @ManagedProperty("#{thesisService}")
+    private IThesisService thesisService;
+
     private List<ThesisSuggestion> thesisSuggestionList;
     private List<ThesisTemplate> thesisTemplateList;
     private ThesisSuggestion selectedThesisSuggestion;
@@ -41,6 +46,7 @@ public class ThesisSuggestionBean extends AbstractBean {
         selectedThesisSuggestion.setThesisTemplate(getSelectedThesisTemplate());
         selectedThesisSuggestion.setAccepted(Boolean.TRUE);
         thesisSuggestionService.update(selectedThesisSuggestion);
+        thesisService.createThesisWithActivity(getSelectedThesisTemplate().getSeason(), getSelectedThesisSuggestion().getStudent(), getSelectedThesisTemplate());
         showMessage("Tez önerisi kabul edildi.");
     }
 
@@ -96,5 +102,12 @@ public class ThesisSuggestionBean extends AbstractBean {
 
     public void setSelectedThesisTemplate(ThesisTemplate selectedThesisTemplate) {
         this.selectedThesisTemplate = selectedThesisTemplate;
+    }
+    public IThesisService getThesisService() {
+        return thesisService;
+    }
+
+    public void setThesisService(IThesisService thesisService) {
+        this.thesisService = thesisService;
     }
 }

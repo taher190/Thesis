@@ -1,9 +1,6 @@
 package com.thesis.service.interfaces;
 
-import com.thesis.model.Student;
-import com.thesis.model.Thesis;
-import com.thesis.model.ThesisAppeal;
-import com.thesis.model.ThesisManager;
+import com.thesis.model.*;
 import com.thesis.model.abstracts.User;
 
 import java.util.List;
@@ -14,6 +11,8 @@ import java.util.List;
 public interface IThesisService extends IAbstractService<Thesis> {
 
     void createThesisWithActivity(ThesisAppeal thesisAppeal);
+
+    void createThesisWithActivity(Season season, Student student, ThesisTemplate thesisTemplate);
 
     List<Thesis> retrieveCurrentThesis(Student student);
 

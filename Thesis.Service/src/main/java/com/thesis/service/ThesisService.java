@@ -28,13 +28,18 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
 
     @Override
     public void createThesisWithActivity(ThesisAppeal thesisAppeal) {
-        int numberOfWeek = thesisAppeal.getThesisTemplate().getSeason().getNumberOfWeek();
-        Date startDate = thesisAppeal.getThesisTemplate().getSeason().getStartDate();
+        createThesisWithActivity(thesisAppeal.getThesisTemplate().getSeason(), thesisAppeal.getStudent(), thesisAppeal.getThesisTemplate());
+    }
+
+    @Override
+    public void createThesisWithActivity(Season season, Student student, ThesisTemplate thesisTemplate) {
+        int numberOfWeek = season.getNumberOfWeek();
+        Date startDate = season.getStartDate();
         List<StudentActivity> studentActivityList = new ArrayList<StudentActivity>();
 
         Thesis thesis = new Thesis();
-        thesis.setStudent(thesisAppeal.getStudent());
-        thesis.setThesisTemplate(thesisAppeal.getThesisTemplate());
+        thesis.setStudent(student);
+        thesis.setThesisTemplate(thesisTemplate);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
