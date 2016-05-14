@@ -1,6 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.enums.OperationType;
 import com.thesis.exception.StudentActivityNotFoundException;
 import com.thesis.model.Student;
 import com.thesis.model.StudentActivity;
@@ -74,17 +75,28 @@ public class ViewThesisBean extends AbstractBean {
 
     //FIXME : Comment eklendiğinde kapatılmazsa panel katlanarak gidiyor.
     public void putComment() {
+        User user = getLoggedInUser();
         StudentActivityComment studentActivityComment = new StudentActivityComment();
         studentActivityComment.setText(currentCommentText);
         studentActivityComment.setStudentActivity(getSelectedStudentActivity());
-        studentActivityComment.setUser(getLoggedInUser());
+        studentActivityComment.setUser(user);
         studentActivityComment.setSaw(false);
         studentActivityComment.setCreatedDate(new Date());
 
         getSelectedStudentActivity().getStudentActivityCommentList().add(studentActivityComment);
         studentActivityService.update(getSelectedStudentActivity());
 
+        putNotificationRepo(getOtherUser(user), user, OperationType.NEW_COMMENT
+                , currentCommentText);
         currentCommentText = StringUtils.EMPTY;
+    }
+
+    private User getOtherUser(User user) {
+        if(user instanceof Student){
+            return thesis.getThesisTemplate().getThesisManager();
+        } else {
+            return thesis.getStudent();
+        }
     }
 
     public void fileUploadListener(FileUploadEvent fileUploadEvent) throws IOException {
@@ -102,6 +114,8 @@ public class ViewThesisBean extends AbstractBean {
                 getSelectedStudentActivity().setDocumentName(fileName);
             }
             studentActivityService.update(getSelectedStudentActivity());
+            putNotificationRepo(thesis.getThesisTemplate().getThesisManager(), thesis.getStudent(), OperationType.UPLOAD_FILE
+                    , "");
         } catch (IOException e) {
             e.printStackTrace();
         }

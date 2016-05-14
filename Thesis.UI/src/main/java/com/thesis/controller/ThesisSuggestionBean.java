@@ -1,6 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.enums.OperationType;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisSuggestion;
 import com.thesis.model.ThesisTemplate;
@@ -48,12 +49,16 @@ public class ThesisSuggestionBean extends AbstractBean {
         thesisSuggestionService.update(selectedThesisSuggestion);
         thesisService.createThesisWithActivity(getSelectedThesisTemplate().getSeason(), getSelectedThesisSuggestion().getStudent(), getSelectedThesisTemplate());
         showMessage("Tez önerisi kabul edildi.");
+        putNotificationRepo(getSelectedThesisSuggestion().getStudent(), getSelectedThesisSuggestion().getThesisManager(), OperationType.ACCEPTED_THESIS_SUGGESTION
+                , getSelectedThesisSuggestion().getText());
     }
 
     public void dismiss() {
         selectedThesisSuggestion.setAccepted(Boolean.FALSE);
         thesisSuggestionService.update(selectedThesisSuggestion);
         showMessage("Tez önerisi reddedildi.");
+        putNotificationRepo(getSelectedThesisSuggestion().getStudent(), getSelectedThesisSuggestion().getThesisManager(), OperationType.DISMISSED_THESIS_SUGGESTION
+                , getSelectedThesisSuggestion().getText());
     }
 
     public IThesisSuggestionService getThesisSuggestionService() {

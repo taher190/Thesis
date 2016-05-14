@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <div id="header_main">
         <h:graphicImage value="/resources/img/uni_logo.png" styleClass="uni_logo" />
@@ -12,6 +13,14 @@
             <p:outputLabel style="font-size: 35px; color: #53bcff; font-weight: 600" value="Karabük Üniversitesi" />
             <br/>
             <p:outputLabel style="font-size: 22px; color: #545454" value="Tez Takip Sistemi" />
+        </div>
+        <div style="margin-top: 22px; float: right;position: relative; text-align: right">
+            <p:outputLabel value="#{request.userPrincipal.name}" style="font-size: 17px;" />
+            olarak giriş yaptınız
+            <br />
+            <a href="#{request.contextPath}/j_spring_security_logout">
+                çıkış
+            </a>
         </div>
     </div>
 </ui:composition>

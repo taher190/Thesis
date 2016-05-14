@@ -4,6 +4,7 @@ import com.thesis.controller.abstracts.AbstractBean;
 import com.thesis.controller.interfaces.ICRUDOperation;
 import com.thesis.model.ThesisManager;
 import com.thesis.model.ThesisTemplate;
+import com.thesis.service.interfaces.INotificationService;
 import com.thesis.service.interfaces.IThesisTemplateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

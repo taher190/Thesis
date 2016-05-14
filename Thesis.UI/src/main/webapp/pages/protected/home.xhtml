@@ -6,9 +6,30 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+<f:metadata>
+    <f:event type="preRenderView" listener="#{homeBean.init}" />
+</f:metadata>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
+        <ui:repeat value="#{homeBean.notificationList}" var="notification">
+            <div class="notification_item #{!notification.see ? 'notification_not_see' : ''}">
+                <p:outputLabel value="#{notification.createdDate}" style="font-size: 9px;color: #666666" >
+                    <f:convertDateTime locale="tr" timeStyle="short" type="both" />
+                </p:outputLabel>
+                <br />
+                <p:outputLabel value="#{notification.reporter.name} #{notification.reporter.surname}" style="color: blue" />
+                adlı kullanıcı
+                <p:outputLabel value="#{notification.operationType.value} " style="color: green" />
+                adlı işlemi gerçekleştirdi.
+                <br />
+                <br />
+                <p:outputLabel value="#{notification.description}" style="color: #333; font-size: 13px" />
+            </div>
+        </ui:repeat>
+        <p:remoteCommand name="onloadWindow" actionListener="#{homeBean.performSeeAllComments}" />
+        <h:outputScript>
+            window.onload = onloadWindow;
+        </h:outputScript>
     </ui:define>
 </ui:composition>
 </html>

@@ -1,6 +1,7 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
+import com.thesis.enums.OperationType;
 import com.thesis.exception.SeasonNotFoundException;
 import com.thesis.model.*;
 import com.thesis.service.interfaces.IThesisAppealService;
@@ -77,6 +78,8 @@ public class ThesisAppealBean extends AbstractBean {
         thesisAppealService.save(thesisAppeal);
         logger.info("ThesisAppeal({}) has been saved!", thesisAppeal);
         showMessage("Tez başvurusu başarıyla gerçekleştirildi!");
+        putNotificationRepo(getSelectedThesisManager(), currentStudent, OperationType.THESIS_APPEAL
+                , getSelectedThesisTemplate().getName());
     }
 
     private boolean checkLastThesisAppealDate() {
@@ -95,6 +98,8 @@ public class ThesisAppealBean extends AbstractBean {
         logger.info("ThesisSuggestion({}) has been saved!", thesisSuggestion);
         showMessage("Tez önerisi başarıyla gönderildi!");
         RequestContext.getCurrentInstance().execute("PF('thesis_suggestion_dialog').hide();");
+        putNotificationRepo(thesisSuggestion.getThesisManager(), student, OperationType.NEW_THESIS_SUGGESTION
+                , thesisSuggestion.getText());
     }
 
     public boolean isQuotaHasExpired(ThesisManager thesisManager) {

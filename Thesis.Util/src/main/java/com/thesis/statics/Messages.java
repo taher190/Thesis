@@ -11,5 +11,5 @@ public class Messages {
 
     public static final String EXPIRE_DATE_OF_THESIS_TEMPLATE = "Tez programının süresi geçmiş!";
 
-    public static final String CANNOT_CREATE_CONFLICT_THESIS_SEASON = "Çakışan tez sezonları oluşturulamaz!";
+    public static final String CANNOT_CREATE_CONFLICT_THESIS_SEASON = "Aynı tarihler arasında tez sezonu oluşturulamaz! Lütfen tarihleri kontrol edin!";
 }

@@ -1,10 +1,10 @@
 package com.thesis.controller.abstracts;
 
 import com.thesis.controller.util.ApplicationBean;
-import com.thesis.model.Department;
-import com.thesis.model.Faculty;
-import com.thesis.model.Title;
+import com.thesis.enums.OperationType;
+import com.thesis.model.*;
 import com.thesis.model.abstracts.User;
+import com.thesis.service.interfaces.INotificationService;
 import com.thesis.service.interfaces.IUserService;
 import org.primefaces.context.RequestContext;
 import org.springframework.security.core.Authentication;
@@ -29,6 +29,9 @@ public abstract class AbstractBean implements Serializable {
 
     @ManagedProperty("#{userService}")
     private IUserService userService;
+
+    @ManagedProperty("#{notificationService}")
+    private INotificationService notificationService;
 
     protected <T> T getBean(String beanName) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -62,11 +65,30 @@ public abstract class AbstractBean implements Serializable {
         RequestContext.getCurrentInstance().update("common_growl");
     }
 
+    protected void putNotificationRepo(User assigned, User reporter, OperationType operationType, String desc) {
+        Notification notification = new Notification();
+        notification.setAssigned(assigned);
+        notification.setReporter(reporter);
+        notification.setOperationType(operationType);
+        notification.setSee(Boolean.FALSE);
+        notification.setDescription(desc);
+
+        notificationService.save(notification);
+    }
+
     public IUserService getUserService() {
         return userService;
     }
 
     public void setUserService(IUserService userService) {
         this.userService = userService;
+    }
+
+    public INotificationService getNotificationService() {
+        return notificationService;
+    }
+
+    public void setNotificationService(INotificationService notificationService) {
+        this.notificationService = notificationService;
     }
 }
