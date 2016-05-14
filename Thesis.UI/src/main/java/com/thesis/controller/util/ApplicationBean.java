@@ -136,6 +136,7 @@ public class ApplicationBean extends AbstractBean {
         admin.setName("admin");
         admin.setPassword("admin");
         admin.setSurname("admin");
+        admin.setEntryVal("admin");
 
         List<UserRole> userRoleListForAdmin = new ArrayList<UserRole>();
 
