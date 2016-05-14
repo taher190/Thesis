@@ -22,7 +22,7 @@ public interface IThesisAppealService extends IAbstractService<ThesisAppeal> {
 
     List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager);
 
-    boolean checkSingleThesisAppeal(Student student);
+    boolean checkOnlyOneThesisAppeal(Student student);
 
     int remainingLimitOfThesisManager(ThesisManager thesisManager);
 }

@@ -56,8 +56,10 @@
                                      process="select_thesis_template"
                                      disabled="#{empty thesisAppealBean.selectedThesisTemplate}"
                                      update="thesis_template_details" />
-                    <p:outputLabel value=" yada " />
-                    <p:commandLink value="tez tavsiyesinde bulun" onclick="PF('thesis_suggestion_dialog').show();" />
+                    <ui:param name="showThesisSuggestionLink" value="#{thesisAppealBean.checkOnlyOneThesisAppeal()}" />
+                    <p:outputLabel value=" yada " rendered="#{showThesisSuggestionLink}" />
+                    <p:commandLink value="tez tavsiyesinde bulun" rendered="#{showThesisSuggestionLink}"
+                                   onclick="PF('thesis_suggestion_dialog').show();" />
                 </p:outputPanel>
             </h:panelGrid>
         </p:panel>

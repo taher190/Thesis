@@ -35,7 +35,7 @@ public class ThesisAppealRepository extends AbstractRepository<ThesisAppeal> imp
     }
 
     @Override
-    public boolean checkSingleThesisAppeal(Student student) {
+    public boolean checkOnlyOneThesisAppeal(Student student) {
         Date now = new Date();
 
         StringBuilder hql = new StringBuilder();

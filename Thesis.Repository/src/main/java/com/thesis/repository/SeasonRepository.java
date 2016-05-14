@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.NumberUtils;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -46,5 +47,21 @@ public class SeasonRepository extends AbstractRepository<Season> implements ISea
         }
 
         throw new InconsistentException("Aynı tarihler arasında sadece birden fazla tez sezonu oluşturulamaz!");
+    }
+
+    @Override
+    public boolean hasSeasonFor(Date startDate, Date endDate, ThesisManager thesisManager) {
+
+        StringBuilder hql = new StringBuilder();
+        hql.append("FROM Season season ");
+        hql.append("WHERE ((season.startDate < :startDate AND season.endDate > :startDate) ");
+        hql.append("OR (season.startDate < :endDate AND season.endDate > :endDate))");
+        hql.append("AND season.thesisManager = :thesisManager");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("thesisManager", thesisManager);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return !CollectionUtils.isEmpty(query.getResultList());
     }
 }

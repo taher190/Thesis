@@ -52,8 +52,8 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
     }
 
     @Override
-    public boolean checkSingleThesisAppeal(Student student) {
-        return thesisAppealRepository.checkSingleThesisAppeal(student);
+    public boolean checkOnlyOneThesisAppeal(Student student) {
+        return thesisAppealRepository.checkOnlyOneThesisAppeal(student);
     }
 
     @Override

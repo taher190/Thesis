@@ -1,10 +1,8 @@
 package com.thesis.controller;
 
 import com.thesis.controller.abstracts.AbstractBean;
-import com.thesis.exception.ManyThesisAppealAttemptException;
 import com.thesis.exception.SeasonNotFoundException;
 import com.thesis.model.*;
-import com.thesis.repository.interfaces.IThesisSuggestionRepository;
 import com.thesis.service.interfaces.IThesisAppealService;
 import com.thesis.service.interfaces.IThesisManagerService;
 import com.thesis.service.interfaces.IThesisSuggestionService;
@@ -44,6 +42,7 @@ public class ThesisAppealBean extends AbstractBean {
 
     private ThesisTemplate selectedThesisTemplate;
     private ThesisManager selectedThesisManager;
+    private Student currentStudent;
 
     private ThesisAppeal thesisAppeal;
     private ThesisSuggestion thesisSuggestion;
@@ -56,6 +55,7 @@ public class ThesisAppealBean extends AbstractBean {
     public void init() {
         setThesisAppeal(new ThesisAppeal());
         setThesisSuggestion(new ThesisSuggestion());
+        currentStudent = (Student) getLoggedInUser();
     }
 
     public void loadThesisManagers() {
@@ -64,8 +64,7 @@ public class ThesisAppealBean extends AbstractBean {
     }
 
     public void appeal() {
-        Student student = (Student) getLoggedInUser();
-        if(!checkSingleThesisAppeal(student)) {
+        if(!checkOnlyOneThesisAppeal()) {
             showMessage(Messages.MANY_THESIS_APPEAL_ATTEMPT);
             return;
         }
@@ -73,7 +72,7 @@ public class ThesisAppealBean extends AbstractBean {
             showMessage(Messages.EXPIRE_DATE_OF_THESIS_TEMPLATE);
             return;
         }
-        thesisAppeal.setStudent(student);
+        thesisAppeal.setStudent(currentStudent);
         thesisAppeal.setThesisTemplate(getSelectedThesisTemplate());
         thesisAppealService.save(thesisAppeal);
         logger.info("ThesisAppeal({}) has been saved!", thesisAppeal);
@@ -85,8 +84,8 @@ public class ThesisAppealBean extends AbstractBean {
         return now.compareTo(getSelectedThesisTemplate().getLastAppealDate()) > 0;
     }
 
-    private boolean checkSingleThesisAppeal(Student student) {
-        return thesisAppealService.checkSingleThesisAppeal(student);
+    public boolean checkOnlyOneThesisAppeal() {
+        return thesisAppealService.checkOnlyOneThesisAppeal(currentStudent);
     }
 
     public void suggest() {
