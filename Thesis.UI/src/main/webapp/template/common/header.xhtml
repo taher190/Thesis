@@ -8,12 +8,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
     <div id="header_main">
-        <h:graphicImage value="/resources/img/uni_logo.png" styleClass="uni_logo" />
-        <div style="float: left;margin-top: 25px;">
-            <p:outputLabel style="font-size: 35px; color: #53bcff; font-weight: 600" value="Karabük Üniversitesi" />
-            <br/>
-            <p:outputLabel style="font-size: 22px; color: #545454" value="Tez Takip Sistemi" />
-        </div>
+        <a href="#{request.contextPath}">
+            <h:graphicImage value="/resources/img/uni_logo.png" styleClass="uni_logo" />
+            <div style="float: left;margin-top: 25px;">
+                <p:outputLabel style="font-size: 35px; color: #53bcff; font-weight: 600" value="Karabük Üniversitesi" />
+                <br/>
+                <p:outputLabel style="font-size: 22px; color: #545454" value="Tez Takip Sistemi" />
+            </div>
+        </a>
         <div style="margin-top: 22px; float: right;position: relative; text-align: right">
             <p:outputLabel value="#{request.userPrincipal.name}" style="font-size: 17px;" />
             olarak giriş yaptınız

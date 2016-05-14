@@ -73,12 +73,12 @@
                                    oncomplete="PF('comments_dialog').show();"/>
                     <br/>
                     <p:commandLink value="Yüklenen dokümanlar"
-                                   rendered="#{!lastWeek}"
+                                   rendered="#{!lastWeek and request.isUserInRole('ROLE_STUDENT')}"
                                    update=":file_upload_dialog_form:file_upload_dialog_"
                                    oncomplete="PF('file_upload_dialog').show();"/>
 
                     <p:commandLink value="Yüklenen dokümanlar"
-                                   rendered="#{lastWeek}"
+                                   rendered="#{lastWeek and request.isUserInRole('ROLE_STUDENT')}"
                                    update=":file_upload_dialog_for_lastweek_form:file_upload_dialog_for_lastweek_"
                                    oncomplete="PF('file_upload_dialog_for_lastweek').show();"/>
                 </div>
