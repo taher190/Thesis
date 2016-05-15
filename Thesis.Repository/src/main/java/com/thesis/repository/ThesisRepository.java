@@ -55,6 +55,7 @@ public class ThesisRepository extends AbstractRepository<Thesis> implements IThe
         hql.append("SELECT AVG(studentActivity.point) ");
         hql.append("FROM StudentActivity studentActivity ");
         hql.append("WHERE studentActivity.thesis = :thesis ");
+        hql.append("AND studentActivity.point != 0 ");
 
         Query query = getEntityManager().createQuery(hql.toString());
         query.setParameter("thesis", thesis);
