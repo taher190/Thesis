@@ -17,7 +17,7 @@ function showActivityDetail($item) {
     var itemDetailId = "item_" + id;
     var $itemDetail = $('#' + itemDetailId);
     $item.animate({
-        height: '145px',
+        height: '199px',
         'background-color': '#FFF',
         color: '#000'
     }, 400, function() {
