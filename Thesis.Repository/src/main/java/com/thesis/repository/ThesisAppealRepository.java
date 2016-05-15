@@ -49,4 +49,30 @@ public class ThesisAppealRepository extends AbstractRepository<ThesisAppeal> imp
         query.setParameter("now", now);
         return query.getResultList().isEmpty();
     }
+
+    @Override
+    public void rejectOfAllThesisSuggestion(Student student) {
+        StringBuilder hql = new StringBuilder();
+        hql.append("UPDATE ThesisSuggestion thesisSuggestion ");
+        hql.append("SET accepted = 0 ");
+        hql.append("WHERE student = :student ");
+        hql.append("AND accepted = null ");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("student", student);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void rejectOfAllThesisAppeal(Student student) {
+        StringBuilder hql = new StringBuilder();
+        hql.append("UPDATE ThesisAppeal thesisAppeal ");
+        hql.append("SET accepted = 0 ");
+        hql.append("WHERE student = :student ");
+        hql.append("AND accepted = null ");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("student", student);
+        query.executeUpdate();
+    }
 }

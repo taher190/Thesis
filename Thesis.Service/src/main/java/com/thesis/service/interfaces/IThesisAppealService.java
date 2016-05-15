@@ -25,4 +25,6 @@ public interface IThesisAppealService extends IAbstractService<ThesisAppeal> {
     boolean checkOnlyOneThesisAppeal(Student student);
 
     int remainingLimitOfThesisManager(ThesisManager thesisManager);
+
+    void rejectOfAllThesisSuggestion(Student student);
 }

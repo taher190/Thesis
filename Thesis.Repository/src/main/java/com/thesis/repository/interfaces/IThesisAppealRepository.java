@@ -14,4 +14,8 @@ public interface IThesisAppealRepository extends IAbstractRepository<ThesisAppea
     List<ThesisAppeal> retrieveByThesisManager(ThesisManager thesisManager);
 
     boolean checkOnlyOneThesisAppeal(Student student);
+
+    void rejectOfAllThesisSuggestion(Student student);
+
+    void rejectOfAllThesisAppeal(Student student);
 }

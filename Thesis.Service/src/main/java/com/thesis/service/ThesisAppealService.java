@@ -90,6 +90,12 @@ public class ThesisAppealService extends AbstractService<ThesisAppeal> implement
         return numberOfAppeal;
     }
 
+    @Override
+    public void rejectOfAllThesisSuggestion(Student student) {
+        thesisAppealRepository.rejectOfAllThesisSuggestion(student);
+        thesisAppealRepository.rejectOfAllThesisAppeal(student);
+    }
+
     public ISeasonService getSeasonService() {
         return seasonService;
     }

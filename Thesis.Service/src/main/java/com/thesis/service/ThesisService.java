@@ -3,6 +3,7 @@ package com.thesis.service;
 import com.thesis.model.*;
 import com.thesis.repository.interfaces.IThesisRepository;
 import com.thesis.service.abstracts.AbstractService;
+import com.thesis.service.interfaces.IThesisAppealService;
 import com.thesis.service.interfaces.IThesisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.List;
  */
 @Service
 public class ThesisService extends AbstractService<Thesis> implements IThesisService {
+
+    @Autowired
+    private IThesisAppealService thesisAppealService;
 
     private IThesisRepository thesisRepository;
 
@@ -55,6 +59,7 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
         }
         thesis.setStudentActivityList(studentActivityList);
         super.save(thesis);
+        thesisAppealService.rejectOfAllThesisSuggestion(student);
     }
 
     @Override
