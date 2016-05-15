@@ -98,9 +98,11 @@
                 </div>
             </div>
         </ui:repeat>
-
+        <br />
+        <p:outputLabel value="#{viewThesisBean.thesis.student.name} #{viewThesisBean.thesis.student.surname}" />
         <h:panelGrid styleClass="standart_panel"
                      columns="2">
+
             <p:outputLabel value="Ortalama : " />
             <p:outputLabel value="#{viewThesisBean.averageOfAllWeeks}" />
         </h:panelGrid>
