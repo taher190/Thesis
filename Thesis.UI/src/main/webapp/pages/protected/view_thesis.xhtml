@@ -100,8 +100,9 @@
             </div>
         </ui:repeat>
         <br />
-        <p:outputLabel value="#{viewThesisBean.thesis.student.name} #{viewThesisBean.thesis.student.surname}" />
+        <p:outputLabel value="#{viewThesisBean.thesis.student.name} #{viewThesisBean.thesis.student.surname}" rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" />
         <h:panelGrid styleClass="standart_panel"
+                     rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}"
                      columns="2">
 
             <p:outputLabel value="Ortalama : " />
