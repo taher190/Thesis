@@ -22,6 +22,8 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
 
     private String codeName;
 
+    private int point;
+
     @OneToMany(mappedBy = "studentActivity", cascade = CascadeType.ALL)
     private List<StudentActivityComment> studentActivityCommentList;
 
@@ -89,5 +91,13 @@ public class StudentActivity extends AbstractEntity<StudentActivity> {
 
     public void setCodeName(String codeName) {
         this.codeName = codeName;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

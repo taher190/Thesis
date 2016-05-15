@@ -7,6 +7,7 @@ import com.thesis.repository.abstracts.AbstractRepository;
 import com.thesis.repository.interfaces.IThesisRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
@@ -46,5 +47,17 @@ public class ThesisRepository extends AbstractRepository<Thesis> implements IThe
                 .setParameter("thesisManager", thesisManager)
                 .setParameter("now", now)
                 .getResultList();
+    }
+
+    @Override
+    public Double averageOfAllWeeks(Thesis thesis) {
+        StringBuilder hql = new StringBuilder();
+        hql.append("SELECT AVG(studentActivity.point) ");
+        hql.append("FROM StudentActivity studentActivity ");
+        hql.append("WHERE studentActivity.thesis = :thesis ");
+
+        Query query = getEntityManager().createQuery(hql.toString());
+        query.setParameter("thesis", thesis);
+        return (Double) query.getSingleResult();
     }
 }

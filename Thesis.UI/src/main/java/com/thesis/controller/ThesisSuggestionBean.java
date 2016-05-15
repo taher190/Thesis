@@ -77,7 +77,7 @@ public class ThesisSuggestionBean extends AbstractBean {
         this.selectedThesisSuggestion = selectedThesisSuggestion;
     }
 
-    public List<ThesisSuggestion> getThesisSuggestionList() {
+    public List<ThesisSuggestion> getTheseisSuggestionList() {
         return thesisSuggestionList;
     }
 

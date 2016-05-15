@@ -14,6 +14,7 @@ import com.thesis.statics.URLUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.DoubleRange;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
@@ -48,6 +49,7 @@ public class ViewThesisBean extends AbstractBean {
 
     private String currentCommentText;
     private UploadedFile file;
+    private Double averageOfAllWeeks;
 
     public void init() {
         if(getThesis() != null) {
@@ -56,6 +58,7 @@ public class ViewThesisBean extends AbstractBean {
         Map requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long thesisId = Long.parseLong(requestMap.get("thesis_id").toString());
         setThesis(thesisService.retrieveById(thesisId));
+        averageOfAllWeeks = thesisService.averageOfAllWeeks(thesis);
     }
 
     public void selectStudentActivity() {
@@ -97,6 +100,11 @@ public class ViewThesisBean extends AbstractBean {
         } else {
             return thesis.getStudent();
         }
+    }
+
+    public void evaluate(){
+        studentActivityService.update(selectedStudentActivity);
+        showMessage("Puan atama işlemi başarılı!");
     }
 
     public void fileUploadListener(FileUploadEvent fileUploadEvent) throws IOException {
@@ -229,5 +237,13 @@ public class ViewThesisBean extends AbstractBean {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+
+    public void setAverageOfAllWeeks(Double averageOfAllWeeks) {
+        this.averageOfAllWeeks = averageOfAllWeeks;
+    }
+
+    public Double getAverageOfAllWeeks() {
+        return averageOfAllWeeks;
     }
 }

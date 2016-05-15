@@ -66,4 +66,9 @@ public class ThesisService extends AbstractService<Thesis> implements IThesisSer
     public List<Thesis> retrieveCurrentThesis(ThesisManager thesisManager) {
         return thesisRepository.retrieveCurrentThesis(thesisManager);
     }
+
+    @Override
+    public Double averageOfAllWeeks(Thesis thesis) {
+        return thesisRepository.averageOfAllWeeks(thesis);
+    }
 }

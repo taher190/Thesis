@@ -62,7 +62,7 @@
                         <br/>
                     </p:outputLabel>
 
-                    <p:outputLabel rendered="#{lastWeek}"
+                    <p:outputLabel rendered="#{lastWeek and request.isUserInRole('ROLE_STUDENT')}"
                                    value="Bu haftaya bitirme tezinizi, tez posterinizi ve diğer dokümanlarınızı yükleyiniz."/>
 
                     <br />
@@ -81,9 +81,29 @@
                                    rendered="#{lastWeek and request.isUserInRole('ROLE_STUDENT')}"
                                    update=":file_upload_dialog_for_lastweek_form:file_upload_dialog_for_lastweek_"
                                    oncomplete="PF('file_upload_dialog_for_lastweek').show();"/>
+                    <br />
+
+                    <h:panelGrid id="point" columns="2" styleClass="standart_panel" rendered="#{request.isUserInRole('ROLE_THESIS_MANAGER')}" >
+                        <p:inputText value="#{studentActivity.point}" id="point_val">
+                            <f:validateLongRange maximum="100" minimum="0" />
+                        </p:inputText>
+
+                        <p:message for="point_val"/>
+
+                    </h:panelGrid>
+                        <p:commandButton value="Puanla"
+                                         process="point"
+                                         update="point"
+                                         actionListener="#{viewThesisBean.evaluate}" />
                 </div>
             </div>
         </ui:repeat>
+
+        <h:panelGrid styleClass="standart_panel"
+                     columns="2">
+            <p:outputLabel value="Ortalama : " />
+            <p:outputLabel value="#{viewThesisBean.averageOfAllWeeks}" />
+        </h:panelGrid>
 
         <p:remoteCommand name="selectStudentActivity"
                          actionListener="#{viewThesisBean.selectStudentActivity}"
