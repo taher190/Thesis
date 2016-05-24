@@ -61,4 +61,17 @@ public class ThesisRepository extends AbstractRepository<Thesis> implements IThe
         query.setParameter("thesis", thesis);
         return (Double) query.getSingleResult();
     }
+
+    @Override
+    public List<Thesis> retrieveByThesisManager(ThesisManager thesisManager) {
+        Date now = new Date();
+
+        StringBuilder hql = new StringBuilder();
+        hql.append("FROM Thesis thesis ");
+        hql.append("WHERE thesis.thesisTemplate.thesisManager = :thesisManager ");
+
+        return getEntityManager().createQuery(hql.toString())
+                .setParameter("thesisManager", thesisManager)
+                .getResultList();
+    }
 }

@@ -16,4 +16,6 @@ public interface IThesisRepository extends IAbstractRepository<Thesis> {
     List<Thesis> retrieveCurrentThesis(ThesisManager thesisManager);
 
     Double averageOfAllWeeks(Thesis thesis);
+
+    List<Thesis> retrieveByThesisManager(ThesisManager thesisManager);
 }

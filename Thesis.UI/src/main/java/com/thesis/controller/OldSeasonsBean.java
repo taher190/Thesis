@@ -26,7 +26,7 @@ public class OldSeasonsBean extends AbstractBean {
     public void init() {
         ThesisManager thesisManager = (ThesisManager) getLoggedInUser();
         List<Thesis> currentThesisList = thesisService.retrieveCurrentThesis(thesisManager);
-        List<Thesis> thesisList = thesisService.retrieveCurrentThesis(thesisManager);
+        List<Thesis> thesisList = thesisService.retrieveByThesisManager(thesisManager);
         thesisList.removeAll(currentThesisList);
         setThesisList(thesisList);
     }

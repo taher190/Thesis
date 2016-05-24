@@ -19,4 +19,6 @@ public interface IThesisService extends IAbstractService<Thesis> {
     List<Thesis> retrieveCurrentThesis(ThesisManager thesisManager);
 
     Double averageOfAllWeeks(Thesis thesis);
+
+    List<Thesis> retrieveByThesisManager(ThesisManager thesisManager);
 }
