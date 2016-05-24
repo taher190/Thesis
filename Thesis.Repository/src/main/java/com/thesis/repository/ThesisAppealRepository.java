@@ -43,6 +43,7 @@ public class ThesisAppealRepository extends AbstractRepository<ThesisAppeal> imp
         hql.append("WHERE thesisAppeal.student = :student ");
         hql.append("AND thesisAppeal.thesisTemplate.season.startDate < :now ");
         hql.append("AND thesisAppeal.thesisTemplate.season.endDate > :now ");
+        hql.append("AND thesisAppeal.accepted <> 1");
 
         Query query = getEntityManager().createQuery(hql.toString());
         query.setParameter("student", student);
